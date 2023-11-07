@@ -1,6 +1,6 @@
 from sucursal import Sucursal
 
-class Opinion():
+class Opinion:
     todasLasOpiniones = []
     
     def __init__(self, opinionPunt, opinionInt, sucursal):

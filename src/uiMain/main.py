@@ -1,9 +1,29 @@
 import random
 from gestorAplicacion import transportes, administracion
+from gestorAplicacion.administracion.sucursal import Sucursal
+from gestorAplicacion.administracion.opinion import Opinion
+import pickle
 
 from main import seleccionSucursal, salirDelSistema, opcionesOpiniones, enviarPaquete, pagarServicio, rastrearPaquete, recogerPaquete
 
 class Main:
+
+    # DESERIALIZACION DE DATOS
+    picklefile = open('src/baseDatos/','rb')
+    picklefile2 = open('src/baseDatos/','rb')
+    Sucursal.setTodasLasSucursales(pickle.load(picklefile))
+    Opinion.setTodasLasOpiniones(pickle.load(picklefile2))
+    picklefile.close()
+    picklefile2.close()
+
+    # SERIALIZACION DE DATOS
+    picklefile = open('src/baseDatos/', 'wb')
+    picklefile2 = open('src/baseDatos/','wb')
+    pickle.dump(Sucursal.todasLasSucursales, picklefile)
+    pickle.dump(Opinion.todasLasOpiniones,picklefile2)
+    picklefile.close()
+    picklefile2.close()
+
     scanner = None  #chat
 
     @staticmethod
