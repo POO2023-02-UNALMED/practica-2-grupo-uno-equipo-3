@@ -1,29 +1,29 @@
 import random
-from gestorAplicacion import transportes, administracion
 from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorAplicacion.administracion.opinion import Opinion
-import pickle
+from baseDatos.deserializador import Deserializador
+from baseDatos.serializador import Serializador
+from gestorAplicacion.administracion.opinion import Opinion
+#from main import seleccionSucursal, salirDelSistema, opcionesOpiniones, enviarPaquete, pagarServicio, rastrearPaquete, recogerPaquete
 
-from main import seleccionSucursal, salirDelSistema, opcionesOpiniones, enviarPaquete, pagarServicio, rastrearPaquete, recogerPaquete
+
+    
+
+# if __name__ == "__main__":
+
+#     MedellinSur = Sucursal("Medellin Sur", 500,500,10,10,None,None)
+#     MedellinNorte = Sucursal("Medellin Norte", 500,500,10,10,None,None)
+#     BogotaSur = Sucursal("Bogota Sur", 500,500,10,10,None,None)
+#     BogotaNorte = Sucursal("Bogota Norte", 500,500,10,10,None,None)
+#     CaliSur = Sucursal("Cali Sur", 500,500,10,10,None,None)
+#     CaliNorte = Sucursal("Cali Norte", 500,500,10,10,None,None)
+#     PastoSur = Sucursal("Pasto Sur", 500,500,10,10,None,None)
+#     PastoNorte = Sucursal("Pasto Norte", 500,500,10,10,None,None)
+
+#     Serializador.serializarSucursales(Sucursal.getTodasLasSucursales())
 
 class Main:
-
-    # DESERIALIZACION DE DATOS
-    picklefile = open('src/baseDatos/','rb')
-    picklefile2 = open('src/baseDatos/','rb')
-    Sucursal.setTodasLasSucursales(pickle.load(picklefile))
-    Opinion.setTodasLasOpiniones(pickle.load(picklefile2))
-    picklefile.close()
-    picklefile2.close()
-
-    # SERIALIZACION DE DATOS
-    picklefile = open('src/baseDatos/', 'wb')
-    picklefile2 = open('src/baseDatos/','wb')
-    pickle.dump(Sucursal.todasLasSucursales, picklefile)
-    pickle.dump(Opinion.todasLasOpiniones,picklefile2)
-    picklefile.close()
-    picklefile2.close()
-
+    
     scanner = None  #chat
 
     @staticmethod
@@ -174,16 +174,8 @@ class Main:
             else:
                 Main.print("Número no válido. Inténtalo de nuevo: ")
 
-if __name__ == "__main__":
-    Main.scanner = None
-    Main.main(None)
-
-
-
-
-
 #funcionalidad de recoger paquete - KEVIN
-  @staticmethod
+    @staticmethod
     def recogerPaquete(sucursal):
         print("-----------------RECOGER PRODUCTO----------------")
         codigoPaquete = int(input("Ingrese el código de la guía: "))

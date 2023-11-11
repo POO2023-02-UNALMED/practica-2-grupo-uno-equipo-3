@@ -1,4 +1,4 @@
-from sucursal import Sucursal
+from gestorAplicacion.administracion.sucursal import Sucursal
 
 class Opinion:
     todasLasOpiniones = []
