@@ -1,4 +1,6 @@
 from tkinter import *
+import tkinter as tk
+from gestorGrafico.Principal import Principal
 
 class Inicio(Frame):
     def __init__(self,ventana):
@@ -142,10 +144,12 @@ class Inicio(Frame):
         
         # Boton para pasar
         
+        def cambiarFrame():
+            self.master.show_frame(Principal)
 
             
         
-        botonIngreso=Button(p4Frame,text="Ingresar",bg="#085870",font=("arial", 12, "bold"),fg="#cedae0")
+        botonIngreso=Button(p4Frame,text="Ingresar",bg="#085870",font=("arial", 12, "bold"),fg="#cedae0",command=cambiarFrame)
         botonIngreso.pack(side="top",pady=(10,20))
            
         
