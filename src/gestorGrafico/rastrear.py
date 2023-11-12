@@ -19,12 +19,25 @@ class Rastrear(Frame):
 
             if entrada.get() == "":
                 return messagebox.showwarning("Error")
-
-            for codigo in lista:
-                if codigo == int(entrada.get()):
-                    exist = True
+            elif entrada.get().isdigit():
+                guia = None
+            
+                for producto in Producto.getTodosLosProductos():
+                    if producto.getCodigo == int(entrada.get()):
+                        guia = producto.getGuia
+                        break
+            else:
+                return messagebox.showwarning("Error, ingrese un código válido")
+            
+            if guia != None:
                 return messagebox.showwarning("codigo correcto")
-                break
+            else:
+                return messagebox.showwarning("Lo sentimos, el código de la guía no coincide, intentelo de nuevo")
+
+                
+
+
+            
 
         frame = Frame(ventana, width=400, height=200,bg="green",highlightbackground="#085870",highlightthickness=5)
         frame.pack(expand=True)
