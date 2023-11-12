@@ -23,6 +23,32 @@ class Principal(Tk):
 
             messagebox.showinfo("Los que se merecen un 5",Autores)
 
+        #Metodo para limpiar una ventana y dejarla sin widgets
+        def limpiar(ventana):
+            for widget in ventana.winfo_children():
+                if isinstance(widget, Frame):
+                    widget.destroy()
+
+        def enviar():
+            limpiar(self)
+            Enviar(self).pack()
+            
+        def pagar():
+            limpiar()
+            Pagar(self).pack()
+            
+        def rastrear():
+            limpiar(self)
+            Rastrear(self).pack()
+        
+        def recoger():
+            limpiar()
+            Recoger(self).pack()
+            
+        def opinion():
+            limpiar()
+            OpinionSucursal(self).pack()
+            
         def salir():
             self.destroy()
 
@@ -35,7 +61,7 @@ class Principal(Tk):
 
         2) Pagar Servicios: Realiza el pago de los servicios que nuestra compañía ha proporcionado. Tienes tres opciones de pago: compartido, del remitente o contraentrega.
 
-        3) Seguimiento: Mantén un seguimiento constante de tus paquetes. Ingresa el código de envío y sigue su trayectoria para tener siempre todo bajo control ;)
+        3) Rastrear Pedido: Mantén un seguimiento constante de tus paquetes. Ingresa el código de envío y sigue su trayectoria para tener siempre todo bajo control ;)
 
         4) Recoger Paquete: Facilitamos la recogida de tus paquetes. Simplemente proporciona los datos del destinatario para verificar y retirar tu paquete de nuestra sucursal.
 
@@ -70,11 +96,11 @@ class Principal(Tk):
         menuProcesosConsultas = Menu(menuBar)
         menuBar.add_cascade(label="Procesos y Consultas",menu=menuProcesosConsultas,activebackground="blue")
 
-        menuProcesosConsultas.add_cascade(label="Envio de Paquetes",activebackground="blue")
-        menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="blue")
-        menuProcesosConsultas.add_cascade(label="Seguimiento",activebackground="blue")
-        menuProcesosConsultas.add_cascade(label="Recoger Paquete",activebackground="blue")
-        menuProcesosConsultas.add_cascade(label="Opinion Sucursales",activebackground="blue")
+        menuProcesosConsultas.add_cascade(label="Envio de Paquetes",activebackground="blue",command=enviar)
+        menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="blue",command=pagar)
+        menuProcesosConsultas.add_cascade(label="Rastrear Pedido",activebackground="blue",command=rastrear)
+        menuProcesosConsultas.add_cascade(label="Recoger Paquete",activebackground="blue",command=recoger)
+        menuProcesosConsultas.add_cascade(label="Opinion Sucursales",activebackground="blue",command=opinion)
         
         # Menu Ayuda
         menuAyuda = Menu(menuBar)
@@ -91,9 +117,6 @@ class Principal(Tk):
         self.mainloop()
 
 
-
-
-
-
 if __name__=="__main__":
-     Principal()       
+     Principal()
+     

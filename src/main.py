@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import *
+from gestorGrafico.principal import Principal
 
 from gestorGrafico.inicio import Inicio
 
@@ -11,6 +12,10 @@ class MainWindow(Tk):
         self.geometry("865x480")
         Inicio(self)
         self.mainloop()
+
+    def abrirPrincipal(self):
+        self.destroy()         
+        Principal()
 
 if __name__=="__main__":
 

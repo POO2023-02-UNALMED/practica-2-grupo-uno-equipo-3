@@ -142,10 +142,12 @@ class Inicio(Frame):
         
         # Boton para pasar
         
-
+        def cambioVentana():
+            self.destroy()           
+            ventana.abrirPrincipal()
             
         
-        botonIngreso=Button(p4Frame,text="Ingresar",bg="#085870",font=("arial", 12, "bold"),fg="#cedae0")
+        botonIngreso=Button(p4Frame,text="Ingresar",command=cambioVentana,bg="#085870",font=("arial", 12, "bold"),fg="#cedae0")
         botonIngreso.pack(side="top",pady=(10,20))
            
         
