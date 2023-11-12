@@ -35,14 +35,14 @@ class Inicio(Frame):
 
         # Frame 3 Saludo bienvenida
         mensaje="BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE MEDELLIN NORTE"
-        mensajeBienv = Label(p3Frame,text=mensaje,font=("arial", 15, "bold"),bg="#085870",wraplength=415,fg="#cedae0")
+        mensajeBienv = Label(p3Frame,text=mensaje,font=("arial", 15 , "bold"),bg="#085870",wraplength=415,fg="#cedae0")
         mensajeBienv.pack(expand=True)
 
 
         # Frame 5 Bibliografia de cada desarrollador
         bibi1="Soy Sebastián Ocampo Galvis, nacido en Medellín un 24 de Septiembre de 2003. Estoy cursando tercer semestre en ingeniería de sistemas en la Universidad Nacional de Colombia. Soy un gran aficionado al deporte y a la informática desde hace muchos años."
         bibi2="Hola mi nombre es Tomas Murillo Aristizabal tengo 19 años y ahora mismo estoy en  tercer semestre en la mejor universidad de Colombia, nací en Bogotá a pesar de que mi familia es de aquí de Medellín y desde los 14 años estoy viviendo en Rionegro. Mis pasatiempos preferidos son jugar videojuegos, el fútbol  y pasar tiempo con mi familia y mis amigos."
-        bibi3="Mi nombre es Ana Sofía Gómez, nací el 4 de Marzo del 2005 en Medellín. Actualmente me encuentro cursando mi segundo semestre de Ingeniería de Sistemas e Informática en la Universidad Nacional. Aparte de lo que involucra la carrera, disfruto mucho de la repostería."
+        bibi3="Mi nombre es Daniela Sánchez, soy estudiante de ciencias de la computación con una gran pasión por la biología. En mi tiempo libre disfruto leyendo y aprendiendo sobre el desarrollo de códigos para el procesamiento de secuencias genéticas y sobre las nuevas técnicas computacionales en el campo de la bioinformática. Encuentro especialmente fascinante la aplicación de la inteligencia artificial en el análisis de datos moleculares y espero algún día aportar al conocimiento de esta área."
         bibi4="Mi nombre es Efrain Gomez Ramirez, nací el 14 de Mayo del 2004 en Mompós. Actualmente me encuentro cursando mi tercer semestre de Ingeniería de Sistemas e Informática en la Universidad Nacional. Disfruto participar en eventos de programación competitiva y aprender sobre algoritmia."
         bibi5="Mi nombre es Libardo Jose Navarro Pedrozo, nací el 26 de Marzo del 2005 en Mompós. Me encuentro cursando mi tercer semestre de Ingeniería de Sistemas e Informática en la Universidad Nacional. Soy un apasionado de las matemáticas, la algoritmia y la informática."
 
@@ -153,7 +153,7 @@ class Inicio(Frame):
         botonIngreso.pack(side="top",pady=(10,20))
            
         
-        # Creacion del menu 
+        # Creacion del menu :U
         ventana.menuBar = Menu(ventana)
         ventana.option_add("*tearOff",  False)
         ventana.config(menu=ventana.menuBar)
