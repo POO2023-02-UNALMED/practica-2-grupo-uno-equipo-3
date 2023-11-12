@@ -28,6 +28,12 @@ class Rastrear(Frame):
 
         frame = Frame(ventana, width=400, height=200,bg="green",highlightbackground="#085870",highlightthickness=5)
         frame.pack(expand=True)
+        
+        texto0 = ("Esta funcionalidad permite:\n1. Agregar una nueva materia al sistema. 3. Agregar un grupo a una materia existente."+
+                 "\n2. Eliminar una materia existente del sistema. 4. Eliminar un grupo existente en alguna materia.")
+        descripcion = Label(self, text=texto0, font=("Arial", 11), fg="white", bg="#085870")
+        descripcion.pack(anchor="n", pady=20, padx=5)
+        
         entrada = Entry(frame)
         texto=Label(frame,text="Ingrese el código de su paquete:", font=("arial", 11, "bold"))
         boton = Button(frame, text="Verificar", command= verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")

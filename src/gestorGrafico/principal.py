@@ -1,5 +1,10 @@
 from tkinter import *
 from tkinter import messagebox
+from gestorGrafico.enviar import Enviar
+from gestorGrafico.pagar import Pagar
+from gestorGrafico.rastrear import Rastrear
+from gestorGrafico.recoger import Recoger
+from gestorGrafico.OpinionesSucursal import OpinionSucursal
 
 class Principal(Tk):
     def __init__(self):
