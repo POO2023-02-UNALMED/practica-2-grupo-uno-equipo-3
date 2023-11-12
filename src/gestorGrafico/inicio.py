@@ -149,7 +149,7 @@ class Inicio(Frame):
         botonIngreso.pack(side="top",pady=(10,20))
            
         
-        # Creacion del menu :U
+        # Creacion del menu 
         ventana.menuBar = Menu(ventana)
         ventana.option_add("*tearOff",  False)
         ventana.config(menu=ventana.menuBar)
