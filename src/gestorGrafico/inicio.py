@@ -1,4 +1,6 @@
 from tkinter import *
+import tkinter as tk
+from gestorGrafico.Principal import Principal
 
 class Inicio(Frame):
     def __init__(self,ventana):
