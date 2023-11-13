@@ -54,6 +54,7 @@ class FieldFrame(tk.Frame):
             valor = self.getValue(criterio)
             Valores.append(valor)
             print(f"{criterio}: {valor}")
+        return Valores
             
 
     def getValue(self, criterio):

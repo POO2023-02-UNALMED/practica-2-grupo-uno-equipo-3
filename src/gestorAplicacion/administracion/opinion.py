@@ -21,8 +21,8 @@ class Opinion:
         suma = sum(self.opinionIntegridad)
         return suma/ len(self.opinionIntegridad)
     
-    @staticmethod
-    def generar_tabla_sucursales():
+    @classmethod
+    def generar_tabla_sucursales(cls):
         tabla = []
         tabla.append("{:<20} {:>20} {:>20}".format("Sucursales", "Punt. Puntualidad", "Punt. Integridad"))
         tabla.append("------------------------------------------------------------")
