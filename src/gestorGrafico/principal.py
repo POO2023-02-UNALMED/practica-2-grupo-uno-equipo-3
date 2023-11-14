@@ -4,7 +4,7 @@ from gestorGrafico.enviar import Enviar
 from gestorGrafico.pagar import Pagar
 from gestorGrafico.rastrear import Rastrear
 from gestorGrafico.recoger import Recoger
-from gestorGrafico.OpinionesSucursal import OpinionSucursal
+from gestorGrafico.OpinionesSucursal import TablaSucursales
 
 class Principal(Tk):
     def __init__(self):
@@ -124,4 +124,3 @@ class Principal(Tk):
 
 if __name__=="__main__":
      Principal()
-     
