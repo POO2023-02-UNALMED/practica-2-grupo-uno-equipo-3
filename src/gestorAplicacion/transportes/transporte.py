@@ -1,6 +1,6 @@
 from typing import List
-from administracion import Sucursal
-from productos import Producto
+from gestorAplicacion.administracion.sucursal import Sucursal
+from gestorAplicacion.productos.producto import Producto
 from abc import ABC, abstractmethod
 
 class Transporte(ABC):

@@ -13,10 +13,11 @@ class Persona(ABC):
     @abstractmethod
     def __str__(self):
         pass
-
+    
+    @classmethod
     def getTodasLasPersonas(cls):
         return cls.todasLasPersonas
-    
+    @classmethod
     def setTodasLasPersonas(cls,lista):
         cls.todasLasPersonas = lista
 

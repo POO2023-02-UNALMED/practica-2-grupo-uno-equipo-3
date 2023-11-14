@@ -96,7 +96,7 @@ class Sucursal:
         return f"El producto está en reparto, se encuentra entre {producto.getGuia().getVehiculo()}"
 
     def getNombre(self):
-        return self.nombre
+        return self._nombre
 
     def getCiudad(self):
         return self.ciudad

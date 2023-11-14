@@ -1,6 +1,8 @@
 import random
 
 class CuentaBancaria:
+    todas_las_cuentas = []
+
     def __init__(self, titular, numero, cvv, fecha_expiracion, saldo):
         self.titular = titular
         self.numero = numero
@@ -8,7 +10,7 @@ class CuentaBancaria:
         self.fecha_expiracion = fecha_expiracion
         self.saldo = saldo
 
-        self.titular.set_cuenta_bancaria(self) 
+        
 
         CuentaBancaria.todas_las_cuentas.append(self)
 
@@ -52,6 +54,9 @@ class CuentaBancaria:
     @classmethod
     def get_todas_las_cuentas(cls):
         return cls.todas_las_cuentas
+    @classmethod
+    def setTodasLasCuentasBancarias(cls,lista):
+        cls.todas_las_cuentas = lista
 
     def set_saldo(self, saldo):
         self.saldo = saldo
