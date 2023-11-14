@@ -3,7 +3,7 @@ from tkinter import messagebox
 from gestorGrafico.enviar import Enviar
 from gestorGrafico.pagar import Pagar
 from gestorGrafico.rastrear import Rastrear
-from gestorGrafico.recoger import Recoger
+from gestorGrafico.recoger import ReclamarPaquete
 from gestorGrafico.OpinionesSucursal import TablaSucursales
 
 class Principal(Tk):
@@ -49,11 +49,11 @@ class Principal(Tk):
         
         def recoger():
             limpiar()
-            Recoger(self).pack()
+            ReclamarPaquete(self).pack()
             
         def opinion():
             limpiar()
-            OpinionSucursal(self).pack()
+            TablaSucursales(self).pack()
             
         def salir():
             self.destroy()

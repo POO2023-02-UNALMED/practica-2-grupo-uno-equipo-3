@@ -1,17 +1,9 @@
 from datetime import datetime
-<<<<<<< Updated upstream
-from gestorAplicacion.administracion import sucursal
-from gestorAplicacion.personas import cliente
-from gestorAplicacion.productos import *
-from gestorAplicacion.transportes import avion, camion
-
-=======
 from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorAplicacion.personas.cliente import Cliente
 from enum import Enum
 
 #falta importar cosas
->>>>>>> Stashed changes
 class Guia:
     class tipoDePago(Enum):
         REMITENTE = "REMITENTE"
@@ -27,24 +19,24 @@ class Guia:
     todasLasGuias = []
 
     def __init__(self, producto, remitente, destinatario, sucursalOrigen, sucursalLlegada, tipoDePago, vehiculo):
-        self._producto = producto
-        self._remitente = remitente
-        self._destinatario = destinatario
-        self._sucursalOrigen = sucursalOrigen
-        self._sucursalLlegada = sucursalLlegada
-        self._tipoDePago = tipoDePago
-        self._vehiculo = vehiculo
+        self.producto = producto
+        self.remitente = remitente
+        self.destinatario = destinatario
+        self.sucursalOrigen = sucursalOrigen
+        self.sucursalLlegada = sucursalLlegada
+        self.tipoDePago = tipoDePago
+        self.vehiculo = vehiculo
         producto.setGuia(self)
         Guia.todasLasGuias.append(self)
-        self._estado = Guia.Estado.ENSUCURSALORIGEN
+        self.estado = Guia.Estado.ENSUCURSALORIGEN
 
-        self._fecha = datetime.now()
+        self.fecha = datetime.now()
         fecha_formatter = "%d/%m/%y %H:%M"
-        self._fechaDeEnvio = self.fecha.strftime(fecha_formatter)
+        self.fechaDeEnvio = self.fecha.strftime(fecha_formatter)
         self.asignarRuta()
         self.asignarPrecio()
         self.aplicarDescuento()
-        self._pagoPendiente = self.precioTotal
+        self.pagoPendiente = self.precioTotal
 
     def avancePedido(self):
         from gestorAplicacion.transportes.camion import Camion
@@ -58,11 +50,11 @@ class Guia:
                 escalas = 100.0 / (len(self.ruta) - 1)
                 camion = self.vehiculo
                 if camion.ubicacionActual is not None:
-                    porcentaje = escalas * self.ruta.index(camion.ubicacionActual())
+                    porcentaje = escalas * self.ruta.index(camion.ubicacionActual)
                     redondeado = round(porcentaje, 1)
                     return redondeado
                 else:
-                    porcentaje = (escalas * self.ruta.index(camion.ubicacionAnterior())) + (escalas / 2)
+                    porcentaje = (escalas * self.ruta.index(camion.ubicacionAnterior)) + (escalas / 2)
                     redondeado = round(porcentaje, 1)
                     return redondeado
             else:
@@ -95,7 +87,7 @@ class Guia:
                 self.precioTotal *= 1
 
     def asignarRuta(self):
-        from gestorAplicacion.transportes.camion import Camion
+        
         from gestorAplicacion.transportes.avion import Avion
         if isinstance(self.vehiculo, camion):
             sucursales = sucursal.getTodasLasSucursales()  # La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
