@@ -2,7 +2,7 @@ from datetime import datetime
 from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorAplicacion.personas.cliente import Cliente
 from enum import Enum
-
+#Ya importe avion y camion dentro de los metodos que se usan, no se puede poner aqui por importacion circular
 #falta importar cosas
 class Guia:
     class tipoDePago(Enum):
