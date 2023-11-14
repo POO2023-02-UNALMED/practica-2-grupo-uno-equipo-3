@@ -2,19 +2,22 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-# from gestorAplicacion.administracion.opinion import Opinion
-# from gestorAplicacion.administracion.sucursal import Sucursal
-# from excepeciones.ErrorAplicacion import ErrorAplicacion
-# from excepeciones.ExcepEntrys import ExcepEntrys
-# from excepeciones.ExcepObj import ExcepObj
+from gestorAplicacion.administracion.opinion import Opinion
+from gestorAplicacion.administracion.sucursal import Sucursal
+from excepeciones.ErrorAplicacion import ErrorAplicacion
+from excepeciones.ExcepEntrys import * 
+from excepeciones.ExcepObj import *
 
 
 
 class TablaSucursales(tk.Frame):
-    def __init__(self, ventana, *args, **kwargs):
-        super().__init__(ventana, *args, **kwargs)
+    def __init__(self, ventana):
+        super().__init__(ventana)
         self.config(highlightbackground="#085870", highlightthickness=3)
 
+        # Label Titulo
+        self.Label_Titulo = tk.Label(self,text= "Seleccione una sucursal",font=("Roman",20))
+        self.Label_Titulo.pack(pady=10)
         # Crear el widget Text para la tabla
         self.texto_tabla = tk.Text(self, height=10, width=60)
         self.texto_tabla.pack()
@@ -32,7 +35,7 @@ class TablaSucursales(tk.Frame):
 
     def generar_tabla_sucursales(self):
         tabla = []
-        tabla.append("{:<20} {:>20} {:>20}".format("Sucursales", "Punt. Puntualidad", "Punt. Integridad"))
+        tabla.append("{:<20} {:>15} {:>20}".format("Sucursales", "Punt. Puntualidad", "Punt. Integridad"))
         tabla.append("------------------------------------------------------------")
 
         # Obtener datos de todas las sucursales
@@ -62,54 +65,54 @@ class TablaSucursales(tk.Frame):
         frame_sucursal.pack()
 
 class FrameSucursal(tk.Frame):
-    def __init__(self, ventana, sucursal_seleccionada, *args, **kwargs):
-        super().__init__(ventana, *args, **kwargs)
+    def __init__(self, ventana, sucursal_seleccionada):
+        super().__init__(ventana)
         self.sucursal_seleccionada = sucursal_seleccionada
 
         # Crear contenido para el nuevo frame
         etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}")
         etiqueta.pack(pady=10)
 
-class Sucursal:
-    todasLasSucursales = []
+# class Sucursal:
+#     todasLasSucursales = []
 
-    def __init__(self, nombre):
-        self.nombre = nombre
-        self.opinionSucursal = None
-        Sucursal.todasLasSucursales.append(self)
+#     def __init__(self, nombre):
+#         self.nombre = nombre
+#         self.opinionSucursal = None
+#         Sucursal.todasLasSucursales.append(self)
     
-    def getNombre(self):
-        return self.nombre
-    def getOpinionSucursal(self):
-        return self.opinionSucursal
+#     def getNombre(self):
+#         return self.nombre
+#     def getOpinionSucursal(self):
+#         return self.opinionSucursal
 
-    def setOpinionSucursal(self, opinionSucursal):
-        self.opinionSucursal = opinionSucursal
+#     def setOpinionSucursal(self, opinionSucursal):
+#         self.opinionSucursal = opinionSucursal
 
-    @classmethod
-    def getTodasLasSucursales(cls):
-        return cls.todasLasSucursales
+#     @classmethod
+#     def getTodasLasSucursales(cls):
+#         return cls.todasLasSucursales
 
-class Opinion:
-    todasLasOpiniones = []
+# class Opinion:
+#     todasLasOpiniones = []
     
-    def __init__(self, opinionPunt, opinionInt, sucursal):
-        self.opinionIntegridad = []
-        self.opinionPuntualidad = []
-        self.opinionIntegridad.append(opinionInt)
-        self.opinionPuntualidad.append(opinionPunt)
-        self.sucursal = sucursal
+#     def __init__(self, opinionPunt, opinionInt, sucursal):
+#         self.opinionIntegridad = []
+#         self.opinionPuntualidad = []
+#         self.opinionIntegridad.append(opinionInt)
+#         self.opinionPuntualidad.append(opinionPunt)
+#         self.sucursal = sucursal
         
-        self.sucursal.setOpinionSucursal(self)
-        Opinion.todasLasOpiniones.append(self)
+#         self.sucursal.setOpinionSucursal(self)
+#         Opinion.todasLasOpiniones.append(self)
     
-    def promedioPuntualidad(self):
-        suma = sum(self.opinionPuntualidad)
-        return suma/ len(self.opinionPuntualidad)
+#     def promedioPuntualidad(self):
+#         suma = sum(self.opinionPuntualidad)
+#         return suma/ len(self.opinionPuntualidad)
     
-    def promedioIntegridad(self):
-        suma = sum(self.opinionIntegridad)
-        return suma/ len(self.opinionIntegridad)
+#     def promedioIntegridad(self):
+#         suma = sum(self.opinionIntegridad)
+#         return suma/ len(self.opinionIntegridad)
 
 if __name__ == "__main__":
     MedellinSur = Sucursal("Medellin Sur")

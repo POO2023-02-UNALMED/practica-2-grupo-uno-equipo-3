@@ -1,3 +1,7 @@
+from gestorAplicacion.productos.animal import Animal
+
+
+
 class Sucursal:
     todasLasSucursales = []
 

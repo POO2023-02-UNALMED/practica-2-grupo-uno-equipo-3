@@ -1,3 +1,6 @@
+from gestorAplicacion.productos.producto import Producto
+
+
 class Animal(Producto):
     def __init__(self, nombre, edad, peso, tipo):
         super().__init__(self.generarCodigo(), peso)
@@ -90,15 +93,15 @@ class Animal(Producto):
             "Tamaño: " + self.tamano.name.lower() + "\n" + \
             "Peligroso: " + ("Sí" if self.peligroso else "No")
 
-    class tipoAnimal(Enum):
-        PERRO = 1
-        GATO = 2
-        CABALLO = 3
-        VACA = 4
-        LORO = 5
-        HAMSTER = 6
+    # class tipoAnimal(Enum):
+    #     PERRO = 1
+    #     GATO = 2
+    #     CABALLO = 3
+    #     VACA = 4
+    #     LORO = 5
+    #     HAMSTER = 6
 
-    class tamanoAnimal(Enum):
-        PEQUENO = 1
-        MEDIANO = 2
-        GRANDE = 3
+    # class tamanoAnimal(Enum):
+    #     PEQUENO = 1
+    #     MEDIANO = 2
+    #     GRANDE = 3
