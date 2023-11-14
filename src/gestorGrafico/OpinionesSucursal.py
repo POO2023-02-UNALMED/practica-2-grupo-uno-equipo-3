@@ -1,12 +1,13 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from gestorGrafico.FieldFrame import FieldFrame
 from gestorAplicacion.administracion.opinion import Opinion
 from gestorAplicacion.administracion.sucursal import Sucursal
-# from excepeciones.ErrorAplicacion import ErrorAplicacion
-# from excepeciones.ExcepEntrys import * 
-# from excepeciones.ExcepObj import *
+from excepeciones.ErrorAplicacion import ErrorAplicacion
+from excepeciones.ExcepEntrys import * 
+from excepeciones.ExcepObj import *
 
 
 
@@ -67,6 +68,8 @@ class TablaSucursales(tk.Frame):
         frame_sucursal = FrameSucursal(self.master, sucursal_seleccionada)
         self.pack_forget()  
         frame_sucursal.pack()
+    
+    
 
 class FrameSucursal(tk.Frame):
     def __init__(self, ventana, sucursal_seleccionada):
@@ -86,12 +89,30 @@ class FrameSucursal(tk.Frame):
         titulo_criterio = "Opiniones"
         criterios = ["Opinion Integridad", "Opinion Puntualidad"]
         titulo_valores = "Valores del 1 al 5"
-        valores = None
-        habilitado = None  
 
-        fieldFrame = FieldFrame(self, titulo_criterio, criterios, titulo_valores, valores, habilitado)
-        fieldFrame.pack(padx=30,pady=30)
-        fieldFrame.config(width=400,height=400)
+
+        fieldFrame_opiniones = FieldFrame(self, titulo_criterio, criterios, titulo_valores,None,None)
+        fieldFrame_opiniones.pack(padx=30,pady=30)
+        fieldFrame_opiniones.config(width=400,height=400)
+        
+        # Logica de la Funcionalidad:
+        if fieldFrame_opiniones.getPulsado():
+            valores_opiniones = fieldFrame_opiniones.guardarValores()
+            print(valores_opiniones)
+            try:
+                opinion_Integridad  = int(valores_opiniones[0])
+                opinion_Puntualidad = int(valores_opiniones[1])
+                if 0 <= opinion_Integridad <= 5 and 0 <= opinion_Puntualidad <= 5:
+                    confirmacion = messagebox.askokcancel("Confirmacion","Desea confirmar las opiniones registradas")
+                    if confirmacion:
+                        print("Opiniones confirmadas")
+                     
+                else:
+                    messagebox.showerror("Error",CampoInvalido().mostrarMensaje())
+            except:
+                messagebox.showerror("Error",CampoIncorrecto().mostrarMensaje())
+            
+
         
 
 # class Sucursal:
