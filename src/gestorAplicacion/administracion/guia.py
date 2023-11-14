@@ -1,16 +1,24 @@
 from datetime import datetime
+<<<<<<< Updated upstream
 from gestorAplicacion.administracion import sucursal
 from gestorAplicacion.personas import cliente
 from gestorAplicacion.productos import *
 from gestorAplicacion.transportes import avion, camion
 
+=======
+from gestorAplicacion.administracion.sucursal import Sucursal
+from gestorAplicacion.personas.cliente import Cliente
+from enum import Enum
+
+#falta importar cosas
+>>>>>>> Stashed changes
 class Guia:
-    class TipoDePago:
+    class tipoDePago(Enum):
         REMITENTE = "REMITENTE"
         FRACCIONADO = "FRACCIONADO"
         DESTINATARIO = "DESTINATARIO"
 
-    class Estado:
+    class estado(Enum):
         ENSUCURSALORIGEN = "ENSUCURSALORIGEN"
         ENTRANSITO = "ENTRANSITO"
         ENESPERA = "ENESPERA"
@@ -39,6 +47,7 @@ class Guia:
         self._pagoPendiente = self.precioTotal
 
     def avancePedido(self):
+        from gestorAplicacion.transportes.camion import Camion
         if self.estado == Guia.Estado.ENSUCURSALORIGEN:
             return 0
         elif self.estado == Guia.Estado.ENESPERA or self.estado == Guia.Estado.ENTREGADO:
@@ -62,6 +71,9 @@ class Guia:
             return 0
 
     def asignarPrecio(self):
+        from gestorAplicacion.transportes.avion import Avion
+        from gestorAplicacion.transportes.camion import Camion
+
         cantidadDeSucursales = len(self.ruta) - 1
         costoTransporte = 0
         if isinstance(self.vehiculo, camion):
@@ -83,6 +95,8 @@ class Guia:
                 self.precioTotal *= 1
 
     def asignarRuta(self):
+        from gestorAplicacion.transportes.camion import Camion
+        from gestorAplicacion.transportes.avion import Avion
         if isinstance(self.vehiculo, camion):
             sucursales = sucursal.getTodasLasSucursales()  # La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
             i = 0

@@ -1,68 +1,72 @@
 import random
+from abc import ABC, abstractmethod
 
-class Producto:
-    contador_productos = 0  
+class Producto(ABC):
+    _contadorProductos = 0 
+    _todosLosProductos = []
 
     def __init__(self, codigo, volumen, peso):
         self.codigo = codigo
         self.peso = peso
         self.volumen = volumen
-        self.costo_del_pedido = 0.0  
+        self.costoDelPedido = 0.0  
         self.guia = None  
 
-        Producto.contador_productos += 1
-        self.asignar_costo_del_pedido()
+        Producto._contadorProductos += 1
 
     @classmethod
-    def generar_codigo(cls):
+    def generarCodigo(cls):
         return random.randint(10000, 99999)
 
-    def asignar_costo_del_pedido(self):
+    @abstractmethod
+    def asignarCostoDelPedido(self):
         pass
 
+    @abstractmethod
     def __str__(self):
-        return ""
+        pass
 
-    def set_peso(self, peso):
+    #set
+    def setPeso(self, peso):
         self.peso = peso
 
-    def set_volumen(self, volumen):
+    def setVolumen(self, volumen):
         self.volumen = volumen
 
-    def set_costo_del_pedido(self, costo_del_pedido):
-        self.costo_del_pedido = costo_del_pedido
+    def setCostodelPedido(self, costoDelPedido):
+        self.costoDelPedido = costoDelPedido
 
-    def set_guia(self, guia):
+    def setGuia(self, guia):
         self.guia = guia
+    
+    def setCodigo(self, codigo):
+        self.codigo = codigo
 
-    @property
-    def costo_del_pedido(self):
-        return self.costo_del_pedido
+    #get
+    def getCostoDelPedido(self):
+        return self.costoDelPedido
 
-    @property
-    def codigo(self):
+    def getCodigo(self):
         return self.codigo
 
-    @property
-    def peso(self):
+    def getPeso(self):
         return self.peso
 
-    @property
-    def volumen(self):
+    def getVolumen(self):
         return self.volumen
 
-    @property
-    def guia(self):
+    def getGuia(self):
         return self.guia
 
     @classmethod
-    def contador_productos(cls):
-        return cls.contador_productos
+    def getContadorProductos(cls):
+        return Producto._contadorProductos
 
     @classmethod
-    def todos_los_productos(cls):
-        return [] 
+    def getTodosLosProductos(cls):
+        return Producto._todosLosProductos
 
     @classmethod
-    def set_todos_los_productos(cls, productos):
-        pass
+    def setTodosLosProductos(cls, productos):
+        Producto._todosLosProductos = productos
+        

@@ -1,4 +1,5 @@
-from persona import Persona
+from gestorAplicacion.personas.persona import Persona
+
 class Cliente(Persona):
 
     def __init__(self, nombre, cedula, telefono):
@@ -6,11 +7,12 @@ class Cliente(Persona):
     
     def getMembresia(self):
         return self.membresia
+    
     def setMembresia(self, membresia):
         self.membresia = membresia
 
     def __str__(self):
-        return f"El cliente identificado como {super.getNombre()} \ncon cedula {super.getCedula()} cuenta con membresia {getMembresia().getBeneficio()}"
+        return f"El cliente identificado como {super.getNombre()} \ncon cedula {super.getCedula()} cuenta con membresia {self.getMembresia().getBeneficio()}"
     
     def informacionMembresia(self):
-         return f"El cliente identificado como {super.getNombre()} \ncon cedula {super.getCedula()} cuenta con membresia  {getMembresia().getBeneficio()}"
+         return f"El cliente identificado como {super.getNombre()} \ncon cedula {super.getCedula()} cuenta con membresia  {self.getMembresia().getBeneficio()}"
