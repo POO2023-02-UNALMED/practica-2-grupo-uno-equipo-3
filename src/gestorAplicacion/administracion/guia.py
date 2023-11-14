@@ -1,4 +1,8 @@
 from datetime import datetime
+from gestorAplicacion.administracion import sucursal
+from gestorAplicacion.personas import cliente
+
+from gestorAplicacion.transportes import avion, camion
 #falta importar cosas
 class Guia:
     class TipoDePago:
@@ -41,7 +45,7 @@ class Guia:
             return 100
         elif self.estado == Guia.Estado.ENTRANSITO:
             porcentaje = 0
-            if isinstance(self.vehiculo, Camion):
+            if isinstance(self.vehiculo, camion):
                 escalas = 100.0 / (len(self.ruta) - 1)
                 camion = self.vehiculo
                 if camion.ubicacionActual is not None:
@@ -60,14 +64,14 @@ class Guia:
     def asignarPrecio(self):
         cantidadDeSucursales = len(self.ruta) - 1
         costoTransporte = 0
-        if isinstance(self.vehiculo, Camion):
+        if isinstance(self.vehiculo, camion):
             costoTransporte = 3000
-        elif isinstance(self.vehiculo, Avion):
+        elif isinstance(self.vehiculo, avion):
             costoTransporte = 7000
         self.precioTotal = self.producto.costoDelPedido + cantidadDeSucursales * costoTransporte
 
     def aplicarDescuento(self):
-        if isinstance(self.remitente, Cliente):
+        if isinstance(self.remitente, cliente):
             membresia = self.remitente.getMembresia().getBeneficio()
             if membresia == "PLATINUM":
                 self.precioTotal *= 0.5
@@ -79,8 +83,8 @@ class Guia:
                 self.precioTotal *= 1
 
     def asignarRuta(self):
-        if isinstance(self.vehiculo, Camion):
-            sucursales = Sucursal.getTodasLasSucursales()  # La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
+        if isinstance(self.vehiculo, camion):
+            sucursales = sucursal.getTodasLasSucursales()  # La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
             i = 0
             while i < len(sucursales):
                 if sucursales[i] == self.sucursalOrigen:
@@ -94,7 +98,7 @@ class Guia:
                             self.ruta.append(sucursales[k])
                 i += 1
 
-        elif isinstance(self.vehiculo, Avion):
+        elif isinstance(self.vehiculo, avion):
             self.ruta.append(self.sucursalOrigen)
             self.ruta.append(self.sucursalLlegada)
 

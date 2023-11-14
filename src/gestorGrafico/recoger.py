@@ -1,7 +1,5 @@
 import tkinter as tk
 from tkinter import messagebox,Frame
-from gestorAplicacion.productos import producto
-from gestorAplicacion.administracion import guia
 
 class Recoger(Frame):
     @staticmethod
