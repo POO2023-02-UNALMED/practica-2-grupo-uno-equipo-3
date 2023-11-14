@@ -1,11 +1,10 @@
 from tkinter import *
 from tkinter import messagebox
-# from gestorGrafico.enviar import Enviar
-# from gestorGrafico.pagar import Pagar
-# from gestorGrafico.rastrear import Rastrear
-# from gestorGrafico.recoger import Recoger
-# from gestorGrafico.OpinionesSucursal import TablaSucursales
-from .OpinionesSucursal import TablaSucursales
+from gestorGrafico.enviar import Enviar
+from gestorGrafico.pagar import Pagar
+from gestorGrafico.rastrear import Rastrear
+from gestorGrafico.recoger import ReclamarPaquete
+from gestorGrafico.OpinionesSucursal import TablaSucursales
 
 class Principal(Tk):
     def __init__(self):
@@ -35,21 +34,22 @@ class Principal(Tk):
                 if isinstance(widget, Frame):
                     widget.destroy()
 
-        # def enviar():
-        #     limpiar(self)
-        #     Enviar(self).pack()
+        #Porfa no lo comenten que así no puedo hacer pruebas
+        def enviar():
+            limpiar(self)
+            Enviar(self).pack()
             
-        # def pagar():
-        #     limpiar()
-        #     Pagar(self).pack()
+        def pagar():
+            limpiar()
+            Pagar(self).pack()
             
-        # def rastrear():
-        #     limpiar(self)
-        #     Rastrear(self).pack()
+        def rastrear():
+            limpiar(self)
+            Rastrear(self).pack()
         
-        # def recoger():
-        #     limpiar()
-        #     Recoger(self).pack()
+        def recoger():
+            limpiar()
+            ReclamarPaquete(self).pack()
             
         def opinion():
             limpiar(self)
@@ -102,10 +102,10 @@ class Principal(Tk):
         menuProcesosConsultas = Menu(menuBar)
         menuBar.add_cascade(label="Procesos y Consultas",menu=menuProcesosConsultas,activebackground="blue")
 
-        menuProcesosConsultas.add_cascade(label="Envio de Paquetes",activebackground="blue")
-        menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="blue")
-        menuProcesosConsultas.add_cascade(label="Rastrear Pedido",activebackground="blue")
-        menuProcesosConsultas.add_cascade(label="Recoger Paquete",activebackground="blue")
+        menuProcesosConsultas.add_cascade(label="Envio de Paquetes",activebackground="blue", command=enviar)
+        menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="blue", command=pagar)
+        menuProcesosConsultas.add_cascade(label="Rastrear Pedido",activebackground="blue", command=rastrear)
+        menuProcesosConsultas.add_cascade(label="Recoger Paquete",activebackground="blue", command=recoger)
         menuProcesosConsultas.add_cascade(label="Opinion Sucursales",activebackground="blue", command=opinion)
         
         # Menu Ayuda

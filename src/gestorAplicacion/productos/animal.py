@@ -2,13 +2,27 @@ from gestorAplicacion.productos.producto import Producto
 
 
 class Animal(Producto):
+    class tipoAnimal:
+        PERRO = "PERRO"
+        GATO = "GATO"
+        CABALLO = "CABALLO"
+        VACA = "VACA"
+        LORO = "LORO"
+        HAMSTER = "HAMSTER"
+    
+    class tamanoAnimal:
+        PEQUENO = "PEQUENO"
+        MEDIANO = "MEDIANO"
+        GRANDE = "GRANDE"
+
+        
     def __init__(self, nombre, edad, peso, tipo):
         super().__init__(self.generarCodigo(), peso)
-        self.nombre = nombre
-        self.edad = edad
-        self.tipo = tipo
-        self.peligroso = False
-        self.tamano = None
+        self._nombre = nombre
+        self._edad = edad
+        self._tipo = tipo
+        self._peligroso = False
+        self._tamano = None
         self.asignarTamano()
         self.asignarPeligro()
         self.asignarVolumen()
@@ -79,10 +93,6 @@ class Animal(Producto):
     def setTamano(self, tamano):
         self.tamano = tamano
 
-    def generarCodigo(self):
-        # Falta esto xd
-        pass
-
     def __str__(self):
         return "---------------------PRODUCTO--------------------\n" + \
             "Tipo de producto: Animal\n" + \
@@ -93,15 +103,6 @@ class Animal(Producto):
             "Tamaño: " + self.tamano.name.lower() + "\n" + \
             "Peligroso: " + ("Sí" if self.peligroso else "No")
 
-    # class tipoAnimal(Enum):
-    #     PERRO = 1
-    #     GATO = 2
-    #     CABALLO = 3
-    #     VACA = 4
-    #     LORO = 5
-    #     HAMSTER = 6
 
-    # class tamanoAnimal(Enum):
-    #     PEQUENO = 1
-    #     MEDIANO = 2
-    #     GRANDE = 3
+
+

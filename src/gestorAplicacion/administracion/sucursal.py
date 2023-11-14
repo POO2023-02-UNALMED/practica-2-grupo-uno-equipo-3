@@ -1,3 +1,4 @@
+from gestorAplicacion.productos import animal
 from gestorAplicacion.productos.animal import Animal
 
 
@@ -6,20 +7,20 @@ class Sucursal:
     todasLasSucursales = []
 
     def __init__(self, nombre, capacidadVolumen, capacidadPeso, longitud, latitud, camionesEnSucursal, avionesEnSucursal):
-        self.nombre = nombre
+        self._nombre = nombre
         palabras = nombre.split()
-        self.ciudad = palabras[0]
-        self.capacidadVolumen = capacidadVolumen
-        self.capacidadPeso = capacidadPeso
-        self.longitud = longitud
-        self.latitud = latitud
-        self.camionesEnSucursal = camionesEnSucursal
-        self.avionesEnSucursal = avionesEnSucursal
-        self.cantidadJaulasPequenas = 5
-        self.cantidadJaulasMedianas = 3
-        self.cantidadJaulasGrandes = 2
-        self.opinionSucursal = None
-        self.inventario = []
+        self._ciudad = palabras[0]
+        self._capacidadVolumen = capacidadVolumen
+        self._capacidadPeso = capacidadPeso
+        self._longitud = longitud
+        self._latitud = latitud
+        self._camionesEnSucursal = camionesEnSucursal
+        self._avionesEnSucursal = avionesEnSucursal
+        self._cantidadJaulasPequenas = 5
+        self._cantidadJaulasMedianas = 3
+        self._cantidadJaulasGrandes = 2
+        self._opinionSucursal = None
+        self._inventario = []
         Sucursal.todasLasSucursales.append(self)
 
     def disponibilidadJaulas(self, animal):
@@ -49,27 +50,30 @@ class Sucursal:
     def agregarProducto(self, nuevoProducto):
         seAgrega = False
 
-        if isinstance(nuevoProducto, Animal):
+        if isinstance(nuevoProducto, animal):
             nuevoAnimal = nuevoProducto
 
-            if self.disponibilidadJaulas(nuevoAnimal) and self.capacidadVolumen > nuevoAnimal.getVolumen() and self.capacidadPeso > nuevoAnimal.getPeso():
-                self.inventario.append(nuevoAnimal)
-                self.capacidadVolumen -= nuevoAnimal.getVolumen()
-                self.capacidadPeso -= nuevoAnimal.getPeso()
-                seAgrega = True
+            if self.disponibilidadJaulas(nuevoAnimal):
+                if self.capacidadVolumen > nuevoAnimal.getVolumen():
+                    if self.capacidadPeso > nuevoAnimal.getPeso():
+                        self.inventario.append(nuevoAnimal)
+                        self.capacidadVolumen -= nuevoAnimal.getVolumen()
+                        self.capacidadPeso -= nuevoAnimal.getPeso()
+                        seAgrega = True
 
-                if nuevoAnimal.getTamano() == "PEQUENO":
-                    self.cantidadJaulasPequenas -= 1
-                elif nuevoAnimal.getTamano() == "MEDIANO":
-                    self.cantidadJaulasMedianas -= 1
-                elif nuevoAnimal.getTamano() == "GRANDE":
-                    self.cantidadJaulasGrandes -= 1
+                        if nuevoAnimal.getTamano() == "PEQUENO":
+                            self.cantidadJaulasPequenas -= 1
+                        elif nuevoAnimal.getTamano() == "MEDIANO":
+                            self.cantidadJaulasMedianas -= 1
+                        elif nuevoAnimal.getTamano() == "GRANDE":
+                            self.cantidadJaulasGrandes -= 1
         else:
-            if self.capacidadVolumen > nuevoProducto.getVolumen() and self.capacidadPeso > nuevoProducto.getPeso():
-                self.inventario.append(nuevoProducto)
-                self.capacidadVolumen -= nuevoProducto.getVolumen()
-                self.capacidadPeso -= nuevoProducto.getPeso()
-                seAgrega = True
+            if self.capacidadVolumen > nuevoProducto.getVolumen():
+                if  self.capacidadPeso > nuevoProducto.getPeso():
+                    self.inventario.append(nuevoProducto)
+                    self.capacidadVolumen -= nuevoProducto.getVolumen()
+                    self.capacidadPeso -= nuevoProducto.getPeso()
+                    seAgrega = True
 
         return seAgrega
 
