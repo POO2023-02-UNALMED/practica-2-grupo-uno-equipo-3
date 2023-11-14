@@ -1,12 +1,12 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
+from gestorGrafico.FieldFrame import FieldFrame
 from gestorAplicacion.administracion.opinion import Opinion
 from gestorAplicacion.administracion.sucursal import Sucursal
-from excepeciones.ErrorAplicacion import ErrorAplicacion
-from excepeciones.ExcepEntrys import * 
-from excepeciones.ExcepObj import *
+# from excepeciones.ErrorAplicacion import ErrorAplicacion
+# from excepeciones.ExcepEntrys import * 
+# from excepeciones.ExcepObj import *
 
 
 
@@ -16,8 +16,12 @@ class TablaSucursales(tk.Frame):
         self.config(highlightbackground="#085870", highlightthickness=3)
 
         # Label Titulo
-        self.Label_Titulo = tk.Label(self,text= "Seleccione una sucursal",font=("Roman",20))
+        self.Label_Titulo = tk.Label(self,text= "Opinion Sucursal",font=("Arial",30))
         self.Label_Titulo.pack(pady=10)
+
+        self.Label_Descripccion = tk.Label(self,text="Queremos conocer tu experiencia. Utiliza esta función para compartir tus opiniones y comentarios sobre el servicio en nuestras sucursales. ¡Valoramos tu retroalimentación y trabajamos para ofrecerte la mejor experiencia posible!",font=("Arial",10),wraplength=250)
+        self.Label_Descripccion.pack(pady=10)
+        
         # Crear el widget Text para la tabla
         self.texto_tabla = tk.Text(self, height=10, width=60)
         self.texto_tabla.pack()
@@ -68,10 +72,27 @@ class FrameSucursal(tk.Frame):
     def __init__(self, ventana, sucursal_seleccionada):
         super().__init__(ventana)
         self.sucursal_seleccionada = sucursal_seleccionada
+        self.config(bg="#085870")
+        self.pack(fill="both",expand=True)
+
 
         # Crear contenido para el nuevo frame
-        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}")
+        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}",font=("Arial",20))
         etiqueta.pack(pady=10)
+
+        label_info = tk.Label(self,text="Por favor, comparte tu opinión sobre la sucursal, calificándola en una escala del 1 al 5.",font=("Arial",10))
+        label_info.pack(pady=10)
+
+        titulo_criterio = "Opiniones"
+        criterios = ["Opinion Integridad", "Opinion Puntualidad"]
+        titulo_valores = "Valores del 1 al 5"
+        valores = None
+        habilitado = None  
+
+        fieldFrame = FieldFrame(self, titulo_criterio, criterios, titulo_valores, valores, habilitado)
+        fieldFrame.pack(padx=30,pady=30)
+        fieldFrame.config(width=400,height=400)
+        
 
 # class Sucursal:
 #     todasLasSucursales = []
@@ -114,36 +135,36 @@ class FrameSucursal(tk.Frame):
 #         suma = sum(self.opinionIntegridad)
 #         return suma/ len(self.opinionIntegridad)
 
-if __name__ == "__main__":
-    MedellinSur = Sucursal("Medellin Sur")
-    MedellinNorte = Sucursal("Medellin Norte")
-    BogotaSur = Sucursal("Bogota Sur")
-    BogotaNorte = Sucursal("Bogota Norte")
-    CaliSur = Sucursal("Cali Sur")
-    CaliNorte = Sucursal("Cali Norte")
-    PastoSur = Sucursal("Pasto Sur")
-    PastoNorte = Sucursal("Pasto Norte")
+# if __name__ == "__main__":
+#     MedellinSur = Sucursal("Medellin Sur")
+#     MedellinNorte = Sucursal("Medellin Norte")
+#     BogotaSur = Sucursal("Bogota Sur")
+#     BogotaNorte = Sucursal("Bogota Norte")
+#     CaliSur = Sucursal("Cali Sur")
+#     CaliNorte = Sucursal("Cali Norte")
+#     PastoSur = Sucursal("Pasto Sur")
+#     PastoNorte = Sucursal("Pasto Norte")
 
-    opinion1 = Opinion(4,4,MedellinNorte)
-    opinion2 = Opinion(4,4,MedellinSur)
-    opinion3 = Opinion(4,4,BogotaNorte)
-    opinion4 = Opinion(4,4,BogotaSur)
-    opinion5 = Opinion(4,4,CaliNorte)
-    opinion6 = Opinion(4,4,CaliSur)
-    opinion7 = Opinion(4,4,PastoNorte)
-    opinion8 = Opinion(4,4,PastoSur)
+#     opinion1 = Opinion(4,4,MedellinNorte)
+#     opinion2 = Opinion(4,4,MedellinSur)
+#     opinion3 = Opinion(4,4,BogotaNorte)
+#     opinion4 = Opinion(4,4,BogotaSur)
+#     opinion5 = Opinion(4,4,CaliNorte)
+#     opinion6 = Opinion(4,4,CaliSur)
+#     opinion7 = Opinion(4,4,PastoNorte)
+#     opinion8 = Opinion(4,4,PastoSur)
     
-    MedellinNorte.setOpinionSucursal(opinion1)
-    MedellinSur.setOpinionSucursal(opinion2)
-    BogotaNorte.setOpinionSucursal(opinion3)
-    BogotaSur.setOpinionSucursal(opinion4)
-    CaliNorte.setOpinionSucursal(opinion5)
-    CaliSur.setOpinionSucursal(opinion6)
-    PastoNorte.setOpinionSucursal(opinion7)
-    PastoSur.setOpinionSucursal(opinion8)
+#     MedellinNorte.setOpinionSucursal(opinion1)
+#     MedellinSur.setOpinionSucursal(opinion2)
+#     BogotaNorte.setOpinionSucursal(opinion3)
+#     BogotaSur.setOpinionSucursal(opinion4)
+#     CaliNorte.setOpinionSucursal(opinion5)
+#     CaliSur.setOpinionSucursal(opinion6)
+#     PastoNorte.setOpinionSucursal(opinion7)
+#     PastoSur.setOpinionSucursal(opinion8)
 
-    ventana_principal = tk.Tk()
-    tabla_sucursales = TablaSucursales(ventana_principal)
-    tabla_sucursales.pack(pady=10)
+#     ventana_principal = tk.Tk()
+#     tabla_sucursales = TablaSucursales(ventana_principal)
+#     tabla_sucursales.pack(pady=10)
 
-    ventana_principal.mainloop()
+#     ventana_principal.mainloop()

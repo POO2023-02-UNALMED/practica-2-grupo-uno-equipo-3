@@ -5,6 +5,7 @@ from tkinter import messagebox
 # from gestorGrafico.rastrear import Rastrear
 # from gestorGrafico.recoger import Recoger
 # from gestorGrafico.OpinionesSucursal import TablaSucursales
+from .OpinionesSucursal import TablaSucursales
 
 class Principal(Tk):
     def __init__(self):
@@ -50,9 +51,9 @@ class Principal(Tk):
         #     limpiar()
         #     Recoger(self).pack()
             
-        # def opinion():
-        #     limpiar()
-        #     OpinionSucursal(self).pack()
+        def opinion():
+            limpiar(self)
+            TablaSucursales(self).pack()
             
         def salir():
             self.destroy()
@@ -105,7 +106,7 @@ class Principal(Tk):
         menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="blue")
         menuProcesosConsultas.add_cascade(label="Rastrear Pedido",activebackground="blue")
         menuProcesosConsultas.add_cascade(label="Recoger Paquete",activebackground="blue")
-        menuProcesosConsultas.add_cascade(label="Opinion Sucursales",activebackground="blue")
+        menuProcesosConsultas.add_cascade(label="Opinion Sucursales",activebackground="blue", command=opinion)
         
         # Menu Ayuda
         menuAyuda = Menu(menuBar)
