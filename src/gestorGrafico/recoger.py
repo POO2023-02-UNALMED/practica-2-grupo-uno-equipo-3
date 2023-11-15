@@ -1,15 +1,13 @@
-
 from tkinter import *
+import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import tkinter
-
 from gestorGrafico.FieldFrame import FieldFrame
-#from gestorGrafico.FieldFrame import FieldFrame
-#from gestorAplicacion.paquetes.Paquete import Paquete
-#from gestorAplicacion.usuario.Usuario import Usuario
-#from excepciones.ErrorManejo import *
-#from excepciones.ObjetoInexistente import *
+from gestorAplicacion.administracion.opinion import Opinion
+from gestorAplicacion.administracion.sucursal import Sucursal
+from excepeciones.ErrorAplicacion import ErrorAplicacion
+from excepeciones.ExcepEntrys import * 
+from excepeciones.ExcepObj import *
 
 def verificarDatos(producto, cedulaDestinatario):
     guia = producto.getGuia()
@@ -24,13 +22,45 @@ def encontrarProductoPorCodigo(codigo):
             return producto
     return None
 
-class ReclamarPaquete(Frame):
+def cambiar_frame_sucursal(self, event):
+    # Obtener la sucursal seleccionada
+    sucursal_seleccionada = self.combobox_sucursales.get()
+
+    # Cambiar a otro frame y pasar la sucursal seleccionada
+    frame_sucursal = FrameSucursal(self.master, sucursal_seleccionada)
+    self.pack_forget()  
+    frame_sucursal.pack()
+
+
+class FrameSucursal(tk.Frame):
+    def __init__(self, ventana, sucursal_seleccionada):
+        super().__init__(ventana)
+        self.sucursal_seleccionada = sucursal_seleccionada
+        self.config(bg="#085870")
+        self.pack(fill="both",expand=True)
+
+class ReclamarPaquete(tk.Frame):
     def __init__(self, ventana):
         super().__init__(ventana)
         self.config(highlightbackground="#085870", highlightthickness=3)
-        self.pack(expand=True)
 
-        def limpiar1():
+        # Label Titulo
+        self.Label_Titulo = tk.Label(self,text= "Recoger Paquete",font=("Arial",30))
+        self.Label_Titulo.pack(pady=10)
+
+        self.Label_Descripcion = tk.Label(self, text="En este apartado podrás reclamar los paquetes que te hayan enviado, solo debes llenar la información que se te pide en los siguientes recuadros",font=("Arial",10),wraplength=250)
+        self.Label_Descripccion.pack(pady=10)
+
+        # seleccionar sucursal en la cual se va recoger el paquete
+        todas_las_sucursales = [s.getNombre() for s in Sucursal.getTodasLasSucursales()]
+        self.combobox_sucursales = ttk.Combobox(self, values=todas_las_sucursales)
+        self.combobox_sucursales.pack(pady=10)
+
+        # Configurar evento para cambio en el ComboBox
+        self.combobox_sucursales.bind("<<ComboboxSelected>>", self.cambiar_frame_sucursal)
+
+
+        def limpiar1(self, ventana):
             nombre_Destinatario2.delete(0, last= END)
             codigoPaqueteE.delete(0, last= END)
             cedula_Destinatario2.delete(0, last= END)
@@ -64,10 +94,9 @@ class ReclamarPaquete(Frame):
                 else:
                     messagebox.showinfo("Paquete no existente", "El paquete que intentas buscar no existe o ya fue entregado")
                  
-
-
             except:
                 messagebox.showerror("Error", CampoInvalido().mostrarMensaje())
+
 
         titulo = Label(self, text="Reclamar Paquete", font=("Arial", 14), fg="white", bg="#085870")
         titulo.pack(side="top", anchor="c")
@@ -104,20 +133,3 @@ class ReclamarPaquete(Frame):
 
         botonLimpiar = Button(sFrame, text="Limpiar", command=limpiar1, font=("Arial", 11), fg="white", bg="#085870")
         botonLimpiar.grid(row=4, column=1, padx=10, pady=10)
-
-if __name__ == "__main__":
-    root = tkinter.Tk()
-  
-    titulo_criterio = "Criterios"
-    criterios = ["Criterio 1", "Criterio 2", "Criterio 3"]
-    titulo_valores = "Valores"
-    valores = [1234,13254,31235] 
-    habilitado = None  
-    
-    field_frame = FieldFrame(root, titulo_criterio, criterios, titulo_valores, valores, habilitado)
-    field_frame.pack()
-    valor_criterio_2 = field_frame.getValue("Criterio 2")
-    print(valor_criterio_2)
-    
-
-    root.mainloop()
