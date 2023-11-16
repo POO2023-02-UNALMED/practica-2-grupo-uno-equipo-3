@@ -28,13 +28,13 @@ class Principal(Tk):
 
             messagebox.showinfo("Los que se merecen un 5",Autores)
 
-        #Metodo para limpiar una ventana y dejarla sin widgets
+        # Metodo para limpiar una ventana y dejarla sin widgets
         def limpiar(ventana):
             for widget in ventana.winfo_children():
                 if isinstance(widget, Frame):
                     widget.destroy()
 
-        #Porfa no lo comenten que así no puedo hacer pruebas
+        # Porfa no lo comenten que así no puedo hacer pruebas
         def enviar():
             limpiar(self)
             Enviar(self).pack()

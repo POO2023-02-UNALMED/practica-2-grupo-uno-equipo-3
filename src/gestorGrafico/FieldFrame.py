@@ -63,7 +63,7 @@ class FieldFrame(tk.Frame):
         for criterio in self.criterios:
             valor = self.getValue(criterio)
             self.Valores.append(valor)
-            print(criterio, type(valor) )
+            print(criterio, type(valor))
         self.pulsado = True
         self.limpiarTextos()
         print(self.pulsado)
@@ -81,15 +81,15 @@ class FieldFrame(tk.Frame):
 
 
 
-if __name__ == "__main__":
-     root = tk.Tk()
-     titulo_criterio = "Criterios"
-     criterios = ["Criterio 1", "Criterio 2", "Criterio 3"]
-     titulo_valores = "Valores"
-     valores = [1234,13254,31235] 
-     habilitado = None  
-     field_frame = FieldFrame(root, titulo_criterio, criterios, titulo_valores, valores, habilitado)
-     field_frame.pack()
-     valor_criterio_2 = field_frame.getValue("Criterio 2")
-     print(valor_criterio_2)
-     root.mainloop()
+# if __name__ == "__main__":
+#      root = tk.Tk()
+#      titulo_criterio = "Criterios"
+#      criterios = ["Criterio 1", "Criterio 2", "Criterio 3"]
+#      titulo_valores = "Valores"
+#      valores = [1234,13254,31235] 
+#      habilitado = None  
+#      field_frame = FieldFrame(root, titulo_criterio, criterios, titulo_valores, valores, habilitado)
+#      field_frame.pack()
+#      valor_criterio_2 = field_frame.getValue("Criterio 2")
+#      print(valor_criterio_2)
+#      root.mainloop()
