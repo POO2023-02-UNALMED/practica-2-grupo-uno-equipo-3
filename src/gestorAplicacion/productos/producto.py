@@ -12,6 +12,7 @@ class Producto(ABC):
         self._costoDelPedido = 0.0  
         self._guia = None  
 
+        Producto._todosLosProductos.append(self)
         Producto._contadorProductos += 1
 
     @classmethod

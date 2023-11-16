@@ -7,6 +7,9 @@ from gestorAplicacion.personas.persona import Persona
 from gestorAplicacion.personas.cliente import Cliente
 from gestorAplicacion.personas.destinatario import Destinatario
 from gestorAplicacion.administracion.cuentaBancaria import CuentaBancaria
+from gestorAplicacion.productos.producto import Producto
+from gestorAplicacion.productos.animal import Animal
+from gestorAplicacion.productos.paquete import Paquete
 from gestorAplicacion.productos.documento import Documento
 from gestorAplicacion.administracion.guia import Guia 
 from gestorAplicacion.transportes.transporte import Transporte
@@ -33,14 +36,15 @@ class MainWindow(Tk):
         Principal()
 
 if __name__=="__main__":
-    medellinSur = Sucursal("Medellin Sur", 500,500,10,10,None,None)
-    medellinNorte = Sucursal("Medellin Norte", 500,500,10,10,None,None)
-    bogotaSur = Sucursal("Bogota Sur", 500,500,10,10,None,None)
-    bogotaNorte = Sucursal("Bogota Norte", 500,500,10,10,None,None)
-    caliSur = Sucursal("Cali Sur", 500,500,10,10,None,None)
-    caliNorte = Sucursal("Cali Norte", 500,500,10,10,None,None)
-    pastoSur = Sucursal("Pasto Sur", 500,500,10,10,None,None)
-    pastoNorte = Sucursal("Pasto Norte", 500,500,10,10,None,None)
+    medellinNorte = Sucursal("Medellin Norte", 500,500,10,10)
+    medellinSur = Sucursal("Medellin Sur", 500,500,10,10)
+    caliNorte = Sucursal("Cali Norte", 500,500,10,10)
+    caliSur = Sucursal("Cali Sur", 500,500,10,10)
+    pastoNorte = Sucursal("Pasto Norte", 500,500,10,10)
+    pastoSur = Sucursal("Pasto Sur", 500,500,10,10)
+    bogotaNorte = Sucursal("Bogota Norte", 500,500,10,10)
+    bogotaSur = Sucursal("Bogota Sur", 500,500,10,10)
+
     
     camionesMN = [Camion(medellinNorte, 27, 300,"ABC109"), Camion(medellinNorte, 27, 300, "ABC110")]
     camionesMS = [Camion(medellinSur, 50, 300, "FUQ143"), Camion(medellinSur, 50, 300, "FUQ142")]
@@ -87,6 +91,11 @@ if __name__=="__main__":
     documento = Documento()
     guiaDocumento = Guia(documento, guzman, david, medellinNorte, bogotaSur, Guia.tipoDePago.FRACCIONADO, camionesMN[0])
 
-    Deserializador.deserializar()
+    #Deserializador.deserializar()
 
+    #No me lo borren gracias 😉
+    camion = medellinNorte.getCamionesEnSucursal()[0]
+    camion.iniciarRecorrido()
+    
     MainWindow()
+    

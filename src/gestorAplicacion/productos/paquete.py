@@ -1,9 +1,9 @@
-from productos.producto import Producto
+from gestorAplicacion.productos.producto import Producto
 
 class Paquete(Producto):
     def __init__(self, peso, alto, ancho, largo, fragil, valorDeclarado):
-        _volumen = _alto * _largo * _ancho
-        super().__init__(Producto.generarCodigo(), volumen, peso)
+        _volumen = alto * largo * ancho
+        super().__init__(Producto.generarCodigo(), _volumen, peso)
         self._valorDeclarado = valorDeclarado
         self._peso = peso
         self._alto = alto

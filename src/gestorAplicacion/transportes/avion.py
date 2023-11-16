@@ -7,9 +7,8 @@ import threading
 
 class Avion(Transporte):
     def __init__(self, sucursalOrigen, sucursalDestino, capacidadVolumen, capacidadPeso, matricula):
-        super().__init__(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula)
-        self.sucursalDestino = sucursalDestino
-
+        super().__init__(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula, sucursalDestino)
+        self.sucursalOrigen.getAvionesEnSucursal().append(self)
     def asignarRuta(self):
         self.ruta.append(self.sucursalOrigen)
         self.ruta.append(self.sucursalDestino)

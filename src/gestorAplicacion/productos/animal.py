@@ -17,7 +17,7 @@ class Animal(Producto):
 
         
     def __init__(self, nombre, edad, peso, tipo):
-        super().__init__(Producto.generarCodigo(), peso)
+        super().__init__(Producto.generarCodigo(), self.asignarVolumen(), peso)
         self._nombre = nombre
         self._edad = edad
         self._tipo = tipo
@@ -25,7 +25,6 @@ class Animal(Producto):
         self._tamano = None
         self.asignarTamano()
         self.asignarPeligro()
-        self.asignarVolumen()
         self.asignarCostoDelPedido()
 
     def asignarPeligro(self):
@@ -46,11 +45,11 @@ class Animal(Producto):
 
     def asignarVolumen(self):
         if self._tamano == self.tamanoAnimal.PEQUENO:
-            self._volumen = 1
+            return 1
         elif self._tamano == self.tamanoAnimal.MEDIANO:
-            self._volumen = 3
+            return 3
         elif self._tamano == self.tamanoAnimal.GRANDE:
-            self._volumen = 6
+            return 6
 
     def asignarCostoDelPedido(self):
         if self._tamano == self.tamanoAnimal.PEQUENO:

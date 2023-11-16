@@ -4,6 +4,8 @@ from gestorGrafico.enviar import Enviar
 from gestorGrafico.pagar import Pagar
 from gestorGrafico.rastrear import Rastrear
 from gestorGrafico.recoger import Recoger
+from gestorAplicacion.transportes.camion import Camion
+from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorGrafico.OpinionesSucursal import TablaSucursales
 
 class Principal(Tk):
@@ -27,7 +29,7 @@ class Principal(Tk):
             )
 
             messagebox.showinfo("Los que se merecen un 5",Autores)
-
+        
         # Metodo para limpiar una ventana y dejarla sin widgets
         def limpiar(ventana):
             for widget in ventana.winfo_children():

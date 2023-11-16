@@ -2,12 +2,13 @@ from gestorAplicacion.transportes.transporte import Transporte
 from gestorAplicacion.productos.producto import Producto
 from gestorAplicacion.administracion.guia import Guia
 from gestorAplicacion.administracion.sucursal import Sucursal
-
+import time
 import threading
 
 class Camion(Transporte):
     def __init__(self, sucursalOrigen, capacidadVolumen, capacidadPeso, matricula):
         super().__init__(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula)
+        sucursalOrigen.getCamionesEnSucursal().append(self)
 
     def asignarRuta(self):
         sucursales = Sucursal.getTodasLasSucursales()
@@ -33,6 +34,7 @@ class Camion(Transporte):
             if producto in self.inventario:
                 self.inventario.remove(producto)
         self.enSucursal = True
+        print("entre a "+ self.ubicacionActual.getNombre())
 
     def salirDeSucursal(self, sucursal):
         self.ubicacionAnterior = self.ubicacionActual
@@ -42,6 +44,7 @@ class Camion(Transporte):
                 self.ubicacionSiguiente = self.ruta[i + 1]
         sucursal.removerCamion(self)
         self.enSucursal = False
+        print("Sali de "+ self.ubicacionAnterior.getNombre())
 
     def iniciarRecorrido(self):
         for producto in self.inventario:
@@ -57,17 +60,17 @@ class Camion(Transporte):
                     time.sleep(5)
                 except KeyboardInterrupt:
                     raise RuntimeError()
-                entrarASucursal(self.ruta[i])
+                self.entrarASucursal(self.ruta[i])
                 try:
                     time.sleep(5)
                 except KeyboardInterrupt:
                     raise RuntimeError()
-                salirDeSucursal(self.ruta[i])
+                self.salirDeSucursal(self.ruta[i])
             try:
                 time.sleep(5)
             except KeyboardInterrupt:
                 raise RuntimeError()
-            entrarASucursal(self.ruta[-1])
+            self.entrarASucursal(self.ruta[-1])
 
         simulacionThread = threading.Thread(target=simulacion_thread)
         simulacionThread.start()
