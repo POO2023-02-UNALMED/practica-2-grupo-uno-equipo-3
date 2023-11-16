@@ -9,7 +9,7 @@ from excepeciones.ErrorAplicacion import ErrorAplicacion
 from excepeciones.ExcepEntrys import * 
 from excepeciones.ExcepObj import *
 
-class recoger(Frame):
+class Recoger(tk.Frame):
     def __init__(self,ventana):
         super().__init__(ventana)
         self.config(highlightbackground="#085870",highlightthickness=3)
@@ -34,10 +34,6 @@ class recoger(Frame):
 
         # Configurar evento para cambio en el ComboBox
         self.combobox_sucursales.bind("<<ComboboxSelected>>", self.cambiar_frame_sucursal)
-
-
-        # Limpiar el contenido actual del widget Text
-        self.texto_tabla.delete(1.0, tk.END)
 
 
         Nombre_dest = Label(frame,text="Ingrese su nombre:", font=("Arial",11))
@@ -84,26 +80,6 @@ class FrameSucursal(tk.Frame):
         etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}",font=("Arial",20))
         etiqueta.pack(pady=10)
 
-class ReclamarPaquete(tk.Frame):
-    def __init__(self, ventana):
-        super().__init__(ventana)
-        self.config(highlightbackground="#085870", highlightthickness=3)
-
-        
-        self.Label_Descripcion = tk.Label(self, text="En este apartado podrás reclamar los paquetes que te hayan enviado, solo debes llenar la información que se te pide en los siguientes recuadros",font=("Arial",10),wraplength=250)
-        self.Label_Descripccion.pack(pady=10)
-
-        # seleccionar sucursal en la cual se va recoger el paquete
-        todas_las_sucursales = [s.getNombre() for s in Sucursal.getTodasLasSucursales()]
-        self.combobox_sucursales = ttk.Combobox(self, values=todas_las_sucursales)
-        self.combobox_sucursales.pack(pady=10)
-
-        # Configurar evento para cambio en el ComboBox
-        self.combobox_sucursales.bind("<<ComboboxSelected>>", self.cambiar_frame_sucursal)
-
-
-
-            
         def reclamar():
             try:
 

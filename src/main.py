@@ -3,6 +3,7 @@ from tkinter import *
 from gestorGrafico.principal import Principal
 from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorAplicacion.administracion.opinion import Opinion
+
 from baseDatos.deserializador import Deserializador
 from baseDatos.serializador import Serializador
 
