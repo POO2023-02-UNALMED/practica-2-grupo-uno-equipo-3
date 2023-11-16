@@ -16,19 +16,19 @@ class Guia:
         ENESPERA = "ENESPERA"
         ENTREGADO = "ENTREGADO"
 
-    todasLasGuias = []
+    _todasLasGuias = []
 
     def __init__(self, producto, remitente, destinatario, sucursalOrigen, sucursalLlegada, tipoDePago, vehiculo):
-        self.producto = producto
-        self.remitente = remitente
-        self.destinatario = destinatario
-        self.sucursalOrigen = sucursalOrigen
-        self.sucursalLlegada = sucursalLlegada
-        self.tipoDePago = tipoDePago
-        self.vehiculo = vehiculo
+        self._producto = producto
+        self._remitente = remitente
+        self._destinatario = destinatario
+        self._sucursalOrigen = sucursalOrigen
+        self._sucursalLlegada = sucursalLlegada
+        self._tipoDePago = tipoDePago
+        self._vehiculo = vehiculo
         producto.setGuia(self)
-        Guia.todasLasGuias.append(self)
-        self.estado = Guia.Estado.ENSUCURSALORIGEN
+        Guia._todasLasGuias.append(self)
+        self._estado = Guia.estado.ENSUCURSALORIGEN
 
         self.fecha = datetime.now()
         fecha_formatter = "%d/%m/%y %H:%M"
@@ -40,11 +40,11 @@ class Guia:
 
     def avancePedido(self):
         from gestorAplicacion.transportes.camion import Camion
-        if self.estado == Guia.Estado.ENSUCURSALORIGEN:
+        if self._estado == Guia.estado.ENSUCURSALORIGEN:
             return 0
-        elif self.estado == Guia.Estado.ENESPERA or self.estado == Guia.Estado.ENTREGADO:
+        elif self._estado == Guia.estado.ENESPERA or self.estado == Guia.estado.ENTREGADO:
             return 100
-        elif self.estado == Guia.Estado.ENTRANSITO:
+        elif self._estado == Guia.estado.ENTRANSITO:
             porcentaje = 0
             if isinstance(self.vehiculo, camion):
                 escalas = 100.0 / (len(self.ruta) - 1)
@@ -167,46 +167,46 @@ class Guia:
         return self.fechaDeEnvio
 
     def getEstado(self):
-        return self.estado
+        return self._estado
 
     def getTipoDePago(self):
-        return self.tipoDePago
+        return self._tipoDePago
 
     def setVehiculo(self, vehiculo):
-        self.vehiculo = vehiculo
+        self._vehiculo = vehiculo
 
     def setProducto(self, producto):
-        self.producto = producto
+        self._producto = producto
 
     def setTiempo(self, tiempo):
-        self.tiempo = tiempo
+        self._tiempo = tiempo
 
     def setSucursalOrigen(self, sucursalOrigen):
-        self.sucursalOrigen = sucursalOrigen
+        self._sucursalOrigen = sucursalOrigen
 
     def setSucursalLlegada(self, sucursalLlegada):
-        self.sucursalLlegada = sucursalLlegada
+        self._sucursalLlegada = sucursalLlegada
 
     def setRuta(self, ruta):
-        self.ruta = ruta
+        self._ruta = ruta
 
     def setRemitente(self, remitente):
-        self.remitente = remitente
+        self._remitente = remitente
 
     def setDestinatario(self, destinatario):
-        self.destinatario = destinatario
+        self._destinatario = destinatario
 
     def setPrecioTotal(self, precioTotal):
-        self.precioTotal = precioTotal
+        self._precioTotal = precioTotal
 
     def setPagoPendiente(self, pagoPendiente):
-        self.pagoPendiente = pagoPendiente
+        self._pagoPendiente = pagoPendiente
 
     def setEstado(self, estado):
-        self.estado = estado
+        self._estado = estado
 
     def setTipoDePago(self, tipoDePago):
-        self.tipoDePago = tipoDePago
+        self._tipoDePago = tipoDePago
 
     @classmethod
     def getTodasLasGuias(cls):

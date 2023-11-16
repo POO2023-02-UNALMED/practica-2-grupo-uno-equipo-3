@@ -17,7 +17,7 @@ class Animal(Producto):
 
         
     def __init__(self, nombre, edad, peso, tipo):
-        super().__init__(self.generarCodigo(), peso)
+        super().__init__(Producto.generarCodigo(), peso)
         self._nombre = nombre
         self._edad = edad
         self._tipo = tipo
@@ -29,79 +29,79 @@ class Animal(Producto):
         self.asignarCostoDelPedido()
 
     def asignarPeligro(self):
-        if self.tipo == self.tipoAnimal.PERRO or self.tipo == self.tipoAnimal.CABALLO or self.tipo == self.tipoAnimal.VACA:
+        if self._tipo == self.tipoAnimal.PERRO or self._tipo == self.tipoAnimal.CABALLO or self._tipo == self.tipoAnimal.VACA:
             self.peligroso = True
         else:
             self.peligroso = False
 
     def asignarTamano(self):
-        if self.tipo == self.tipoAnimal.PERRO:
-            self.tamano = self.tamanoAnimal.MEDIANO
-        elif self.tipo == self.tipoAnimal.GATO:
-            self.tamano = self.tamanoAnimal.PEQUENO
-        elif self.tipo == self.tipoAnimal.CABALLO or self.tipo == self.tipoAnimal.VACA:
-            self.tamano = self.tamanoAnimal.GRANDE
+        if self._tipo == self.tipoAnimal.PERRO:
+            self._tamano = self.tamanoAnimal.MEDIANO
+        elif self._tipo == self.tipoAnimal.GATO:
+            self._tamano = self.tamanoAnimal.PEQUENO
+        elif self._tipo == self.tipoAnimal.CABALLO or self.tipo == self.tipoAnimal.VACA:
+            self._tamano = self.tamanoAnimal.GRANDE
         else:
-            self.tamano = self.tamanoAnimal.PEQUENO
+            self._tamano = self.tamanoAnimal.PEQUENO
 
     def asignarVolumen(self):
-        if self.tamano == self.tamanoAnimal.PEQUENO:
-            self.volumen = 1
-        elif self.tamano == self.tamanoAnimal.MEDIANO:
-            self.volumen = 3
-        elif self.tamano == self.tamanoAnimal.GRANDE:
-            self.volumen = 6
+        if self._tamano == self.tamanoAnimal.PEQUENO:
+            self._volumen = 1
+        elif self._tamano == self.tamanoAnimal.MEDIANO:
+            self._volumen = 3
+        elif self._tamano == self.tamanoAnimal.GRANDE:
+            self._volumen = 6
 
     def asignarCostoDelPedido(self):
-        if self.tamano == self.tamanoAnimal.PEQUENO:
-            self.costoDelPedido = 200000
-        elif self.tamano == self.tamanoAnimal.MEDIANO:
-            self.costoDelPedido = 350000
-        elif self.tamano == self.tamanoAnimal.GRANDE:
-            self.costoDelPedido = 500000
+        if self._tamano == self.tamanoAnimal.PEQUENO:
+            self._costoDelPedido = 200000
+        elif self._tamano == self.tamanoAnimal.MEDIANO:
+            self._costoDelPedido = 350000
+        elif self._tamano == self.tamanoAnimal.GRANDE:
+            self._costoDelPedido = 500000
 
         if self.peligroso:
-            self.costoDelPedido *= 1.25
+            self._costoDelPedido *= 1.25
 
     def getNombre(self):
-        return self.nombre
+        return self._nombre
 
     def getEdad(self):
-        return self.edad
+        return self._edad
 
     def isPeligroso(self):
-        return self.peligroso
+        return self._peligroso
 
     def getTipo(self):
-        return self.tipo
+        return self._tipo
 
     def getTamano(self):
-        return self.tamano
+        return self._tamano
 
     def setNombre(self, nombre):
-        self.nombre = nombre
+        self._nombre = nombre
 
     def setEdad(self, edad):
-        self.edad = edad
+        self._edad = edad
 
     def setPeligroso(self, peligroso):
-        self.peligroso = peligroso
+        self._peligroso = peligroso
 
     def setTipo(self, tipo):
-        self.tipo = tipo
+        self._tipo = tipo
 
     def setTamano(self, tamano):
-        self.tamano = tamano
+        self._tamano = tamano
 
     def __str__(self):
         return "---------------------PRODUCTO--------------------\n" + \
             "Tipo de producto: Animal\n" + \
-            "Codigo de pedido: " + self.codigo + "\n" + \
-            "Nombre: " + self.nombre + "\n" + \
-            "Edad: " + str(self.edad) + " años\n" + \
-            "Peso: " + str(self.peso) + "kg\n" + \
-            "Tamaño: " + self.tamano.name.lower() + "\n" + \
-            "Peligroso: " + ("Sí" if self.peligroso else "No")
+            "Codigo de pedido: " + self._codigo + "\n" + \
+            "Nombre: " + self._nombre + "\n" + \
+            "Edad: " + str(self._edad) + " años\n" + \
+            "Peso: " + str(self._peso) + "kg\n" + \
+            "Tamaño: " + self._tamano.name.lower() + "\n" + \
+            "Peligroso: " + ("Sí" if self._peligroso else "No")
 
 
 

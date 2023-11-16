@@ -3,7 +3,7 @@ from gestorAplicacion.personas.persona import Persona
 class Cliente(Persona):
 
     def __init__(self, nombre, cedula, telefono):
-        super.__init__(nombre,cedula,telefono)
+        super().__init__(nombre,cedula,telefono)
     
     def getMembresia(self):
         return self.membresia

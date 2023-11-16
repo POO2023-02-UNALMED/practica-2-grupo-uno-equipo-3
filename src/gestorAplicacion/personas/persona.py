@@ -1,14 +1,14 @@
 from abc import ABC, abstractmethod
 
 class Persona(ABC):
-    todasLasPersonas = []
+    _todasLasPersonas = []
 
-    def __init__(self,nombre, cedula,telefono):
-        self.nombre = nombre
-        self.cedula =cedula
-        self.telefono = telefono
+    def __init__(self, nombre, cedula,telefono):
+        self._nombre = nombre
+        self._cedula =cedula
+        self._telefono = telefono
         
-        Persona.todasLasPersonas.append(self)
+        Persona._todasLasPersonas.append(self)
 
     @abstractmethod
     def __str__(self):
@@ -16,31 +16,32 @@ class Persona(ABC):
     
     @classmethod
     def getTodasLasPersonas(cls):
-        return cls.todasLasPersonas
+        return cls._todasLasPersonas
+    
     @classmethod
     def setTodasLasPersonas(cls,lista):
-        cls.todasLasPersonas = lista
+        cls._todasLasPersonas = lista
 
     def getNombre(self):
-        return self.nombre
+        return self._nombre
     
     def setNombre(self, nombre):
-        self.nombre = nombre
+        self._nombre = nombre
 
     def getCedula(self):
-        return self.cedula
+        return self._cedula
     
     def setCedula(self, cedula):
-        self.cedula = cedula
+        self._cedula = cedula
 
     def getCuentaBancaria(self):
-          return self.cuentaBancaria 
+          return self._cuentaBancaria 
       
     def setCuentaBancaria(self,cuentaBancaria):
-        self.cuentaBancaria = cuentaBancaria
+        self._cuentaBancaria = cuentaBancaria
 
     def getTelefono(self):
-        return self.telefono
+        return self._telefono
     
     def setTelefono(self,telefono):
-        self.telefono = telefono
+        self._telefono = telefono

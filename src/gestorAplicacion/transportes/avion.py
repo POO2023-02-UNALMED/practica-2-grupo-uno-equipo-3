@@ -1,7 +1,7 @@
 from gestorAplicacion.productos.producto import Producto
 from gestorAplicacion.administracion.guia import Guia
 from gestorAplicacion.administracion.sucursal import Sucursal
-from transportes.transporte import Transporte
+from gestorAplicacion.transportes.transporte import Transporte
 
 import threading
 
