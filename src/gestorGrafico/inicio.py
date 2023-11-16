@@ -44,7 +44,7 @@ class Inicio(Frame):
         bibi2="Hola mi nombre es Tomas Murillo Aristizabal tengo 19 años y ahora mismo estoy en  tercer semestre en la mejor universidad de Colombia, nací en Bogotá a pesar de que mi familia es de aquí de Medellín y desde los 14 años estoy viviendo en Rionegro. Mis pasatiempos preferidos son jugar videojuegos, el fútbol  y pasar tiempo con mi familia y mis amigos."
         bibi3="Mi nombre es Daniela Sánchez, soy estudiante de ciencias de la computación con una gran pasión por la biología. En mi tiempo libre disfruto leyendo y aprendiendo sobre el desarrollo de códigos para el procesamiento de secuencias genéticas y sobre las nuevas técnicas computacionales en el campo de la bioinformática. Encuentro especialmente fascinante la aplicación de la inteligencia artificial en el análisis de datos moleculares y espero algún día aportar al conocimiento de esta área."
         bibi4="Hola me llamo Luis Alejandro Martinez Ramirez, estudio en la Universidad Nacional De Colombia Sede Medellin, en mi tiempo libre me la paso ya sea aprendiendo nuevas caracteristicas ya sea de programación o jugando con amigos ya sea videojuegos o algun deporte, aspiro a futuro terminar esta carrera y trabajar en lo que me gusta."
-        bibi5="Mi nombre es Libardo Jose Navarro Pedrozo, nací el 26 de Marzo del 2005 en Mompós. Me encuentro cursando mi tercer semestre de Ingeniería de Sistemas e Informática en la Universidad Nacional. Soy un apasionado de las matemáticas, la algoritmia y la informática."
+        bibi5="Hola soy Tomá Gómez"
 
         self.biblios = [bibi1,bibi2,bibi3,bibi4,bibi5]
           
@@ -164,6 +164,6 @@ class Inicio(Frame):
         ventana.menuBar.add_cascade(label="Archivo",menu=menu1)
         menu1.add_command(label="Salir",command=lambda:ventana.destroy())
         
-        textDescrip="SMM es un sistema de gestión académica diseñado para mejorar la administración de asignaturas en instituciones educativas. Está dirigido exclusivamente a coordinadores académicos y tiene como objetivo optimizar los procesos relacionados con la gestión académica."
+        textDescrip="La idea de nuestro proyecto es desarrollar un programa para una empresa de mensajería. Concebimos este programa de manera que fuera ejecutado desde un computador principal, tanto en la oficina central de la empresa en la ciudad de Medellín como en las diferentes ciudades de destino. El programa consta de cinco funcionalidades principales, que incluyen el envío de paquetes o productos, opciones de pago para los envíos, la posibilidad de recoger paquetes en la oficina central, rastreo de paquetes y, por último, la funcionalidad para gestionar reclamos"
         menu1.add_command(label="Descripcion",command=lambda: descripTexto.config(text=textDescrip))
         
