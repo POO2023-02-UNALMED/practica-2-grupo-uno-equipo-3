@@ -10,12 +10,11 @@ class Rastrear(Frame):
         self.config(highlightbackground="#085870",highlightthickness=3)
         self.pack(expand=True)
 
-        def consultarProgreso(guia):
+        def consultarProgreso():
             self.pack_forget()
-            estado = Estado(ventana, guia)
+            estado = Estado(ventana, entrada.get())
             estado.pack()
-
-
+            
         def verificar():
             lista=[12345]
 
@@ -41,7 +40,7 @@ class Rastrear(Frame):
 
             
 
-        frame = Frame(ventana, width=400, height=200,bg="green",highlightbackground="#085870",highlightthickness=5)
+        frame = Frame(self,bg="green",highlightbackground="#085870",highlightthickness=5)
         frame.pack(fill=tk.BOTH,expand=True)
         
         texto0 = ("Esta funcionalidad permite:\n1. Agregar una nueva materia al sistema. 3. Agregar un grupo a una materia existente."+
@@ -51,7 +50,7 @@ class Rastrear(Frame):
         
         entrada = Entry(frame)
         texto=Label(frame,text="Ingrese el código de su paquete:", font=("arial", 11, "bold"))
-        boton = Button(frame, text="Verificar", command= verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
+        boton = Button(frame, text="Verificar", command= consultarProgreso,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
         boton.pack(side="bottom")
         texto.pack(side="top",pady=10)
         entrada.pack(side="bottom", pady=5)
