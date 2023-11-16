@@ -1,8 +1,40 @@
 import tkinter as tk
 from tkinter import *
 
-class Enviar(Frame):
-    pass
+class Enviar(tk.Frame):
+    def __init__(self, ventana):
+        super().__init__(ventana)
+        self.config(width=1000, height=1000, highlightbackground="#085870", highlightthickness=3)
+        self.pack(expand=True)
+
+        frame = Frame(self, width=800, height=800, bg="green", highlightbackground="#085870", highlightthickness=5)
+        frame.pack(expand=True) 
+
+        titulo_label = Label(frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="green")
+        titulo_label.pack(pady=10)
+
+        texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\". Estás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar? Elige una de las siguientes opciones."
+        bienvenida_label = Label(frame, text=texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        bienvenida_label.pack(pady=10)
+
+        boton_paquete = Button(frame, text="Paquete", command=self.enviar_paquete)
+        boton_paquete.pack(pady=5)
+
+        boton_animal = Button(frame, text="Animal", command=self.enviar_animal)
+        boton_animal.pack(pady=5)
+
+        boton_documento = Button(frame, text="Documento", command=self.enviar_documento)
+        boton_documento.pack(pady=5)
+
+    def enviar_paquete(self):
+        print("Has seleccionado enviar un paquete.")
+
+    def enviar_animal(self):
+        print("Has seleccionado enviar un animal.")
+
+    def enviar_documento(self):
+        print("Has seleccionado enviar un documento.")
+        pass
 
 # 361 - 886
 #  public static void enviarPaquete(Sucursal sucursalOrigen) {
