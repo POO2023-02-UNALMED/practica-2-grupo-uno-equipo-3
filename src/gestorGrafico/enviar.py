@@ -7,27 +7,62 @@ class Enviar(tk.Frame):
         self.config(width=1000, height=1000, highlightbackground="#085870", highlightthickness=3)
         self.pack(expand=True)
 
-        frame = Frame(self, width=800, height=800, bg="green", highlightbackground="#085870", highlightthickness=5)
-        frame.pack(expand=True) 
+        self.frame = Frame(self, width=800, height=800, bg="green", highlightbackground="#085870", highlightthickness=5)
+        self.frame.pack(expand=True) 
 
-        titulo_label = Label(frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="green")
-        titulo_label.pack(pady=10)
+        self.titulo_label = Label(self.frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="#085870")
+        self.titulo_label.pack(pady=10)
 
-        texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\". Estás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar? Elige una de las siguientes opciones."
-        bienvenida_label = Label(frame, text=texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
-        bienvenida_label.pack(pady=10)
+        self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nElige una de las siguientes opciones:"
+        self.bienvenida_label = Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label.pack(pady=10)
 
-        boton_paquete = Button(frame, text="Paquete", command=self.enviar_paquete)
-        boton_paquete.pack(pady=5)
+        self.boton_paquete = Button(self.frame, text="Paquete", command=self.mostrar_ventana_paquete)
+        self.boton_paquete.pack(side=tk.LEFT, pady=5, padx=5)
 
-        boton_animal = Button(frame, text="Animal", command=self.enviar_animal)
-        boton_animal.pack(pady=5)
+        self.boton_animal = Button(self.frame, text="Animal", command=self.enviar_animal)
+        self.boton_animal.pack(side=tk.LEFT, pady=5, padx=5)
 
-        boton_documento = Button(frame, text="Documento", command=self.enviar_documento)
-        boton_documento.pack(pady=5)
+        self.boton_documento = Button(self.frame, text="Documento", command=self.enviar_documento)
+        self.boton_documento.pack(side=tk.LEFT, pady=5, padx=5)
 
-    def enviar_paquete(self):
-        print("Has seleccionado enviar un paquete.")
+    def mostrar_ventana_paquete(self):
+        # Ocultar elementos anteriores
+        self.bienvenida_label.pack_forget()
+        self.boton_paquete.pack_forget()
+        self.boton_animal.pack_forget()
+        self.boton_documento.pack_forget()
+
+        # Mostrar nueva información del paquete
+        peso_label = Label(self.frame, text="Peso:")
+        peso_label.pack(padx=10, pady=10)
+
+        alto_label = Label(self.frame, text="Alto:")
+        alto_label.pack(padx=10, pady=10)
+
+        ancho_label = Label(self.frame, text="Ancho:")
+        ancho_label.pack(padx=10, pady=10)
+
+        largo_label = Label(self.frame, text="Largo:")
+        largo_label.pack(padx=10, pady=10)
+
+        peso_entry = Entry(self.frame)
+        peso_entry.pack(padx=10, pady=10)
+
+        alto_entry = Entry(self.frame)
+        alto_entry.pack(padx=10, pady=10)
+
+        ancho_entry = Entry(self.frame)
+        ancho_entry.pack(padx=10, pady=10)
+
+        largo_entry = Entry(self.frame)
+        largo_entry.pack(padx=10, pady=10)
+
+        boton_enviar = Button(self.frame, text="Enviar", command=lambda: self.obtener_informacion_paquete(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get()))
+        boton_enviar.pack(pady=10)
+
+    def obtener_informacion_paquete(self, peso, alto, ancho, largo):
+        print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
 
     def enviar_animal(self):
         print("Has seleccionado enviar un animal.")
