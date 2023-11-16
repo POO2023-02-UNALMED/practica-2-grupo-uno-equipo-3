@@ -19,13 +19,13 @@ class Recoger(tk.Frame):
         frame.pack(fill=tk.BOTH,expand=True)
 
         # Label Titulo
-        self.Label_Titulo = tk.Label(self,text= "Recoger Paquete",font=("Arial",30))
+        self.Label_Titulo = tk.Label(self,text= "Recoger Paquete",font=("arial",30))
         self.Label_Titulo.pack(pady=10)
 
-        self.Label_descripcion = Label(self, "En este apartado podrás reclamar los paquetes que te hayan enviado, solo debes llenar la información que se te pide en los siguientes recuadros", font=("Arial",11),wraplength=250)
+        self.Label_descripcion = tk.Label(self, text="En este apartado podrás reclamar los paquetes que te hayan enviado, solo debes llenar la información que se te pide en los siguientes recuadros", font=("arial",11),wraplength=250)
         self.Label_descripcion.pack(pady=10)
 
-        self.Label_escogerSucursal = Label(self,"Escoge la sucursal", font=("Arial",11))
+        self.Label_escogerSucursal = tk.Label(self,"Escoge la sucursal", font=("arial",11))
         self.Label_escogerSucursal.pack(side="left")
 
         todas_las_sucursales = [s.getNombre() for s in Sucursal.getTodasLasSucursales()]
@@ -36,10 +36,10 @@ class Recoger(tk.Frame):
         self.combobox_sucursales.bind("<<ComboboxSelected>>", self.cambiar_frame_sucursal)
 
 
-        Nombre_dest = Label(frame,text="Ingrese su nombre:", font=("Arial",11))
+        Nombre_dest = Label(frame,text="Ingrese su nombre:", font=("arial",11))
         entrada_Nombre = Entry(frame)
         entrada_Nombre.pack(side="bottom", pady=5)
-        Cedula_dest = Label(frame, text="Ingrese su cédula:",font=("Arial",11))
+        Cedula_dest = Label(frame, text="Ingrese su cédula:",font=("arial",11))
         entrada_cedula = Entry(frame)
         entrada_cedula.pack(side="bottom",pady=10)
 
@@ -77,7 +77,7 @@ class FrameSucursal(tk.Frame):
         self.pack(fill="both",expand=True)
 
          # Crear contenido para el nuevo frame
-        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}",font=("Arial",20))
+        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}",font=("arial",20))
         etiqueta.pack(pady=10)
 
         def reclamar():
@@ -111,36 +111,36 @@ class FrameSucursal(tk.Frame):
                 messagebox.showerror("Error", CampoInvalido().mostrarMensaje())
 
 
-        titulo = Label(self, text="Reclamar Paquete", font=("Arial", 14), fg="white", bg="#085870")
+        titulo = Label(self, text="Reclamar Paquete", font=("arial", 14), fg="white", bg="#085870")
         titulo.pack(side="top", anchor="c")
 
         texto = ("A continuación, deberá ingresar la información necesaria para reclamar\n"
                  "un paquete que será entregado a usted.")
-        descripcion = Label(self, text=texto, font=("Arial", 11), fg="white", bg="#085870")
+        descripcion = Label(self, text=texto, font=("arial", 11), fg="white", bg="#085870")
         descripcion.pack(anchor="n", pady=20)
 
         sFrame = Frame(self, bg="#cedae0")
         sFrame.pack()
 
         # Puedes adaptar los nombres de los campos según tus necesidades
-        nombre_Destinatario1 = Label(sFrame, text="Nombre del Paquete", font=("Arial", 11), fg="white", bg="#085870")
+        nombre_Destinatario1 = Label(sFrame, text="Nombre del Paquete", font=("arial", 11), fg="white", bg="#085870")
         nombre_Destinatario1.grid(row=1, column=0, padx=10, pady=8)
-        nombre_Destinatario2 = Entry(sFrame, font=("Arial", 11))
+        nombre_Destinatario2 = Entry(sFrame, font=("arial", 11))
         nombre_Destinatario2.grid(row=1, column=1, padx=10, pady=8)
 
-        codigoPaqueteL = Label(sFrame, text="Código del Paquete", font=("Arial", 11), fg="white", bg="#085870")
+        codigoPaqueteL = Label(sFrame, text="Código del Paquete", font=("arial", 11), fg="white", bg="#085870")
         codigoPaqueteL.grid(row=2, column=0, padx=10, pady=8)
-        codigoPaqueteE = Entry(sFrame, font=("Arial", 11))
+        codigoPaqueteE = Entry(sFrame, font=("arial", 11))
         codigoPaqueteE.grid(row=2, column=1, padx=10, pady=8)
 
-        cedula_Destinatario1 = Label(sFrame, text="Descripción del Paquete", font=("Arial", 11), fg="white", bg="#085870")
+        cedula_Destinatario1 = Label(sFrame, text="Descripción del Paquete", font=("arial", 11), fg="white", bg="#085870")
         cedula_Destinatario1.grid(row=3, column=0, padx=10, pady=8)
-        cedula_Destinatario2 = Entry(sFrame, font=("Arial", 11))
+        cedula_Destinatario2 = Entry(sFrame, font=("arial", 11))
         cedula_Destinatario2.grid(row=3, column=1, padx=10, pady=8)
 
         # Puedes agregar más campos según tus necesidades
 
-        botonReclamar = Button(sFrame, text="Reclamar Paquete", command=reclamar, font=("Arial", 11), fg="white",
+        botonReclamar = Button(sFrame, text="Reclamar Paquete", command=reclamar, font=("arial", 11), fg="white",
                                bg="#085870")
         botonReclamar.grid(row=4, column=0, padx=10, pady=10, sticky='e')
 
