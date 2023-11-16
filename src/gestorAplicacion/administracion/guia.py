@@ -19,6 +19,7 @@ class Guia:
     _todasLasGuias = []
 
     def __init__(self, producto, remitente, destinatario, sucursalOrigen, sucursalLlegada, tipoDePago, vehiculo):
+        Guia._todasLasGuias.append(self)
         self._producto = producto
         self._remitente = remitente
         self._destinatario = destinatario
@@ -28,7 +29,6 @@ class Guia:
         self._vehiculo = vehiculo
         self._ruta = []
         producto.setGuia(self)
-        Guia._todasLasGuias.append(self)
         self._estado = Guia.estado.ENSUCURSALORIGEN
 
         self._fecha = datetime.now()
@@ -125,7 +125,7 @@ class Guia:
         table += "+--------------------+--------------------+\n"
         table += format_str.format("Precio Total", str(self._precioTotal) + "$") + "\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Vehículo", str(self._vehiculo.__class__.__name)) + "\n"
+        table += format_str.format("Vehículo", str(self._vehiculo.__class__.__name__)) + "\n"
         table += "+--------------------+--------------------+\n"
         table += format_str.format("Fecha de envío", str(self._fechaDeEnvio)) + "\n"
         table += "+--------------------+--------------------+\n"
