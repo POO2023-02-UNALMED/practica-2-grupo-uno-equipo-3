@@ -129,7 +129,7 @@ class Sucursal:
 
     def getCapacidadVolumen(self):
         return self._capacidadVolumen
-
+    
     def getCapacidadPeso(self):
         return self._capacidadPeso
 

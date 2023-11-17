@@ -100,6 +100,16 @@ class FrameSucursal(tk.Frame):
             frame_datos = FrameDatos(self.master)
             frame_datos.pack()
 
+        def verificacion_Puntualidad():
+            sucursal = self.sucursal_encontrada
+            resultado = False
+            if sucursal.getOpinionSucursal().promedioPuntualidad() < 1:
+                sucursal.setCapacidadPeso(sucursal.getCapacidadPeso() - 10)
+                resultado = True
+            return resultado
+
+
+
         # Logica de Las opiniones
         def guardar_opiniones():
             valores_opiniones = fieldFrame_opiniones.guardarValores()
@@ -110,7 +120,6 @@ class FrameSucursal(tk.Frame):
 
                     self.sucursal_encontrada.getOpinionSucursal().opinionIntegridad.append(opinion_Integridad)
                     self.sucursal_encontrada.getOpinionSucursal().opinionPuntualidad.append(opinion_Puntualidad)
-
                     confirmacion = messagebox.askokcancel("Confirmacion","Desea confirmar las opiniones registradas")
                     if confirmacion and opinion_Integridad >= 1 :
                         cambiar_frame_confirmacion()
@@ -120,6 +129,10 @@ class FrameSucursal(tk.Frame):
                     messagebox.showerror("Error",CampoInvalido().mostrarMensaje())
             except:
                 messagebox.showerror("Error",CampoIncorrecto().mostrarMensaje())
+            finally:
+                if verificacion_Puntualidad():
+                    messagebox.showwarning("Alerta Punt Puntualiadad baja", "Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implementado en esta sucursal un plan de mejoramiento.")
+
 
 
         # Crear contenido para el nuevo frame
