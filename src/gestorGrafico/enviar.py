@@ -97,15 +97,6 @@ class Enviar(tk.Frame):
         boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.mostrar_info_emergente(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get(), valor_declarado_entry.get()))
         boton_enviar.grid(row=7, column=0, columnspan=2, pady=10)
 
-#        def cambiar_frame (self):
- #           frame_nuevo = FrameUsuario(self.master) 
-
-# class FrameUsuario(tk.Frame):
-#     def __init__(self, ventana):
-#         super().__init__(ventana)
-#         self.config(bg="#085870")
-#         self.pack(fill="both",expand=True)
-
     def mostrar_info_emergente(self, peso, alto, ancho, largo, valor_declarado):
         if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit() or not valor_declarado.isdigit():
             messagebox.showerror("Error", "No se permite letras, dejar casillas vacías o caracteres especiales, solo números enteros.")
@@ -118,7 +109,6 @@ class Enviar(tk.Frame):
         if ventana_emergente.respuesta is not None:
             tipo_producto = "Paquete"
             es_fragil = "Sí" if ventana_emergente.respuesta else "No"
-
             info_text = f"Tipo de producto: {tipo_producto}\n"
             info_text += f"Peso: {peso} Kg\n"
             info_text += f"Alto: {alto} m\n"
@@ -129,53 +119,77 @@ class Enviar(tk.Frame):
 
             messagebox.showinfo("Información del Paquete", info_text)
 
-    def confirmar_envio(self, peso, alto, ancho, largo):
-        if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit():
-            messagebox.showerror("Error", "No se permite letras, dejar casillas vacías o caracteres especiales, solo números enteros.")
+            # Oculta el frame actual para poder crear uno ahorita mas adelante
+            self.frame.pack_forget()
+
+            # Crea y muestra un nuevo frame  (que bendicion)
+            nuevo_frame = tk.Frame(self, width=800, height=800, bg="blue", highlightbackground="#085870", highlightthickness=5)
+            nuevo_frame.grid(row=0, column=0, sticky="nsew")
+
+            label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), fg="white", bg="blue")
+            label_nuevo_frame.grid(row=0, column=0, pady=10)
+
+            # Información del Remitente
+            remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:")
+            remitente_nombre_label.grid(row=1, column=0, pady=5, sticky="e")
+
+            remitente_cedula_label = tk.Label(nuevo_frame, text="Cédula del Remitente:")
+            remitente_cedula_label.grid(row=2, column=0, pady=5, sticky="e")
+
+            remitente_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Remitente:")
+            remitente_telefono_label.grid(row=3, column=0, pady=5, sticky="e")
+
+            remitente_nombre_entry = tk.Entry(nuevo_frame)
+            remitente_nombre_entry.grid(row=1, column=1, pady=5, padx=5, sticky="w")
+
+            remitente_cedula_entry = tk.Entry(nuevo_frame)
+            remitente_cedula_entry.grid(row=2, column=1, pady=5, padx=5, sticky="w")
+
+            remitente_telefono_entry = tk.Entry(nuevo_frame)
+            remitente_telefono_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+
+            # Información del Destinatario
+            destinatario_nombre_label = tk.Label(nuevo_frame, text="Nombre del Destinatario:")
+            destinatario_nombre_label.grid(row=4, column=0, pady=5, sticky="e")
+
+            destinatario_cedula_label = tk.Label(nuevo_frame, text="Cédula del Destinatario:")
+            destinatario_cedula_label.grid(row=5, column=0, pady=5, sticky="e")
+
+            destinatario_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Destinatario:")
+            destinatario_telefono_label.grid(row=6, column=0, pady=5, sticky="e")
+
+            destinatario_nombre_entry = tk.Entry(nuevo_frame)
+            destinatario_nombre_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+
+            destinatario_cedula_entry = tk.Entry(nuevo_frame)
+            destinatario_cedula_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+
+            destinatario_telefono_entry = tk.Entry(nuevo_frame)
+            destinatario_telefono_entry.grid(row=6, column=1, pady=5, padx=5, sticky="w")
+
+            boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()))
+            boton_enviar_cliente.grid(row=7, column=0, columnspan=2, pady=10)
+
+    def mostrar_info_cliente(self, remitente_nombre, remitente_cedula, remitente_telefono, destinatario_nombre, destinatario_cedula, destinatario_telefono):
+        
+        if not (remitente_nombre.isalpha() and destinatario_nombre.isalpha()):
+            messagebox.showerror("Error", "Los campos de *Nombre* no deben estar vacios y aparta deben ser solo Letras.")
+            return
+        if not remitente_telefono.isdigit() or not remitente_cedula.isdigit() or not destinatario_cedula.isdigit() or not destinatario_telefono.isdigit():
+            messagebox.showerror("Error", "No se permite letras en la casillas de *Cedula* y *Telefono*, dejar casillas vacías o caracteres especiales, solo números enteros.")
             return
         
-        mensaje = "¿El paquete es frágil?"
-        ventana_emergente = VentanaEmergente(mensaje)
-        ventana_emergente.wait_window()
-        
-        if ventana_emergente.respuesta is not None:
-            if ventana_emergente.respuesta:
-                valor_declarado_label = tk.Label(self.frame, text="Precio Del Paquete:")
-                valor_declarado_label.grid(row=7, column=0, pady=10, sticky="e")
+        info_text_cliente = "\nInformación del Remitente:\n"
+        info_text_cliente += f"Nombre: {remitente_nombre}\n"
+        info_text_cliente += f"Cédula: {remitente_cedula}\n"
+        info_text_cliente += f"Teléfono: {remitente_telefono}\n"
 
-                valor_declarado_entry = tk.Entry(self.frame)
-                valor_declarado_entry.grid(row=7, column=1, pady=10, padx=5, sticky="w")
+        info_text_cliente += "\nInformación del Destinatario:\n"
+        info_text_cliente += f"Nombre: {destinatario_nombre}\n"
+        info_text_cliente += f"Cédula: {destinatario_cedula}\n"
+        info_text_cliente += f"Teléfono: {destinatario_telefono}"
 
-                boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.confirmar_envio_con_valor_declarado(peso, alto, ancho, largo, valor_declarado_entry.get()))
-                boton_enviar.grid(row=8, column=0, columnspan=2, pady=10)
-                print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
-                print("Paquete es frágil")
-            else:
-                print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
-                print("Paquete no es frágil")
-
-    def confirmar_envio_con_valor_declarado(self, peso, alto, ancho, largo, valor_declarado):
-        if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit() or not valor_declarado.isdigit():
-            messagebox.showerror("Error", "No se permite letras, dejar casillas vacías o caracteres especiales, solo números enteros.")
-            return
-
-        mensaje = "¿El paquete es frágil?"
-        ventana_emergente = VentanaEmergente(mensaje)
-        ventana_emergente.wait_window()
-
-        if ventana_emergente.respuesta is not None:
-            tipo_producto = "Paquete"
-            es_fragil = "Sí" if ventana_emergente.respuesta else "No"
-
-            info_text = f"Tipo de producto: {tipo_producto}\n"
-            info_text += f"Peso: {peso} Kg\n"
-            info_text += f"Alto: {alto} m\n"
-            info_text += f"Ancho: {ancho} m\n"
-            info_text += f"Largo: {largo} m\n"
-            info_text += f"Es frágil: {es_fragil}\n"
-            info_text += f"Precio Del Paquete: $ {valor_declarado}"
-
-            self.info_label.config(text=info_text)
+        messagebox.showinfo("Información del Cliente", info_text_cliente)
 
     def enviar_animal(self):
         print("Has seleccionado enviar un animal.")
