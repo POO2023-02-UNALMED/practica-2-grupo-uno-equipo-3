@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from gestorAplicacion.administracion import guia
 from gestorAplicacion.productos import producto
 from gestorGrafico.FieldFrame import FieldFrame
 from gestorAplicacion.administracion.opinion import Opinion
@@ -67,22 +68,47 @@ class FrameSucursal(tk.Frame):
                 Cedula = entryCC.get()
                 Cod = entryCod.get()
 
+
                 paq = self.encontrarProductoPorCodigo(Cod)
                 confirmacion = messagebox.askokcancel("Confirmación", f"¿Está seguro de reclamar el paquete {Cod}?")
 
                 if confirmacion:
                     if paq:
-                       guia = producto.getGuia(Cod)
-                    if self.verificarDatos(producto,Cedula):
-                        if guia.getSucursalLlegada()==self.sucursal:
-                            if paq in self.sucursal.getInventario() and guia.getEstado != guia.estado.ENTREGADO:
+                       #CAMBIAR GUIA
+                       guiaPaq = producto.Producto.getGuia()
+                    if self.verificarDatos(paq,Cedula):
+                        if guiaPaq.getSucursalLlegada() == self.sucursal_seleccionada:
+                            if paq in self.sucursal_seleccionada.getInventario():
+                                if guiaPaq.getEstado() != guia.estado.ENTREGADO:
                                 #quiero que salga un nuevo frame con una imagen con un paquete y el texto de poder recoger el paquete
-                                messagebox.showinfo("Operación realizada con éxito","Puedes reclamar tu paquete")
-                                self.destroy()
-                            else:
-                                messagebox.showinfo("No ha llegado","El paquete no está disponible para ser recogido")
-                        else:
-                            messagebox.showinfo("Sucursal errónea","El paquete que intentas buscar no se encuentra en esta sucursal")
+                                    if guiaPaq.getTipoDePago() == guia.tipoDePago.REMITENTE:
+                                        if guiaPaq._pagoPendiente() == 0:
+                                            messagebox.showinfo("Operación realizada con éxito","Puedes reclamar tu paquete")
+                                            self.destroy()
+
+                                    if guiaPaq.getTipoDePago() == guia.tipoDePago.DESTINATARIO:
+                                        if guia._pagoPendiente() != 0:
+                                            messagebox.showinfo("Falta pago","Para poder reclamar tu paquete debes pagar el total por el envío")
+
+                                    if guiaPaq.getTipoDePago() == guia.tipoDePago.FRACCIONADO:
+                                        if guiaPaq._pagoPendiente() != 0:
+                                            messagebox.showinfo("Falta pago","Para poder reclamar tu paquete debes pagar la mitad del envío")
+
+                                if guiaPaq.getEstado() == guia.estado.ENTREGADO:
+                                    messagebox.showinfo("Paquete no encontrado", "Tu paquete ya ha sido reclamado")
+                                
+                                if guiaPaq.getEstado() == guia.estado.ENSUCURSALORIGEN:
+                                    messagebox.showinfo("El paquete no ha salido", "El paquete se encuentra en la sucursal de origen")
+
+                                if guiaPaq.getEstado() == guia.estado.ENESPERA:
+                                    messagebox.showinfo("En espera", "El paquete se encuentra en espera")
+
+                            if paq not in self.sucursal_seleccionada.getInventario():
+                                if guiaPaq.getSucursalLlegada() == self.sucursal_seleccionada and (guiaPaq.getEstado() == guia.Estado.ENTRANSITO):
+                                    messagebox.showinfo("No ha llegado","El paquete no está disponible para ser recogido")
+                                if guiaPaq.getSucursalLlegada() != self.sucursal_seleccionada:
+                                    messagebox.showinfo("Sucursal errónea", "El paquete no tiene como destino la sucursal en la que te encuentras")
+                 
                     else:
                         messagebox.showinfo("Datos no válidos","Lo sentimos pero los datos que ingresaste no corresponden con los proporcionados por el remitente")
                 else:
@@ -129,7 +155,6 @@ class FrameSucursal(tk.Frame):
         sFrame = Frame(self, bg="#cedae0")
         sFrame.pack()
 
-        # Puedes adaptar los nombres de los campos según tus necesidades
         labelCod = Label(sFrame, text="Código del Paquete", font=("arial", 11), fg="white", bg="#085870")
         labelCod.grid(row=1, column=0, padx=10, pady=8)
         entryCod = Entry(sFrame)
