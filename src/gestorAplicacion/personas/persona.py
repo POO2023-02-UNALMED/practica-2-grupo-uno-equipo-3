@@ -5,7 +5,7 @@ class Persona(ABC):
 
     def __init__(self, nombre, cedula,telefono):
         self._nombre = nombre
-        self._cedula =cedula
+        self._cedula = cedula
         self._telefono = telefono
         
         Persona._todasLasPersonas.append(self)

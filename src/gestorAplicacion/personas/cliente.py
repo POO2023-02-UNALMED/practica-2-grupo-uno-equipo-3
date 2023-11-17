@@ -14,7 +14,7 @@ class Cliente(Persona):
         self._membresia = membresia
 
     def __str__(self):
-        return f"El cliente identificado como {super.getNombre()} \ncon cedula {super.getCedula()} cuenta con membresia {self.getMembresia().getBeneficio()}"
+        return f"El cliente identificado como {super().getNombre()} \ncon cedula {super().getCedula()} cuenta con membresia {self.getMembresia().getBeneficio().value[0]}"
     
     def informacionMembresia(self):
-         return f"El cliente identificado como {super.getNombre()} \ncon cedula {super.getCedula()} cuenta con membresia  {self.getMembresia().getBeneficio()}"
+         return f"El cliente identificado como {super().getNombre()} \ncon cedula {super().getCedula()} cuenta con membresia  {self.getMembresia().getBeneficio()}"
