@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from gestorAplicacion.productos import producto
 from gestorGrafico.FieldFrame import FieldFrame
 from gestorAplicacion.administracion.opinion import Opinion
 from gestorAplicacion.administracion.sucursal import Sucursal
@@ -63,18 +64,18 @@ class FrameSucursal(tk.Frame):
         def reclamar():
             try:
                 Name = entryName.get()
-                Cedula = int(entryCC.get())
-                Cod = int(entryCod.get())
+                Cedula = entryCC.get()
+                Cod = entryCod.get()
 
-                producto = self.encontrarProductoPorCodigo(Cod)
-                confirmacion = messagebox.askokcancel("Confirmación", f"¿Está seguro de reclamar el paquete {codigo_paquete}?")
+                paq = self.encontrarProductoPorCodigo(Cod)
+                confirmacion = messagebox.askokcancel("Confirmación", f"¿Está seguro de reclamar el paquete {Cod}?")
 
                 if confirmacion:
-                    if producto:
-                        guia = producto.getGuia()
+                    if paq:
+                       guia = producto.getGuia(Cod)
                     if self.verificarDatos(producto,Cedula):
                         if guia.getSucursalLlegada()==self.sucursal:
-                            if producto in self.sucursal.getInventario() and guia.getEstado != guia.estado.ENTREGADO:
+                            if paq in self.sucursal.getInventario() and guia.getEstado != guia.estado.ENTREGADO:
                                 #quiero que salga un nuevo frame con una imagen con un paquete y el texto de poder recoger el paquete
                                 messagebox.showinfo("Operación realizada con éxito","Puedes reclamar tu paquete")
                                 self.destroy()
@@ -90,6 +91,32 @@ class FrameSucursal(tk.Frame):
             except:
                 messagebox.showerror("Error", CampoInvalido().mostrarMensaje())
 
+
+            #falta definir el tema de si el envío es contraentrega, remitente, destinatarios y los pagos 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
 
         titulo = Label(self, text="Reclamar Paquete", font=("arial", 25), fg="white", bg="#085870")
         titulo.pack(side="top", anchor="c")
@@ -123,9 +150,9 @@ class FrameSucursal(tk.Frame):
                                bg="#085870")
         botonReclamar.grid(row=4, column=0, padx=10, pady=10, columnspan=2)
 
-    def verificarDatos(producto, Cedula):
+    def verificarDatos(paq, Cedula):
         #verificar si estos métodos están y si los puedo acceder
-        guia = producto.getGuia()
+        guia = producto.getGuia(paq)
         destinatario = guia.getDestinatario()
 
         if int(destinatario.getCedula()) == Cedula:
@@ -135,7 +162,7 @@ class FrameSucursal(tk.Frame):
 
     def encontrarProductoPorCodigo(cod):
         #verificar si estos métodos están y si los puedo acceder
-        for producto in getTodosLosProductos():
-            if producto.getCodigo() == cod:
-                return producto
+        for i in producto.getTodosLosProductos():
+            if i.getCodigo() == cod:
+                return i
         return None
