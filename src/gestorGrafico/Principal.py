@@ -107,7 +107,7 @@ class Principal(Tk):
         menuProcesosConsultas.add_cascade(label="Envio de Paquetes",activebackground="blue", command=enviar)
         menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="blue", command=pagar)
         menuProcesosConsultas.add_cascade(label="Rastrear Pedido",activebackground="blue", command=rastrear)
-        menuProcesosConsultas.add_cascade(label="Recoger Paquete",activebackground="blue", command=recoger)
+        menuProcesosConsultas.add_cascade(label="Reclamar Paquete",activebackground="blue", command=recoger)
         menuProcesosConsultas.add_cascade(label="Opinion Sucursales",activebackground="blue", command=opinion)
         
         # Menu Ayuda
