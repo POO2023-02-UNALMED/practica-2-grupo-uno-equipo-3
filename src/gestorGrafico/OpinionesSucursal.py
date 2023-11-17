@@ -103,7 +103,7 @@ class FrameSucursal(tk.Frame):
         def verificacion_Puntualidad():
             sucursal = self.sucursal_encontrada
             resultado = False
-            if sucursal.getOpinionSucursal().promedioPuntualidad() < 1:
+            if sucursal.getOpinionSucursal().promedioPuntualidad() <= 1:
                 sucursal.setCapacidadPeso(sucursal.getCapacidadPeso() - 10)
                 resultado = True
             return resultado
@@ -131,7 +131,7 @@ class FrameSucursal(tk.Frame):
                 messagebox.showerror("Error",CampoIncorrecto().mostrarMensaje())
             finally:
                 if verificacion_Puntualidad():
-                    messagebox.showwarning("Alerta Punt Puntualiadad baja", "Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implementado en esta sucursal un plan de mejoramiento.")
+                    messagebox.showwarning("Alerta Punt Puntualiadad baja", f"Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implementado en esta sucursal un plan de mejoramiento en la sucursal {self.sucursal_seleccionada}.")
 
 
 
