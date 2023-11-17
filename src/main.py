@@ -16,6 +16,7 @@ from gestorAplicacion.transportes.transporte import Transporte
 from gestorAplicacion.transportes.camion import Camion
 from gestorAplicacion.transportes.avion import Avion
 import time
+from gestorGrafico.OpinionesSucursal import FrameSucursal
 
 
 from baseDatos.deserializador import Deserializador
@@ -65,23 +66,23 @@ if __name__=="__main__":
     avionesBN = [Avion(bogotaNorte, pastoNorte, 200, 2000, "JHG109")]
     avionesBS = [Avion(bogotaSur, pastoSur, 200, 2000, "DFG567")]
     
-    # opinion1 = Opinion(4,4,medellinNorte)
-    # opinion2 = Opinion(4,4,medellinSur)
-    # opinion3 = Opinion(4,4,bogotaNorte)
-    # opinion4 = Opinion(4,4,bogotaSur)
-    # opinion5 = Opinion(4,4,caliNorte)
-    # opinion6 = Opinion(4,4,caliSur)
-    # opinion7 = Opinion(4,4,pastoNorte)
-    # opinion8 = Opinion(4,4,pastoSur)
-    # medellinNorte.setOpinionSucursal(opinion1)
-    # medellinSur.setOpinionSucursal(opinion2)
-    # bogotaNorte.setOpinionSucursal(opinion3)
-    # bogotaSur.setOpinionSucursal(opinion4)
-    # caliNorte.setOpinionSucursal(opinion5)
-    # caliSur.setOpinionSucursal(opinion6)
-    # pastoNorte.setOpinionSucursal(opinion7)
-    # pastoSur.setOpinionSucursal(opinion8)
-    # Serializador.serializar()
+    opinion1 = Opinion(4,4,medellinNorte)
+    opinion2 = Opinion(4,4,medellinSur)
+    opinion3 = Opinion(4,4,bogotaNorte)
+    opinion4 = Opinion(4,4,bogotaSur)
+    opinion5 = Opinion(4,4,caliNorte)
+    opinion6 = Opinion(4,4,caliSur)
+    opinion7 = Opinion(4,4,pastoNorte)
+    opinion8 = Opinion(4,4,pastoSur)
+    medellinNorte.setOpinionSucursal(opinion1)
+    medellinSur.setOpinionSucursal(opinion2)
+    bogotaNorte.setOpinionSucursal(opinion3)
+    bogotaSur.setOpinionSucursal(opinion4)
+    caliNorte.setOpinionSucursal(opinion5)
+    caliSur.setOpinionSucursal(opinion6)
+    pastoNorte.setOpinionSucursal(opinion7)
+    pastoSur.setOpinionSucursal(opinion8)
+    Serializador.serializar()
     
     guzman = Cliente("Jaime Guzman", 123456789, 987654321)
     guzmanCuenta = CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000)
@@ -91,6 +92,8 @@ if __name__=="__main__":
     
     documento = Documento()
     guiaDocumento = Guia(documento, guzman, david, medellinNorte, pastoNorte, Guia.tipoDePago.DESTINATARIO, camionesMN[0])
+
+    
 
     #Deserializador.deserializar()
 

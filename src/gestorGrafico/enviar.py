@@ -183,6 +183,7 @@ class Enviar(tk.Frame):
     def enviar_documento(self):
         print("Has seleccionado enviar un documento.")
         pass
+    
 
 #                 case 2: //Animal
 #                     println("-------------------------------------------------");

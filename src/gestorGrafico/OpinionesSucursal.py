@@ -5,6 +5,9 @@ from tkinter import messagebox
 from gestorGrafico.FieldFrame import FieldFrame
 from gestorAplicacion.administracion.opinion import Opinion
 from gestorAplicacion.administracion.sucursal import Sucursal
+from gestorAplicacion.personas.persona import Persona
+from gestorAplicacion.personas.cliente import Cliente
+from gestorAplicacion.administracion.membresia import *
 from excepeciones.ErrorAplicacion import ErrorAplicacion
 from excepeciones.ExcepEntrys import * 
 from excepeciones.ExcepObj import *
@@ -14,7 +17,8 @@ from excepeciones.ExcepObj import *
 class TablaSucursales(tk.Frame):
     def __init__(self, ventana):
         super().__init__(ventana)
-        self.config(highlightbackground="#085870", highlightthickness=3)
+        self.config(bg="SkyBlue4", highlightthickness=3)
+        
 
         # Label Titulo
         self.Label_Titulo = tk.Label(self,text= "Opinion Sucursal",font=("Arial",30))
@@ -63,20 +67,59 @@ class TablaSucursales(tk.Frame):
     def cambiar_frame_sucursal(self, event):
         # Obtener la sucursal seleccionada
         sucursal_seleccionada = self.combobox_sucursales.get()
+        print(sucursal_seleccionada)
+        sucursal_encontrada = None
+        for sucursal in Sucursal.getTodasLasSucursales():
+            if sucursal.getNombre() == sucursal_seleccionada:
+                sucursal_encontrada = sucursal
+                break  # El break debe estar dentro de esta condición
+        print(sucursal_encontrada)
 
         # Cambiar a otro frame y pasar la sucursal seleccionada
-        frame_sucursal = FrameSucursal(self.master, sucursal_seleccionada)
-        self.pack_forget()  
+        frame_sucursal = FrameSucursal(self.master, sucursal_seleccionada, sucursal_encontrada)
+        self.pack_forget()
         frame_sucursal.pack()
     
     
 
 class FrameSucursal(tk.Frame):
-    def __init__(self, ventana, sucursal_seleccionada):
+    def __init__(self, ventana, sucursal_seleccionada,sucursal_encontrada):
         super().__init__(ventana)
         self.sucursal_seleccionada = sucursal_seleccionada
+        self.sucursal_encontrada = sucursal_encontrada
         self.config(bg="#085870")
         self.pack(fill="both",expand=True)
+        
+        def cambiar_frame_confirmacion():
+            self.pack_forget()
+            frame_confirmacion = FrameConfirmacion(self.master)
+            frame_confirmacion.pack()
+
+        def cambiar_frame_datos():
+            self.pack_forget()
+            frame_datos = FrameDatos(self.master)
+            frame_datos.pack()
+
+        # Logica de Las opiniones
+        def guardar_opiniones():
+            valores_opiniones = fieldFrame_opiniones.guardarValores()
+            try:
+                opinion_Integridad  = float(valores_opiniones[0])
+                opinion_Puntualidad = float(valores_opiniones[1])
+                if 0 <= opinion_Integridad <= 5 and 0 <= opinion_Puntualidad <= 5:
+
+                    self.sucursal_encontrada.getOpinionSucursal().opinionIntegridad.append(opinion_Integridad)
+                    self.sucursal_encontrada.getOpinionSucursal().opinionPuntualidad.append(opinion_Puntualidad)
+
+                    confirmacion = messagebox.askokcancel("Confirmacion","Desea confirmar las opiniones registradas")
+                    if confirmacion and opinion_Integridad >= 1 :
+                        cambiar_frame_confirmacion()
+                    elif confirmacion and opinion_Integridad < 1:
+                        cambiar_frame_datos()
+                else:
+                    messagebox.showerror("Error",CampoInvalido().mostrarMensaje())
+            except:
+                messagebox.showerror("Error",CampoIncorrecto().mostrarMensaje())
 
 
         # Crear contenido para el nuevo frame
@@ -95,22 +138,97 @@ class FrameSucursal(tk.Frame):
         fieldFrame_opiniones.pack(padx=30,pady=30)
         fieldFrame_opiniones.config(width=400,height=400)
         
-        # Logica de la Funcionalidad:
-        if fieldFrame_opiniones.getPulsado():
-            valores_opiniones = fieldFrame_opiniones.guardarValores()
-            print(valores_opiniones)
+        # Agregar un botón para guardar las opiniones
+        boton_guardar = tk.Button(self, text="Guardar Opiniones", command=guardar_opiniones)
+        boton_guardar.pack(pady=10)
+
+
+class FrameConfirmacion(tk.Frame):
+        def __init__(self, ventana):
+            super().__init__(ventana)
+            self.config(bg="SteelBlue4")
+            self.pack(fill="both",expand=True)
+
+            frame = Frame(self)
+            
+            frame.pack(anchor="center",expand=True)
+
+            Confirmacion_label = Label(frame, text="¡Muchas Gracias por registrar tu opinion!", font=("Arial", 20), fg="white", bg="#085870")
+            Confirmacion_label.pack(padx=10, pady=10)
+
+            agradecimiento_label = Label(frame, text="En nuestra empresa tu opinion hace la diferencia...", font=("Arial",10),fg="white", bg="#085870")
+            agradecimiento_label.pack(padx=10,pady=10)
+
+
+class FrameDatos(tk.Frame):
+    def __init__(self,ventana):
+        super().__init__(ventana)
+        self.config(bg="SteelBlue4")
+        self.pack(fill="both",expand=True)
+
+
+
+
+        def guardar_datos():
+            datos = fieldFrame_Datos.guardarValores()
+
+
+            nombre = datos[0]
+            cedula = int(datos[1])
+            telefono = int(datos[2])
+            encontrado = False
+
             try:
-                opinion_Integridad  = int(valores_opiniones[0])
-                opinion_Puntualidad = int(valores_opiniones[1])
-                if 0 <= opinion_Integridad <= 5 and 0 <= opinion_Puntualidad <= 5:
-                    confirmacion = messagebox.askokcancel("Confirmacion","Desea confirmar las opiniones registradas")
-                    if confirmacion:
-                        print("Opiniones confirmadas")
-                     
-                else:
-                    messagebox.showerror("Error",CampoInvalido().mostrarMensaje())
+                nombre = datos[0]
+                cedula = int(datos[1])
+                telefono = int(datos[2])
+                encontrado = False
+
+                for persona in Persona.getTodasLasPersonas():
+                    if persona._nombre == nombre and persona._cedula == cedula and isinstance(persona, Cliente):
+                        encontrado = True
+                        persona.getMembresia().setBeneficio(Tipo.PLATINUM)
+                        
+                        label_resultado.config(bg="white", text="Lamentamos los inconvenientes Sr/ Sra " + persona.getNombre() + " se le ha mejorado la membresia a Platinum como compensacion")
+                        break  # Terminar la búsqueda una vez que se ha encontrado la persona
+                    
+                if not encontrado:
+                    persona_nueva = Cliente(nombre, cedula, telefono)
+                    persona_nueva.getMembresia().setBeneficio(Tipo.PLATINUM)
+                    
+                    label_resultado.config(bg="white",text="Se le ha creado una cuenta con los siguientes datos: " + persona_nueva.__str__() + " La proxima vez que use nuestro servicio utilice esta cuenta para acceder a grandiosos beneficios.",wraplength=0)
+
             except:
                 messagebox.showerror("Error",CampoIncorrecto().mostrarMensaje())
+
+
+        titulo_criterio = "Datos Personales"
+        criterios = ["Nombre","Cedula","Telefono"]
+        titulo_valores = ""
+
+        frame = Frame(self)
+        frame.pack(padx=10,pady=10)
+        Disculpas_label = Label(frame, text= "Sentimos su mala experiencia con nuestro servicio",font=("Arial",20),fg="white", bg="#085870")
+        Disculpas_label.pack(padx=10,pady=10)
+        info_label = Label(frame, text="Como compensación, por favor, proporcione sus datos y le otorgaremos una recompensa",font=("Arial",10),fg="white", bg="#085870",wraplength=0)
+        info_label.pack(padx=10,pady=10)
+
+        fieldFrame_Datos = FieldFrame(self,titulo_criterio,criterios,titulo_valores,None,None)
+        fieldFrame_Datos.pack(padx=30,pady=30)
+        fieldFrame_Datos.config(width=400,height=400)
+
+        boton_guardar = tk.Button(self, text="Guardar Opiniones", command=guardar_datos)
+        boton_guardar.pack(pady=10)
+
+        label_resultado = Label(self,text="",bg="SteelBlue4")
+        label_resultado.pack(pady=10)
+
+
+
+
+
+        
+
             
 
         
