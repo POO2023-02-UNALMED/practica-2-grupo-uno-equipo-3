@@ -53,6 +53,7 @@ class Camion(Transporte):
         #print("Sali de "+ self.ubicacionAnterior.getNombre())
 
     def iniciarRecorrido(self):
+        self.enSucursal = False
         for producto in self.inventario:
             producto.getGuia().setEstado(Guia.estado.ENTRANSITO)
         self.ubicacionAnterior = self.sucursalOrigen
