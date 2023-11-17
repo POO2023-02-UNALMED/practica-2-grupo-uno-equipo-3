@@ -19,7 +19,7 @@ class Recoger(tk.Frame):
         self.Label_Titulo = tk.Label(self, text="Recoger Paquete", font=("Arial", 30))
         self.Label_Titulo.grid(row=0,column=0,columnspan=2,pady=10)
 
-        self.Label_descripcion = tk.Label(self,text="¡Hola querido cliente! En este apartado podrá reclamarlos paquetes que se hayan enviado a su nombre\n"+"solo deberá ingresar la información necesaria para reclamar dicho paquete")
+        self.Label_descripcion = tk.Label(self,text="¡Hola querido cliente! En este apartado podrá reclamarlos paquetes que se hayan enviado\n"+ "a su nombre solo deberá ingresar la información necesaria para reclamar dicho paquete")
         self.Label_descripcion.grid(row=1, column=0, columnspan=2, pady=10)
 
         self.Label_sele_suc = tk.Label(self,text="Primero necesitamos saber en qué sucursal se encuentra,\n"+ "para ello por favor seleccione una de las opciones")
@@ -94,9 +94,9 @@ class FrameSucursal(tk.Frame):
         def reclamar():
             try:
 
-                nombre_destinatario = nombre_Destinatario2.get()
-                cedula_destinatario = int(cedula_Destinatario2.get())
-                codigo_paquete = int(codigoPaqueteE.get())
+                nombre_destinatario = entryName.get()
+                cedula_destinatario = int(entryCC.get())
+                codigo_paquete = int(entryCod.get())
 
                 producto = self.encontrarProductoPorCodigo(codigo_paquete)
                 confirmacion = messagebox.askokcancel("Confirmación", f"¿Está seguro de reclamar el paquete {codigo_paquete}?")
