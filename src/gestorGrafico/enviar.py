@@ -51,13 +51,16 @@ class Enviar(tk.Frame):
         self.boton_documento = tk.Button(self.frame, text="Documento", command=self.enviar_documento)
         self.boton_documento.grid(row=3, column=1, pady=5, padx=5)
 
+        self.info_label = tk.Label(self.frame, text="", font=("Helvetica", 12), fg="white", bg="green")
+        self.info_label.grid(row=6, column=0, columnspan=2, pady=10)
+
     def mostrar_ventana_paquete(self):
         self.bienvenida_label.grid_forget()
         self.boton_paquete.grid_forget()
         self.boton_animal.grid_forget()
         self.boton_documento.grid_forget()
 
-        self.texto_bienvenida = "Has seleccionado Enviar un Paquete, diligencie los siguientes datos:"
+        self.texto_bienvenida = "Has seleccionado Enviar un Paquete, diligencie los siguientes datos: \n\n Tenga en cuenta que los datos son en Kg y Metros respectivamente"
         self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
         self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
 
@@ -73,97 +76,8 @@ class Enviar(tk.Frame):
         largo_label = tk.Label(self.frame, text="Largo:")
         largo_label.grid(row=5, column=0, pady=10, sticky="e")
 
-        peso_entry = tk.Entry(self.frame)
-        peso_entry.grid(row=2, column=1, pady=(10, 0), padx=5, sticky="w")
-
-        alto_entry = tk.Entry(self.frame)
-        alto_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
-
-        ancho_entry = tk.Entry(self.frame)
-        ancho_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
-
-        largo_entry = tk.Entry(self.frame)
-        largo_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
-
-        boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.confirmar_envio(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get()))
-        boton_enviar.grid(row=6, column=0, columnspan=2, pady=10)
-
-    def confirmar_envio(self, peso, alto, ancho, largo):
-        # Validaciones
-        import tkinter as tk
-from tkinter import messagebox
-
-class VentanaEmergente(tk.Toplevel):
-    def __init__(self, mensaje):
-        super().__init__()
-        self.title("Confirmación")
-        self.geometry("300x100")
-        
-        label = tk.Label(self, text=mensaje)
-        label.pack(pady=10)
-
-        boton_si = tk.Button(self, text="Sí", command=self.confirmar_si)
-        boton_si.pack(side="left", padx=20)
-
-        boton_no = tk.Button(self, text="No", command=self.confirmar_no)
-        boton_no.pack(side="right", padx=20)
-
-        self.respuesta = None
-
-    def confirmar_si(self):
-        self.respuesta = True
-        self.destroy()
-
-    def confirmar_no(self):
-        self.respuesta = False
-        self.destroy()
-
-class Enviar(tk.Frame):
-    def __init__(self, ventana):
-        super().__init__(ventana)
-        self.config(width=1000, height=1000, highlightbackground="#085870", highlightthickness=3)
-        self.pack(expand=True)
-
-        self.frame = tk.Frame(self, width=800, height=800, bg="green", highlightbackground="#085870", highlightthickness=5)
-        self.frame.pack(expand=True)
-
-        self.titulo_label = tk.Label(self.frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="#085870")
-        self.titulo_label.grid(row=0, column=0, columnspan=2, pady=10)
-
-        self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nElige una de las siguientes opciones:"
-        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
-        self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
-
-        self.boton_paquete = tk.Button(self.frame, text="Paquete", command=self.mostrar_ventana_paquete)
-        self.boton_paquete.grid(row=2, column=0, columnspan=2, pady=5, padx=5)
-
-        self.boton_animal = tk.Button(self.frame, text="Animal", command=self.enviar_animal)
-        self.boton_animal.grid(row=3, column=0, pady=5, padx=5)
-
-        self.boton_documento = tk.Button(self.frame, text="Documento", command=self.enviar_documento)
-        self.boton_documento.grid(row=3, column=1, pady=5, padx=5)
-
-    def mostrar_ventana_paquete(self):
-        self.bienvenida_label.grid_forget()
-        self.boton_paquete.grid_forget()
-        self.boton_animal.grid_forget()
-        self.boton_documento.grid_forget()
-
-        self.texto_bienvenida = "Has seleccionado Enviar un Paquete, diligencie los siguientes datos:"
-        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
-        self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
-
-        peso_label = tk.Label(self.frame, text="Peso:")
-        peso_label.grid(row=2, column=0, pady=(10, 0), sticky="e")
-
-        alto_label = tk.Label(self.frame, text="Alto:")
-        alto_label.grid(row=3, column=0, pady=10, sticky="e")
-
-        ancho_label = tk.Label(self.frame, text="Ancho:")
-        ancho_label.grid(row=4, column=0, pady=10, sticky="e")
-
-        largo_label = tk.Label(self.frame, text="Largo:")
-        largo_label.grid(row=5, column=0, pady=10, sticky="e")
+        valor_declarado_label = tk.Label(self.frame, text="Precio Del Paquete:")
+        valor_declarado_label.grid(row=6, column=0, pady=10, sticky="e")
 
         peso_entry = tk.Entry(self.frame)
         peso_entry.grid(row=2, column=1, pady=(10, 0), padx=5, sticky="w")
@@ -177,69 +91,98 @@ class Enviar(tk.Frame):
         largo_entry = tk.Entry(self.frame)
         largo_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
 
-        boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.confirmar_envio(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get()))
-        boton_enviar.grid(row=6, column=0, columnspan=2, pady=10)
+        valor_declarado_entry = tk.Entry(self.frame)
+        valor_declarado_entry.grid(row=6, column=1, pady=10, padx=5, sticky="w")
+
+        boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.mostrar_info_emergente(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get(), valor_declarado_entry.get()))
+        boton_enviar.grid(row=7, column=0, columnspan=2, pady=10)
+
+#        def cambiar_frame (self):
+ #           frame_nuevo = FrameUsuario(self.master) 
+
+# class FrameUsuario(tk.Frame):
+#     def __init__(self, ventana):
+#         super().__init__(ventana)
+#         self.config(bg="#085870")
+#         self.pack(fill="both",expand=True)
+
+    def mostrar_info_emergente(self, peso, alto, ancho, largo, valor_declarado):
+        if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit() or not valor_declarado.isdigit():
+            messagebox.showerror("Error", "No se permite letras, dejar casillas vacías o caracteres especiales, solo números enteros.")
+            return
+
+        mensaje = "¿El paquete es frágil?"
+        ventana_emergente = VentanaEmergente(mensaje)
+        ventana_emergente.wait_window()
+
+        if ventana_emergente.respuesta is not None:
+            tipo_producto = "Paquete"
+            es_fragil = "Sí" if ventana_emergente.respuesta else "No"
+
+            info_text = f"Tipo de producto: {tipo_producto}\n"
+            info_text += f"Peso: {peso} Kg\n"
+            info_text += f"Alto: {alto} m\n"
+            info_text += f"Ancho: {ancho} m\n"
+            info_text += f"Largo: {largo} m\n"
+            info_text += f"Es frágil: {es_fragil}\n"
+            info_text += f"Precio Del Paquete: $ {valor_declarado}"
+
+            messagebox.showinfo("Información del Paquete", info_text)
 
     def confirmar_envio(self, peso, alto, ancho, largo):
-        # Validaciones
         if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit():
-            messagebox.showerror("Error", "No se permite letras, dejar casillas vacias o un caracter especial, solo números enteros.")
+            messagebox.showerror("Error", "No se permite letras, dejar casillas vacías o caracteres especiales, solo números enteros.")
             return
         
-        # Puedes realizar validaciones adicionales aquí si es necesario
         mensaje = "¿El paquete es frágil?"
         ventana_emergente = VentanaEmergente(mensaje)
         ventana_emergente.wait_window()
         
         if ventana_emergente.respuesta is not None:
             if ventana_emergente.respuesta:
+                valor_declarado_label = tk.Label(self.frame, text="Precio Del Paquete:")
+                valor_declarado_label.grid(row=7, column=0, pady=10, sticky="e")
+
+                valor_declarado_entry = tk.Entry(self.frame)
+                valor_declarado_entry.grid(row=7, column=1, pady=10, padx=5, sticky="w")
+
+                boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.confirmar_envio_con_valor_declarado(peso, alto, ancho, largo, valor_declarado_entry.get()))
+                boton_enviar.grid(row=8, column=0, columnspan=2, pady=10)
                 print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
                 print("Paquete es frágil")
             else:
                 print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
                 print("Paquete no es frágil")
 
+    def confirmar_envio_con_valor_declarado(self, peso, alto, ancho, largo, valor_declarado):
+        if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit() or not valor_declarado.isdigit():
+            messagebox.showerror("Error", "No se permite letras, dejar casillas vacías o caracteres especiales, solo números enteros.")
+            return
+
+        mensaje = "¿El paquete es frágil?"
+        ventana_emergente = VentanaEmergente(mensaje)
+        ventana_emergente.wait_window()
+
+        if ventana_emergente.respuesta is not None:
+            tipo_producto = "Paquete"
+            es_fragil = "Sí" if ventana_emergente.respuesta else "No"
+
+            info_text = f"Tipo de producto: {tipo_producto}\n"
+            info_text += f"Peso: {peso} Kg\n"
+            info_text += f"Alto: {alto} m\n"
+            info_text += f"Ancho: {ancho} m\n"
+            info_text += f"Largo: {largo} m\n"
+            info_text += f"Es frágil: {es_fragil}\n"
+            info_text += f"Precio Del Paquete: $ {valor_declarado}"
+
+            self.info_label.config(text=info_text)
+
     def enviar_animal(self):
         print("Has seleccionado enviar un animal.")
 
     def enviar_documento(self):
         print("Has seleccionado enviar un documento.")
-
-
-#                     println("-------------------------------------------------");
-#                     println("¿El paquete es fragil?");
-#                     println("1) Sí");
-#                     println("2) No");
-#                     print("Elige una opcion: ");
-
-#                     boolean numeroValido2 = false;
-#                     boolean fragil = false;
-
-#                     while (!numeroValido2) {
-#                         int fragilEntrada = scanner.nextInt();
-#                         switch (fragilEntrada) {
-#                             case 1:
-#                                 fragil = true;
-#                                 numeroValido2 = true;
-#                                 break;
-#                             case 2:
-#                                 fragil = false;
-#                                 numeroValido2 = true;
-#                                 break;
-#                             default:
-#                                 print("Número no válido. Inténtalo de nuevo: ");
-#                         }
-#                     }
-#                     println("-------------------------------------------------");
-#                     print("Valor declarado: ");
-#                     double valorDeclarado = scanner.nextDouble();
-#                     scanner.nextLine();
-
-#                     producto = new Paquete(peso, alto, ancho, largo, fragil, valorDeclarado);
-#                     Paquete paquete = (Paquete) producto;
-#                     println(producto);
-#                     numeroValido = true;
-#                     break;
+        pass
 
 #                 case 2: //Animal
 #                     println("-------------------------------------------------");
