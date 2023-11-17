@@ -15,7 +15,7 @@ class Transporte(ABC):
         self.ubicacionActual = sucursalOrigen
         self.ubicacionAnterior = None
         self.ubicacionSiguiente = None
-        self.enSucursal = False
+        self.enSucursal = True
         self.ruta = []
         self.inventario = []
         

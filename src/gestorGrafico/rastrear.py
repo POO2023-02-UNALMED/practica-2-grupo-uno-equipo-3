@@ -55,9 +55,11 @@ class Rastrear(Frame):
                 entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Lo sentimos, el código de la guía no coincide, intentelo de nuevo")
                 
+        titulo = tk.Label(self, text="Rastrear Pedido", font=("Arial", 30))
+        titulo.pack(pady=5)
         
-        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()))
-        descripcion = Label(self, text=texto0, font=("Arial", 11), fg="white", bg="#085870")
+        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()))
+        descripcion = Label(self, text=texto0, font=("Arial", 11))
         descripcion.pack(pady=5, padx=5)
         
         texto = Label(self,text="Ingrese el código de su paquete:", font=("arial", 11, "bold"))
@@ -70,47 +72,53 @@ class Rastrear(Frame):
         boton.pack(pady=5)
         
 class Estado(Frame):
+    hilos = False
     def __init__(self, ventana, guiaPaquete):
         super().__init__(ventana)
         self.config(highlightbackground="#085870", highlightthickness=3, width=570, height=100)
         self.pack_propagate(False)
         self.pack(side="top", expand=True)
-        
-        camion = Sucursal.getTodasLasSucursales()[0].getCamionesEnSucursal()[0]
-        camion.iniciarRecorrido()
+        Estado.hilos = True
+                
+        camion = guiaPaquete.getVehiculo()
+        #camion.iniciarRecorrido()
         
         progress_var = tk.IntVar()
         progress_var.set(guiaPaquete.avancePedido())
 
         def actualizarBarra():
             for i in range(150):
-                time.sleep(1)
-                if guiaPaquete.getEstado() == Guia.estado.ENSUCURSALORIGEN:
-                    mensaje = "El camión con su pedido está preparándose para salir \n"
-                    progress_var.set(0)
-                    break
-                
-                elif guiaPaquete.getEstado() == Guia.estado.ENTRANSITO:
-                    progress_var.set(guiaPaquete.avancePedido())
-                    avance.config(text=camion.ubicarTransporte())
-                    porcentaje.config(text="%"+str(guiaPaquete.avancePedido()))
+                if Estado.hilos:
+                    if guiaPaquete.getEstado() == Guia.estado.ENSUCURSALORIGEN:
+                        mensaje = "El camión con su pedido está preparándose para salir \n"
+                        avance.config(text=mensaje)
+                        progress_var.set(0)
+                        break
                     
-                elif guiaPaquete.getEstado() == Guia.estado.ENESPERA:
-                    mensaje = "El producto ya llegó a la sucursal de destino.\n" \
-                        "Diríjase a la pestaña recoger para reclamar su pedido"
-                    progress_var.set(100)
-                    avance.config(text=mensaje)
-                    porcentaje.config(text="%100")
-                    break
-                
-                elif guiaPaquete.getEstado() == Guia.estado.ENTREGADO:
-                    mensaje = "El pedido ya ha sido reclamado"
-                    progress_var.set(100)
-                    avance.config(text=mensaje)
-                    porcentaje.config(text="%100")
+                    elif guiaPaquete.getEstado() == Guia.estado.ENTRANSITO:
+                        progress_var.set(guiaPaquete.avancePedido())
+                        avance.config(text=camion.ubicarTransporte())
+                        porcentaje.config(text="%"+str(guiaPaquete.avancePedido()))
+
+                    elif guiaPaquete.getEstado() == Guia.estado.ENESPERA:
+                        mensaje = "El producto ya llegó a la sucursal de destino.\n" \
+                            "Diríjase a la pestaña recoger para reclamar su pedido"
+                        progress_var.set(100)
+                        avance.config(text=mensaje)
+                        porcentaje.config(text="%100")
+                        break
+                    
+                    elif guiaPaquete.getEstado() == Guia.estado.ENTREGADO:
+                        mensaje = "El pedido ya ha sido reclamado"
+                        progress_var.set(100)
+                        avance.config(text=mensaje)
+                        porcentaje.config(text="%100")
+                        break
+                    time.sleep(1)
+                else:
                     break
             
-        avance = Label(self, text=camion.ubicarTransporte())
+        avance = Label(self, text="\n")
         avance.pack(pady=0, fill="x")
 
         progress_bar = ttk.Progressbar(self, variable=progress_var, maximum=100, length=500)
@@ -127,6 +135,9 @@ class Estado(Frame):
 
         hilo = threading.Thread(target=actualizarBarra)
         hilo.start()
+        
+    def detenerHilos():
+        Estado.hilos = False
 
             
 

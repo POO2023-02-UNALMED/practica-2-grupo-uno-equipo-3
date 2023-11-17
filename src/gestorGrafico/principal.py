@@ -3,6 +3,7 @@ from tkinter import messagebox
 from gestorGrafico.enviar import Enviar
 from gestorGrafico.pagar import Pagar
 from gestorGrafico.rastrear import Rastrear
+from gestorGrafico.rastrear import Estado
 from gestorGrafico.recoger import Recoger
 from gestorAplicacion.transportes.camion import Camion
 from gestorAplicacion.administracion.sucursal import Sucursal
@@ -35,6 +36,9 @@ class Principal(Tk):
             for widget in ventana.winfo_children():
                 if isinstance(widget, Frame):
                     widget.destroy()
+            if Estado.hilos:
+                Estado.detenerHilos()
+                
 
         # Porfa no lo comenten que así no puedo hacer pruebas
         def enviar():
