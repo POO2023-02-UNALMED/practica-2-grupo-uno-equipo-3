@@ -11,55 +11,57 @@ class Enviar(tk.Frame):
         self.frame.pack(expand=True) 
 
         self.titulo_label = Label(self.frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="#085870")
-        self.titulo_label.pack(pady=10)
+        self.titulo_label.grid(row=0, column=0, columnspan=2, pady=10)
 
-        self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nElige una de las siguientes opciones:"
+        self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nEliga una de las siguientes opciones:"
         self.bienvenida_label = Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
-        self.bienvenida_label.pack(pady=10)
+        self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
 
         self.boton_paquete = Button(self.frame, text="Paquete", command=self.mostrar_ventana_paquete)
-        self.boton_paquete.pack(side=tk.LEFT, pady=5, padx=5)
+        self.boton_paquete.grid(row=2, column=0, columnspan=2, pady=5, padx=5)
 
         self.boton_animal = Button(self.frame, text="Animal", command=self.enviar_animal)
-        self.boton_animal.pack(side=tk.LEFT, pady=5, padx=5)
+        self.boton_animal.grid(row=3, column=0, pady=5, padx=5)
 
         self.boton_documento = Button(self.frame, text="Documento", command=self.enviar_documento)
-        self.boton_documento.pack(side=tk.LEFT, pady=5, padx=5)
+        self.boton_documento.grid(row=3, column=1, pady=5, padx=5)
 
     def mostrar_ventana_paquete(self):
-        # Ocultar elementos anteriores
-        self.bienvenida_label.pack_forget()
-        self.boton_paquete.pack_forget()
-        self.boton_animal.pack_forget()
-        self.boton_documento.pack_forget()
+        self.bienvenida_label.grid_forget()
+        self.boton_paquete.grid_forget()
+        self.boton_animal.grid_forget()
+        self.boton_documento.grid_forget()
 
-        # Mostrar nueva información del paquete
+        self.texto_bienvenida = "Has seleccionado Enviar un Paquete, diligencie los siguientes datos:"
+        self.bienvenida_label = Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
+
         peso_label = Label(self.frame, text="Peso:")
-        peso_label.pack(padx=10, pady=10)
+        peso_label.grid(row=2, column=0, pady=(10, 0), sticky="e")
 
         alto_label = Label(self.frame, text="Alto:")
-        alto_label.pack(padx=10, pady=10)
+        alto_label.grid(row=3, column=0, pady=10, sticky="e")
 
         ancho_label = Label(self.frame, text="Ancho:")
-        ancho_label.pack(padx=10, pady=10)
+        ancho_label.grid(row=4, column=0, pady=10, sticky="e")
 
         largo_label = Label(self.frame, text="Largo:")
-        largo_label.pack(padx=10, pady=10)
+        largo_label.grid(row=5, column=0, pady=10, sticky="e")
 
         peso_entry = Entry(self.frame)
-        peso_entry.pack(padx=10, pady=10)
+        peso_entry.grid(row=2, column=1, pady=(10, 0), padx=5, sticky="w")
 
         alto_entry = Entry(self.frame)
-        alto_entry.pack(padx=10, pady=10)
+        alto_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
 
         ancho_entry = Entry(self.frame)
-        ancho_entry.pack(padx=10, pady=10)
+        ancho_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
 
         largo_entry = Entry(self.frame)
-        largo_entry.pack(padx=10, pady=10)
+        largo_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
 
         boton_enviar = Button(self.frame, text="Enviar", command=lambda: self.obtener_informacion_paquete(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get()))
-        boton_enviar.pack(pady=10)
+        boton_enviar.grid(row=6, column=0, columnspan=2, pady=10)
 
     def obtener_informacion_paquete(self, peso, alto, ancho, largo):
         print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
@@ -71,38 +73,6 @@ class Enviar(tk.Frame):
         print("Has seleccionado enviar un documento.")
         pass
 
-# 361 - 886
-#  public static void enviarPaquete(Sucursal sucursalOrigen) {
-#         Scanner scanner = new Scanner(System.in);
-#         boolean exit = false;
-
-#         println("---------------DATOS DEL PRODUCTO----------------");
-#         println("Ingrese el tipo de producto:");
-#         println("1) Paquete");
-#         println("2) Animal");
-#         println("3) Documento");
-#         println("4) Volver al menú");
-#         print("Elige una opción: ");
-
-
-#         Producto producto = null;
-#         boolean numeroValido = false;
-
-#         while (!numeroValido) {
-#             int tipoDeProducto = scanner.nextInt();
-#             scanner.nextLine();
-
-#             switch (tipoDeProducto) {
-#                 case 1: //Paquete
-#                     println("-------------------------------------------------");
-#                     print("Peso del paquete: ");
-#                     double peso = scanner.nextDouble();
-#                     print("Alto del paquete: ");
-#                     double alto = scanner.nextDouble();
-#                     print("Ancho del paquete: ");
-#                     double ancho = scanner.nextDouble();
-#                     print("Largo del paquete: ");
-#                     double largo = scanner.nextDouble();
 
 #                     println("-------------------------------------------------");
 #                     println("¿El paquete es fragil?");
