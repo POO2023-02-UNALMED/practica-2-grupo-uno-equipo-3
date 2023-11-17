@@ -28,9 +28,10 @@ class Guia:
         self._tipoDePago = tipoDePago
         self._vehiculo = vehiculo
         self._ruta = []
+        vehiculo.getInventario().append(producto)
         producto.setGuia(self)
         self._estado = Guia.estado.ENSUCURSALORIGEN
-
+        self.progreso = 0
         self._fecha = datetime.now()
         fecha_formatter = "%d/%m/%y %H:%M"
         self._fechaDeEnvio = self._fecha.strftime(fecha_formatter)
@@ -46,9 +47,9 @@ class Guia:
         elif self._estado == Guia.estado.ENESPERA or self.estado == Guia.estado.ENTREGADO:
             return 100
         elif self._estado == Guia.estado.ENTRANSITO:
-            porcentaje = 0
-            if isinstance(self._vehiculo, camion):
-                escalas = 100.0 / (len(self.ruta) - 1)
+            porcentaje = 30
+            if isinstance(self._vehiculo, Camion):
+                escalas = 100.0 / (len(self._ruta) - 1)
                 camion = self._vehiculo
                 if camion.ubicacionActual is not None:
                     porcentaje = escalas * self._ruta.index(camion.ubicacionActual)
@@ -59,7 +60,7 @@ class Guia:
                     redondeado = round(porcentaje, 1)
                     return redondeado
             else:
-                return 50
+                return 0
         else:
             return 0
 

@@ -15,6 +15,7 @@ from gestorAplicacion.administracion.guia import Guia
 from gestorAplicacion.transportes.transporte import Transporte
 from gestorAplicacion.transportes.camion import Camion
 from gestorAplicacion.transportes.avion import Avion
+import time
 
 
 from baseDatos.deserializador import Deserializador
@@ -94,8 +95,11 @@ if __name__=="__main__":
     #Deserializador.deserializar()
 
     #No me lo borren gracias 😉
-    camion = medellinNorte.getCamionesEnSucursal()[0]
-    camion.iniciarRecorrido()
+    # camion = medellinNorte.getCamionesEnSucursal()[0]
+    # camion.iniciarRecorrido()
+    
+
+    print(medellinNorte.getCamionesEnSucursal()[0].getInventario())
     
     MainWindow()
     
