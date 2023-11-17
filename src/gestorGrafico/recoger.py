@@ -13,15 +13,60 @@ class Recoger(tk.Frame):
     def __init__(self, ventana):
         super().__init__(ventana)
         self.config(highlightbackground="#085870", highlightthickness=3)
+        self.pack(expand=True)
   
-        self.Label_Titulo = tk.Label(self, text="Recoger Paquete", font=("Arial", 30))
-        self.Label_Titulo.pack(pady=10)
 
-        labelCod = Label(tk.Frame, text="Código del paquete",font=("Arial",12))
-        labelCod.grid(pady=10,column=0,row=1)
+
+
+
+        self.Label_Titulo = tk.Label(self, text="Recoger Paquete", font=("Arial", 30))
+        self.Label_Titulo.grid(row=0,column=0,columnspan=2,pady=10)
+
+        self.Label_descripcion = tk.Label(self,text="A continuación, deberá ingresar la información necesaria para reclamar un paquete que será entregado a usted.")
+        self.Label_descripcion.grid(row=1, column=0, columnspan=2, pady=10)
+
+
+        #Sucursal a elegir 
+        labelSucursal = Label(self,text="Sucursal actual", font=("Arial",10))
+        labelSucursal.grid(pady=10,column=0,row=2)
+
+         # Crear el Combobox para seleccionar sucursales
+        todas_las_sucursales = [s.getNombre() for s in Sucursal.getTodasLasSucursales()]
+        self.combobox_sucursales = ttk.Combobox(self, values=todas_las_sucursales)
+        self.combobox_sucursales.grid(pady=10,column=1,row=2)
+
+        # Configurar evento para cambio en el ComboBox
+        self.combobox_sucursales.bind("<<ComboboxSelected>>", self.cambiar_frame_sucursal)
+
+
+        #DATOS PEDIDOS AL USUARIO
+        #Código del paquete
+        labelCod = Label(self, text="Código del paquete",font=("Arial",10))
+        labelCod.grid(pady=10,column=0,row=3)
+
+        entryCod = Entry(self)
+        entryCod.grid(pady=15,column=1,row=3)
+
+
+        #Nombre del usuario
+        labelName = Label(self,text="Nombre de quien reclama",font=("Arial",10))
+        labelName.grid(pady=10,column=0,row=4)
+
+        entryName = Entry(self)
+        entryName.grid(pady=15,column=1,row=4)
+
+
+        #Cedula del usuario
+        labelCC = Label(self,text="Cédula de quien reclama",font=("Arial",10))
+        labelCC.grid(pady=10,column=0,row=5)
+
+        entryCC = Entry(self)
+        entryCC.grid(pady=15,column=1,row=5)
+
 
         botonReclamar = Button(self, text="Reclamar Paquete", command=self.reclamar_paquete)
-        botonReclamar.pack(pady=20)
+        botonReclamar.grid(columnspan=2,pady=10,column=0,row=6)
+
 
     def reclamar_paquete(self):
         try:
