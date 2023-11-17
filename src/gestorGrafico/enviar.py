@@ -1,5 +1,30 @@
 import tkinter as tk
-from tkinter import *
+from tkinter import messagebox
+
+class VentanaEmergente(tk.Toplevel):
+    def __init__(self, mensaje):
+        super().__init__()
+        self.title("Confirmación")
+        self.geometry("300x100")
+        
+        label = tk.Label(self, text=mensaje)
+        label.pack(pady=10)
+
+        boton_si = tk.Button(self, text="Sí", command=self.confirmar_si)
+        boton_si.pack(side="left", padx=20)
+
+        boton_no = tk.Button(self, text="No", command=self.confirmar_no)
+        boton_no.pack(side="right", padx=20)
+
+        self.respuesta = None
+
+    def confirmar_si(self):
+        self.respuesta = True
+        self.destroy()
+
+    def confirmar_no(self):
+        self.respuesta = False
+        self.destroy()
 
 class Enviar(tk.Frame):
     def __init__(self, ventana):
@@ -7,23 +32,23 @@ class Enviar(tk.Frame):
         self.config(width=1000, height=1000, highlightbackground="#085870", highlightthickness=3)
         self.pack(expand=True)
 
-        self.frame = Frame(self, width=800, height=800, bg="green", highlightbackground="#085870", highlightthickness=5)
-        self.frame.pack(expand=True) 
+        self.frame = tk.Frame(self, width=800, height=800, bg="green", highlightbackground="#085870", highlightthickness=5)
+        self.frame.pack(expand=True)
 
-        self.titulo_label = Label(self.frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="#085870")
+        self.titulo_label = tk.Label(self.frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="#085870")
         self.titulo_label.grid(row=0, column=0, columnspan=2, pady=10)
 
-        self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nEliga una de las siguientes opciones:"
-        self.bienvenida_label = Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nElige una de las siguientes opciones:"
+        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
         self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
 
-        self.boton_paquete = Button(self.frame, text="Paquete", command=self.mostrar_ventana_paquete)
+        self.boton_paquete = tk.Button(self.frame, text="Paquete", command=self.mostrar_ventana_paquete)
         self.boton_paquete.grid(row=2, column=0, columnspan=2, pady=5, padx=5)
 
-        self.boton_animal = Button(self.frame, text="Animal", command=self.enviar_animal)
+        self.boton_animal = tk.Button(self.frame, text="Animal", command=self.enviar_animal)
         self.boton_animal.grid(row=3, column=0, pady=5, padx=5)
 
-        self.boton_documento = Button(self.frame, text="Documento", command=self.enviar_documento)
+        self.boton_documento = tk.Button(self.frame, text="Documento", command=self.enviar_documento)
         self.boton_documento.grid(row=3, column=1, pady=5, padx=5)
 
     def mostrar_ventana_paquete(self):
@@ -33,45 +58,152 @@ class Enviar(tk.Frame):
         self.boton_documento.grid_forget()
 
         self.texto_bienvenida = "Has seleccionado Enviar un Paquete, diligencie los siguientes datos:"
-        self.bienvenida_label = Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
         self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
 
-        peso_label = Label(self.frame, text="Peso:")
+        peso_label = tk.Label(self.frame, text="Peso:")
         peso_label.grid(row=2, column=0, pady=(10, 0), sticky="e")
 
-        alto_label = Label(self.frame, text="Alto:")
+        alto_label = tk.Label(self.frame, text="Alto:")
         alto_label.grid(row=3, column=0, pady=10, sticky="e")
 
-        ancho_label = Label(self.frame, text="Ancho:")
+        ancho_label = tk.Label(self.frame, text="Ancho:")
         ancho_label.grid(row=4, column=0, pady=10, sticky="e")
 
-        largo_label = Label(self.frame, text="Largo:")
+        largo_label = tk.Label(self.frame, text="Largo:")
         largo_label.grid(row=5, column=0, pady=10, sticky="e")
 
-        peso_entry = Entry(self.frame)
+        peso_entry = tk.Entry(self.frame)
         peso_entry.grid(row=2, column=1, pady=(10, 0), padx=5, sticky="w")
 
-        alto_entry = Entry(self.frame)
+        alto_entry = tk.Entry(self.frame)
         alto_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
 
-        ancho_entry = Entry(self.frame)
+        ancho_entry = tk.Entry(self.frame)
         ancho_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
 
-        largo_entry = Entry(self.frame)
+        largo_entry = tk.Entry(self.frame)
         largo_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
 
-        boton_enviar = Button(self.frame, text="Enviar", command=lambda: self.obtener_informacion_paquete(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get()))
+        boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.confirmar_envio(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get()))
         boton_enviar.grid(row=6, column=0, columnspan=2, pady=10)
 
-    def obtener_informacion_paquete(self, peso, alto, ancho, largo):
-        print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
+    def confirmar_envio(self, peso, alto, ancho, largo):
+        # Validaciones
+        import tkinter as tk
+from tkinter import messagebox
+
+class VentanaEmergente(tk.Toplevel):
+    def __init__(self, mensaje):
+        super().__init__()
+        self.title("Confirmación")
+        self.geometry("300x100")
+        
+        label = tk.Label(self, text=mensaje)
+        label.pack(pady=10)
+
+        boton_si = tk.Button(self, text="Sí", command=self.confirmar_si)
+        boton_si.pack(side="left", padx=20)
+
+        boton_no = tk.Button(self, text="No", command=self.confirmar_no)
+        boton_no.pack(side="right", padx=20)
+
+        self.respuesta = None
+
+    def confirmar_si(self):
+        self.respuesta = True
+        self.destroy()
+
+    def confirmar_no(self):
+        self.respuesta = False
+        self.destroy()
+
+class Enviar(tk.Frame):
+    def __init__(self, ventana):
+        super().__init__(ventana)
+        self.config(width=1000, height=1000, highlightbackground="#085870", highlightthickness=3)
+        self.pack(expand=True)
+
+        self.frame = tk.Frame(self, width=800, height=800, bg="green", highlightbackground="#085870", highlightthickness=5)
+        self.frame.pack(expand=True)
+
+        self.titulo_label = tk.Label(self.frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="#085870")
+        self.titulo_label.grid(row=0, column=0, columnspan=2, pady=10)
+
+        self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nElige una de las siguientes opciones:"
+        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
+
+        self.boton_paquete = tk.Button(self.frame, text="Paquete", command=self.mostrar_ventana_paquete)
+        self.boton_paquete.grid(row=2, column=0, columnspan=2, pady=5, padx=5)
+
+        self.boton_animal = tk.Button(self.frame, text="Animal", command=self.enviar_animal)
+        self.boton_animal.grid(row=3, column=0, pady=5, padx=5)
+
+        self.boton_documento = tk.Button(self.frame, text="Documento", command=self.enviar_documento)
+        self.boton_documento.grid(row=3, column=1, pady=5, padx=5)
+
+    def mostrar_ventana_paquete(self):
+        self.bienvenida_label.grid_forget()
+        self.boton_paquete.grid_forget()
+        self.boton_animal.grid_forget()
+        self.boton_documento.grid_forget()
+
+        self.texto_bienvenida = "Has seleccionado Enviar un Paquete, diligencie los siguientes datos:"
+        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
+
+        peso_label = tk.Label(self.frame, text="Peso:")
+        peso_label.grid(row=2, column=0, pady=(10, 0), sticky="e")
+
+        alto_label = tk.Label(self.frame, text="Alto:")
+        alto_label.grid(row=3, column=0, pady=10, sticky="e")
+
+        ancho_label = tk.Label(self.frame, text="Ancho:")
+        ancho_label.grid(row=4, column=0, pady=10, sticky="e")
+
+        largo_label = tk.Label(self.frame, text="Largo:")
+        largo_label.grid(row=5, column=0, pady=10, sticky="e")
+
+        peso_entry = tk.Entry(self.frame)
+        peso_entry.grid(row=2, column=1, pady=(10, 0), padx=5, sticky="w")
+
+        alto_entry = tk.Entry(self.frame)
+        alto_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+
+        ancho_entry = tk.Entry(self.frame)
+        ancho_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+
+        largo_entry = tk.Entry(self.frame)
+        largo_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+
+        boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.confirmar_envio(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get()))
+        boton_enviar.grid(row=6, column=0, columnspan=2, pady=10)
+
+    def confirmar_envio(self, peso, alto, ancho, largo):
+        # Validaciones
+        if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit():
+            messagebox.showerror("Error", "No se permite letras, dejar casillas vacias o un caracter especial, solo números enteros.")
+            return
+        
+        # Puedes realizar validaciones adicionales aquí si es necesario
+        mensaje = "¿El paquete es frágil?"
+        ventana_emergente = VentanaEmergente(mensaje)
+        ventana_emergente.wait_window()
+        
+        if ventana_emergente.respuesta is not None:
+            if ventana_emergente.respuesta:
+                print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
+                print("Paquete es frágil")
+            else:
+                print(f"Información del paquete: Peso={peso}, Alto={alto}, Ancho={ancho}, Largo={largo}")
+                print("Paquete no es frágil")
 
     def enviar_animal(self):
         print("Has seleccionado enviar un animal.")
 
     def enviar_documento(self):
         print("Has seleccionado enviar un documento.")
-        pass
 
 
 #                     println("-------------------------------------------------");
