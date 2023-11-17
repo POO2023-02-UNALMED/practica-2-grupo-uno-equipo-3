@@ -18,7 +18,7 @@ class Transporte(ABC):
         self.enSucursal = False
         self.ruta = []
         self.inventario = []
-
+        
         Transporte.todosLosTransportes.append(self)
 
         self.asignarRuta()

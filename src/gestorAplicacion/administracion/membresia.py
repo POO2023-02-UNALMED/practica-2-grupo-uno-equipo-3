@@ -1,42 +1,32 @@
 import random
 
 class Membresia:
-    class Tipo:
-        def __init__(self, probabilidad):
-            self.probabilidad = probabilidad
+    class tipo:
+        DEFAULT = "DEFAULT"
+        SILVER = "SILVER"
+        GOLD = "GOLD"
+        PLATINUM = "PLATINUM"
 
-    def __init__(self, cliente=None):
-        self.beneficio = self.crear_membresia()
-        self.cliente = cliente
+    def __init__(self):
+        self._beneficio = Membresia.tipo.PLATINUM
+        #self._beneficio = self.crearMembresia()
 
-    def crear_membresia(self):
-        probabilidad_total = 100
-        numero_aleatorio = random.randint(1, probabilidad_total)
+    def crearMembresia(self):
+        probabilidadTotal = 100
+        numeroAleatorio = random.randint(1, probabilidadTotal)
 
         acumulado = 0
-        for membresia in self.Tipo:
+        for membresia in Membresia.tipo:
             acumulado += membresia.probabilidad
-            if numero_aleatorio <= acumulado:
+            if numeroAleatorio <= acumulado:
                 return membresia
-        return self.Tipo.DEFAULT
+        return Membresia.tipo.DEFAULT
 
-    def get_beneficio(self):
-        return self.beneficio
+    def getBeneficio(self):
+        return self._beneficio
 
-    def set_beneficio(self, beneficio):
-        self.beneficio = beneficio
-
-    def get_precio(self):
-        return self.precio
-
-    def set_precio(self, precio):
-        self.precio = precio
-
-    def get_cliente(self):
-        return self.cliente
-
-    def set_cliente(self, cliente):
-        self.cliente = cliente
+    def setBeneficio(self, beneficio):
+        self._beneficio = beneficio
 
     def __str__(self):
-        return f"El cliente tiene el beneficio {str(self.get_beneficio()).lower()}"
+        return f"El cliente tiene el beneficio {str(self.getBeneficio()).lower()}"

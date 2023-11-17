@@ -16,49 +16,51 @@ class Guia:
         ENESPERA = "ENESPERA"
         ENTREGADO = "ENTREGADO"
 
-    todasLasGuias = []
+    _todasLasGuias = []
 
     def __init__(self, producto, remitente, destinatario, sucursalOrigen, sucursalLlegada, tipoDePago, vehiculo):
-        self.producto = producto
-        self.remitente = remitente
-        self.destinatario = destinatario
-        self.sucursalOrigen = sucursalOrigen
-        self.sucursalLlegada = sucursalLlegada
-        self.tipoDePago = tipoDePago
-        self.vehiculo = vehiculo
+        Guia._todasLasGuias.append(self)
+        self._producto = producto
+        self._remitente = remitente
+        self._destinatario = destinatario
+        self._sucursalOrigen = sucursalOrigen
+        self._sucursalLlegada = sucursalLlegada
+        self._tipoDePago = tipoDePago
+        self._vehiculo = vehiculo
+        self._ruta = []
+        vehiculo.getInventario().append(producto)
         producto.setGuia(self)
-        Guia.todasLasGuias.append(self)
-        self.estado = Guia.Estado.ENSUCURSALORIGEN
-
-        self.fecha = datetime.now()
+        self._estado = Guia.estado.ENSUCURSALORIGEN
+        self.progreso = 0
+        self._fecha = datetime.now()
         fecha_formatter = "%d/%m/%y %H:%M"
-        self.fechaDeEnvio = self.fecha.strftime(fecha_formatter)
+        self._fechaDeEnvio = self._fecha.strftime(fecha_formatter)
         self.asignarRuta()
         self.asignarPrecio()
         self.aplicarDescuento()
-        self.pagoPendiente = self.precioTotal
+        self._pagoPendiente = self._precioTotal
 
     def avancePedido(self):
         from gestorAplicacion.transportes.camion import Camion
-        if self.estado == Guia.Estado.ENSUCURSALORIGEN:
+        if self._estado == Guia.estado.ENSUCURSALORIGEN:
             return 0
-        elif self.estado == Guia.Estado.ENESPERA or self.estado == Guia.Estado.ENTREGADO:
+        elif self._estado == Guia.estado.ENESPERA or self.estado == Guia.estado.ENTREGADO:
             return 100
-        elif self.estado == Guia.Estado.ENTRANSITO:
-            porcentaje = 0
-            if isinstance(self.vehiculo, camion):
-                escalas = 100.0 / (len(self.ruta) - 1)
-                camion = self.vehiculo
+        elif self._estado == Guia.estado.ENTRANSITO:
+            porcentaje = 30
+            if isinstance(self._vehiculo, Camion):
+                escalas = 100.0 / (len(self._ruta) - 1)
+                camion = self._vehiculo
                 if camion.ubicacionActual is not None:
-                    porcentaje = escalas * self.ruta.index(camion.ubicacionActual)
+                    porcentaje = escalas * self._ruta.index(camion.ubicacionActual)
                     redondeado = round(porcentaje, 1)
                     return redondeado
                 else:
-                    porcentaje = (escalas * self.ruta.index(camion.ubicacionAnterior)) + (escalas / 2)
+                    porcentaje = (escalas * self._ruta.index(camion.ubicacionAnterior)) + (escalas / 2)
                     redondeado = round(porcentaje, 1)
                     return redondeado
             else:
-                return 50
+                return 0
         else:
             return 0
 
@@ -66,152 +68,152 @@ class Guia:
         from gestorAplicacion.transportes.avion import Avion
         from gestorAplicacion.transportes.camion import Camion
 
-        cantidadDeSucursales = len(self.ruta) - 1
+        cantidadDeSucursales = len(self._ruta) - 1
         costoTransporte = 0
-        if isinstance(self.vehiculo, Camion):
+        if isinstance(self._vehiculo, Camion):
             costoTransporte = 3000
-        elif isinstance(self.vehiculo, Avion):
+        elif isinstance(self._vehiculo, Avion):
             costoTransporte = 7000
-        self.precioTotal = self.producto.costoDelPedido + cantidadDeSucursales * costoTransporte
+        self._precioTotal = self._producto._costoDelPedido + cantidadDeSucursales * costoTransporte
 
     def aplicarDescuento(self):
-        if isinstance(self.remitente, Cliente):
-            membresia = self.remitente.getMembresia().getBeneficio()
+        if isinstance(self._remitente, Cliente):
+            membresia = self._remitente.getMembresia().getBeneficio()
             if membresia == "PLATINUM":
-                self.precioTotal *= 0.5
+                self._precioTotal *= 0.5
             elif membresia == "GOLD":
-                self.precioTotal *= 0.75
+                self._precioTotal *= 0.75
             elif membresia == "SILVER":
-                self.precioTotal *= 0.9
+                self._precioTotal *= 0.9
             elif membresia == "DEFAULT":
-                self.precioTotal *= 1
+                self._precioTotal *= 1
 
     def asignarRuta(self):
         from gestorAplicacion.transportes.camion import Camion
         from gestorAplicacion.transportes.avion import Avion
-        if isinstance(self.vehiculo, Camion):
+        if isinstance(self._vehiculo, Camion):
             sucursales = Sucursal.getTodasLasSucursales()  # La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
             i = 0
             while i < len(sucursales):
-                if sucursales[i] == self.sucursalOrigen:
-                    if i < sucursales.index(self.sucursalLlegada):
-                        for j in range(i, sucursales.index(self.sucursalLlegada) + 1):
-                            self.ruta.append(sucursales[j])
+                if sucursales[i] == self._sucursalOrigen:
+                    if i < sucursales.index(self._sucursalLlegada):
+                        for j in range(i, sucursales.index(self._sucursalLlegada) + 1):
+                            self._ruta.append(sucursales[j])
                     else:
                         for j in range(i, len(sucursales)):
-                            self.ruta.append(sucursales[j])
-                        for k in range(0, sucursales.index(self.sucursalLlegada) + 1):
-                            self.ruta.append(sucursales[k])
+                            self._ruta.append(sucursales[j])
+                        for k in range(0, sucursales.index(self._sucursalLlegada) + 1):
+                            self._ruta.append(sucursales[k])
                 i += 1
 
         elif isinstance(self.vehiculo, Avion):
-            self.ruta.append(self.sucursalOrigen)
-            self.ruta.append(self.sucursalLlegada)
+            self.ruta.append(self._sucursalOrigen)
+            self.ruta.append(self._sucursalLlegada)
 
     def __str__(self):
         format_str = "| {:<18} | {:<18} |"
         table = "--------------------GUIA-------------------\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Tipo de Producto", str(self.producto.__class__.__name__)) + "\n"
+        table += format_str.format("Tipo de Producto", str(self._producto.__class__.__name__)) + "\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Código Paquete", str(self.producto.getCodigo())) + "\n"
+        table += format_str.format("Código Paquete", str(self._producto.getCodigo())) + "\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Ciudad Origen", str(self.sucursalOrigen.getNombre())) + "\n"
+        table += format_str.format("Ciudad Origen", str(self._sucursalOrigen.getNombre())) + "\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Ciudad Destino", str(self.sucursalLlegada.getNombre())) + "\n"
+        table += format_str.format("Ciudad Destino", str(self._sucursalLlegada.getNombre())) + "\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Tipo de Pago", str(self.tipoDePago).lower()) + "\n"
+        table += format_str.format("Tipo de Pago", str(self._tipoDePago).lower()) + "\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Precio Total", str(self.precioTotal) + "$") + "\n"
+        table += format_str.format("Precio Total", str(self._precioTotal) + "$") + "\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Vehículo", str(self.vehiculo.__class__.__name)) + "\n"
+        table += format_str.format("Vehículo", str(self._vehiculo.__class__.__name__)) + "\n"
         table += "+--------------------+--------------------+\n"
-        table += format_str.format("Fecha de envío", str(self.fechaDeEnvio)) + "\n"
+        table += format_str.format("Fecha de envío", str(self._fechaDeEnvio)) + "\n"
         table += "+--------------------+--------------------+\n"
         return table
 
     def getVehiculo(self):
-        return self.vehiculo
+        return self._vehiculo
 
     def getTiempo(self):
-        return self.tiempo
+        return self._tiempo
 
     def getProducto(self):
-        return self.producto
+        return self._producto
 
     def getSucursalOrigen(self):
-        return self.sucursalOrigen
+        return self._sucursalOrigen
 
     def getSucursalLlegada(self):
-        return self.sucursalLlegada
+        return self._sucursalLlegada
 
     def getRuta(self):
-        return self.ruta
+        return self._ruta
 
     def getRemitente(self):
-        return self.remitente
+        return self._remitente
 
     def getDestinatario(self):
-        return self.destinatario
+        return self._destinatario
 
     def getPagoPendiente(self):
-        return self.pagoPendiente
+        return self._pagoPendiente
 
     def getPrecioTotal(self):
-        return self.precioTotal
+        return self._precioTotal
 
     def getFecha(self):
-        return self.fecha
+        return self._fecha
 
     def getFechaDeEnvio(self):
-        return self.fechaDeEnvio
+        return self._fechaDeEnvio
 
     def getEstado(self):
-        return self.estado
+        return self._estado
 
     def getTipoDePago(self):
-        return self.tipoDePago
+        return self._tipoDePago
 
     def setVehiculo(self, vehiculo):
-        self.vehiculo = vehiculo
+        self._vehiculo = vehiculo
 
     def setProducto(self, producto):
-        self.producto = producto
+        self._producto = producto
 
     def setTiempo(self, tiempo):
-        self.tiempo = tiempo
+        self._tiempo = tiempo
 
     def setSucursalOrigen(self, sucursalOrigen):
-        self.sucursalOrigen = sucursalOrigen
+        self._sucursalOrigen = sucursalOrigen
 
     def setSucursalLlegada(self, sucursalLlegada):
-        self.sucursalLlegada = sucursalLlegada
+        self._sucursalLlegada = sucursalLlegada
 
     def setRuta(self, ruta):
-        self.ruta = ruta
+        self._ruta = ruta
 
     def setRemitente(self, remitente):
-        self.remitente = remitente
+        self._remitente = remitente
 
     def setDestinatario(self, destinatario):
-        self.destinatario = destinatario
+        self._destinatario = destinatario
 
     def setPrecioTotal(self, precioTotal):
-        self.precioTotal = precioTotal
+        self._precioTotal = precioTotal
 
     def setPagoPendiente(self, pagoPendiente):
-        self.pagoPendiente = pagoPendiente
+        self._pagoPendiente = pagoPendiente
 
     def setEstado(self, estado):
-        self.estado = estado
+        self._estado = estado
 
     def setTipoDePago(self, tipoDePago):
-        self.tipoDePago = tipoDePago
+        self._tipoDePago = tipoDePago
 
     @classmethod
     def getTodasLasGuias(cls):
-        return cls.todasLasGuias
+        return cls._todasLasGuias
 
     @classmethod
     def setTodasLasGuias(cls, todasLasGuias):
-        cls.todasLasGuias = todasLasGuias
+        cls._todasLasGuias = todasLasGuias

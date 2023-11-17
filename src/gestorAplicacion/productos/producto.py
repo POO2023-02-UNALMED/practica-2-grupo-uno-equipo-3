@@ -6,12 +6,13 @@ class Producto(ABC):
     _todosLosProductos = []
 
     def __init__(self, codigo, volumen, peso):
-        self.codigo = codigo
-        self.peso = peso
-        self.volumen = volumen
-        self.costoDelPedido = 0.0  
-        self.guia = None  
+        self._codigo = codigo
+        self._peso = peso
+        self._volumen = volumen
+        self._costoDelPedido = 0.0  
+        self._guia = None  
 
+        Producto._todosLosProductos.append(self)
         Producto._contadorProductos += 1
 
     @classmethod
@@ -28,35 +29,35 @@ class Producto(ABC):
 
     #set
     def setPeso(self, peso):
-        self.peso = peso
+        self._peso = peso
 
     def setVolumen(self, volumen):
-        self.volumen = volumen
+        self._volumen = volumen
 
     def setCostodelPedido(self, costoDelPedido):
-        self.costoDelPedido = costoDelPedido
+        self._costoDelPedido = costoDelPedido
 
     def setGuia(self, guia):
-        self.guia = guia
+        self._guia = guia
     
     def setCodigo(self, codigo):
-        self.codigo = codigo
+        self._codigo = codigo
 
     #get
     def getCostoDelPedido(self):
-        return self.costoDelPedido
+        return self._costoDelPedido
 
     def getCodigo(self):
-        return self.codigo
+        return self._codigo
 
     def getPeso(self):
-        return self.peso
+        return self._peso
 
     def getVolumen(self):
-        return self.volumen
+        return self._volumen
 
     def getGuia(self):
-        return self.guia
+        return self._guia
 
     @classmethod
     def getContadorProductos(cls):

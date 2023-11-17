@@ -4,9 +4,9 @@ from gestorAplicacion.productos.animal import Animal
 
 
 class Sucursal:
-    todasLasSucursales = []
+    _todasLasSucursales = []
 
-    def __init__(self, nombre, capacidadVolumen, capacidadPeso, longitud, latitud, camionesEnSucursal, avionesEnSucursal):
+    def __init__(self, nombre, capacidadVolumen, capacidadPeso, longitud, latitud):
         self._nombre = nombre
         palabras = nombre.split()
         self._ciudad = palabras[0]
@@ -14,38 +14,38 @@ class Sucursal:
         self._capacidadPeso = capacidadPeso
         self._longitud = longitud
         self._latitud = latitud
-        self._camionesEnSucursal = camionesEnSucursal
-        self._avionesEnSucursal = avionesEnSucursal
+        self._camionesEnSucursal = []
+        self._avionesEnSucursal = []
         self._cantidadJaulasPequenas = 5
         self._cantidadJaulasMedianas = 3
         self._cantidadJaulasGrandes = 2
         self._opinionSucursal = None
         self._inventario = []
-        Sucursal.todasLasSucursales.append(self)
+        Sucursal._todasLasSucursales.append(self)
 
     def disponibilidadJaulas(self, animal):
         disponibilidad = False
 
-        if animal.getTamano() == "PEQUENO" and self.cantidadJaulasPequenas > 0:
+        if animal.getTamano() == "PEQUENO" and self._cantidadJaulasPequenas > 0:
             disponibilidad = True
-        elif animal.getTamano() == "MEDIANO" and self.cantidadJaulasMedianas > 0:
+        elif animal.getTamano() == "MEDIANO" and self._cantidadJaulasMedianas > 0:
             disponibilidad = True
-        elif animal.getTamano() == "GRANDE" and self.cantidadJaulasGrandes > 0:
+        elif animal.getTamano() == "GRANDE" and self._cantidadJaulasGrandes > 0:
             disponibilidad = True
 
         return disponibilidad
 
     def agregarCamion(self, camion):
-        self.camionesEnSucursal.append(camion)
+        self._camionesEnSucursal.append(camion)
 
     def agregarAvion(self, avion):
-        self.avionesEnSucursal.append(avion)
+        self._avionesEnSucursal.append(avion)
 
     def removerCamion(self, camion):
-        self.camionesEnSucursal.remove(camion)
+        self._camionesEnSucursal.remove(camion)
 
     def removerAvion(self, avion):
-        self.avionesEnSucursal.remove(avion)
+        self._avionesEnSucursal.remove(avion)
 
     def agregarProducto(self, nuevoProducto):
         seAgrega = False
@@ -53,41 +53,41 @@ class Sucursal:
         if isinstance(nuevoProducto, animal):
             nuevoAnimal = nuevoProducto
 
-            if self.disponibilidadJaulas(nuevoAnimal):
-                if self.capacidadVolumen > nuevoAnimal.getVolumen():
-                    if self.capacidadPeso > nuevoAnimal.getPeso():
-                        self.inventario.append(nuevoAnimal)
-                        self.capacidadVolumen -= nuevoAnimal.getVolumen()
-                        self.capacidadPeso -= nuevoAnimal.getPeso()
+            if self._disponibilidadJaulas(nuevoAnimal):
+                if self._capacidadVolumen > nuevoAnimal.getVolumen():
+                    if self._capacidadPeso > nuevoAnimal.getPeso():
+                        self._inventario.append(nuevoAnimal)
+                        self._capacidadVolumen -= nuevoAnimal.getVolumen()
+                        self._capacidadPeso -= nuevoAnimal.getPeso()
                         seAgrega = True
 
                         if nuevoAnimal.getTamano() == "PEQUENO":
-                            self.cantidadJaulasPequenas -= 1
+                            self._cantidadJaulasPequenas -= 1
                         elif nuevoAnimal.getTamano() == "MEDIANO":
-                            self.cantidadJaulasMedianas -= 1
+                            self._cantidadJaulasMedianas -= 1
                         elif nuevoAnimal.getTamano() == "GRANDE":
-                            self.cantidadJaulasGrandes -= 1
+                            self._cantidadJaulasGrandes -= 1
         else:
             if self.capacidadVolumen > nuevoProducto.getVolumen():
-                if  self.capacidadPeso > nuevoProducto.getPeso():
-                    self.inventario.append(nuevoProducto)
-                    self.capacidadVolumen -= nuevoProducto.getVolumen()
-                    self.capacidadPeso -= nuevoProducto.getPeso()
+                if  self._capacidadPeso > nuevoProducto.getPeso():
+                    self._inventario.append(nuevoProducto)
+                    self._capacidadVolumen -= nuevoProducto.getVolumen()
+                    self._capacidadPeso -= nuevoProducto.getPeso()
                     seAgrega = True
 
         return seAgrega
 
     def verificarProductoCliente(self, producto):
-        if producto in self.inventario:
+        if producto in self._inventario:
             return f"El paquete con código {producto.getCodigo()} se encuentra en la sucursal y está listo para ser recogido."
         else:
             return f"Lo sentimos, paquete con código {producto.getCodigo()} no está en la sucursal."
 
     def verificarProducto(self, producto):
-        return producto in self.inventario
+        return producto in self._inventario
 
     def verificarDisponibilidad(self, producto):
-        return self.capacidadVolumen > producto.getVolumen() and self.capacidadPeso > producto.getPeso()
+        return self._capacidadVolumen > producto.getVolumen() and self.capacidadPeso > producto.getPeso()
 
     def ubicar(self, producto):
         for sucursal1 in producto.getGuia().getRuta():
@@ -99,48 +99,54 @@ class Sucursal:
         return self._nombre
 
     def getCiudad(self):
-        return self.ciudad
+        return self._ciudad
 
     def getLatitud(self):
-        return self.latitud
+        return self._latitud
 
     def getLongitud(self):
-        return self.longitud
+        return self._longitud
 
     @classmethod
     def getTodasLasSucursales(cls):
-        return cls.todasLasSucursales
+        return cls._todasLasSucursales
 
     @classmethod
     def setTodasLasSucursales(cls, lista):
-        cls.todasLasSucursales = lista
+        cls._todasLasSucursales = lista
 
     def getInventario(self):
-        return self.inventario
+        return self._inventario
 
     def getCorreminas(cls):
-        return cls.correminas
+        return cls._correminas
 
     def getCamionesEnSucursal(self):
-        return self.camionesEnSucursal
+        return self._camionesEnSucursal
 
     def getAvionesEnSucursal(self):
-        return self.avionesEnSucursal
+        return self._avionesEnSucursal
 
     def getCapacidadVolumen(self):
-        return self.capacidadVolumen
+        return self._capacidadVolumen
 
     def getCapacidadPeso(self):
-        return self.capacidadPeso
+        return self._capacidadPeso
 
     def setCapacidadPeso(self, numero):
-        self.capacidadPeso = numero
+        self._capacidadPeso = numero
 
     def setNombre(self, nombre):
-        self.nombre = nombre
+        self._nombre = nombre
 
     def getOpinionSucursal(self):
-        return self.opinionSucursal
+        return self._opinionSucursal
 
     def setOpinionSucursal(self, opinionSucursal):
-        self.opinionSucursal = opinionSucursal
+        self._opinionSucursal = opinionSucursal
+        
+    def setCamionesEnSucursal(self, camiones):
+        self._camionesEnSucursal = camiones
+    
+    def setAvionesEnSucursal(self, aviones):
+        self._avionesEnSucursal = aviones

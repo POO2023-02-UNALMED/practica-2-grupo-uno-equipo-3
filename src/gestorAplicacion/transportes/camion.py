@@ -1,14 +1,15 @@
-from administracion import Guia, Sucursal
-from transportes.transporte import Transporte
+from gestorAplicacion.transportes.transporte import Transporte
 from gestorAplicacion.productos.producto import Producto
 from gestorAplicacion.administracion.guia import Guia
 from gestorAplicacion.administracion.sucursal import Sucursal
-
+import time
 import threading
 
 class Camion(Transporte):
     def __init__(self, sucursalOrigen, capacidadVolumen, capacidadPeso, matricula):
         super().__init__(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula)
+        self.progreso = 6.25
+        sucursalOrigen.getCamionesEnSucursal().append(self)
 
     def asignarRuta(self):
         sucursales = Sucursal.getTodasLasSucursales()
@@ -34,6 +35,10 @@ class Camion(Transporte):
             if producto in self.inventario:
                 self.inventario.remove(producto)
         self.enSucursal = True
+        self.progreso += 6.25
+        
+        #print(self.progreso)
+        #print("entre a "+ self.ubicacionActual.getNombre())
 
     def salirDeSucursal(self, sucursal):
         self.ubicacionAnterior = self.ubicacionActual
@@ -43,11 +48,13 @@ class Camion(Transporte):
                 self.ubicacionSiguiente = self.ruta[i + 1]
         sucursal.removerCamion(self)
         self.enSucursal = False
+        self.progreso += 6.25
+
+        #print("Sali de "+ self.ubicacionAnterior.getNombre())
 
     def iniciarRecorrido(self):
         for producto in self.inventario:
             producto.getGuia().setEstado(Guia.estado.ENTRANSITO)
-
         self.ubicacionAnterior = self.sucursalOrigen
         self.ubicacionActual = None
         self.ubicacionSiguiente = self.ruta[1]
@@ -55,29 +62,28 @@ class Camion(Transporte):
         def simulacion_thread():
             for i in range(1, len(self.ruta) - 1):
                 try:
-                    time.sleep(5)
+                    time.sleep(10)
                 except KeyboardInterrupt:
                     raise RuntimeError()
-                entrarASucursal(self.ruta[i])
+                self.entrarASucursal(self.ruta[i])
                 try:
-                    time.sleep(5)
+                    time.sleep(10)
                 except KeyboardInterrupt:
                     raise RuntimeError()
-                salirDeSucursal(self.ruta[i])
+                self.salirDeSucursal(self.ruta[i])
             try:
-                time.sleep(5)
+                time.sleep(10)
             except KeyboardInterrupt:
                 raise RuntimeError()
-            entrarASucursal(self.ruta[-1])
+            self.entrarASucursal(self.ruta[-1])
 
         simulacionThread = threading.Thread(target=simulacion_thread)
         simulacionThread.start()
 
     def ubicarTransporte(self):
         if self.enSucursal:
-            return f"El Camión de matrícula {self.matricula}\n" \
-                   f"que contiene su pedido en este momento se encuentra en la sucursal {self.ubicacionActual.getNombre()}"
+            return f"El Camión de matrícula {self.matricula} que contiene su pedido en este momento se encuentra:\n" \
+                   f"En la sucursal {self.ubicacionActual.getNombre()}"
         else:
-            return f"El Camión de matrícula {self.matricula} que contiene su pedido\n" \
-                   f"en este momento se encuentra entre la sucursal de\n" \
-                   f"{self.ubicacionAnterior.getNombre()} y la sucursal de {self.ubicacionSiguiente.getNombre()}"
+            return f"El Camión de matrícula {self.matricula} que contiene su pedido en este momento se encuentra:\n" \
+                   f"Entre la sucursal de {self.ubicacionAnterior.getNombre()} y la sucursal de {self.ubicacionSiguiente.getNombre()}"

@@ -1,15 +1,14 @@
 from gestorAplicacion.productos.producto import Producto
 from gestorAplicacion.administracion.guia import Guia
 from gestorAplicacion.administracion.sucursal import Sucursal
-from transportes.transporte import Transporte
-
+from gestorAplicacion.transportes.transporte import Transporte
+import time
 import threading
 
 class Avion(Transporte):
     def __init__(self, sucursalOrigen, sucursalDestino, capacidadVolumen, capacidadPeso, matricula):
-        super().__init__(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula)
-        self.sucursalDestino = sucursalDestino
-
+        super().__init__(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula, sucursalDestino)
+        self.sucursalOrigen.getAvionesEnSucursal().append(self)
     def asignarRuta(self):
         self.ruta.append(self.sucursalOrigen)
         self.ruta.append(self.sucursalDestino)
@@ -51,19 +50,19 @@ class Avion(Transporte):
                 time.sleep(10)
             except KeyboardInterrupt:
                 raise RuntimeError()
-            entrarASucursal(self.ruta[1])
+            self.entrarASucursal(self.ruta[1])
 
             try:
                 time.sleep(50)
             except KeyboardInterrupt:
                 raise RuntimeError()
-            salirDeSucursal(self.ruta[1])
+            self.salirDeSucursal(self.ruta[1])
 
             try:
                 time.sleep(10)
             except KeyboardInterrupt:
                 raise RuntimeError()
-            entrarASucursal(self.ruta[2])
+            self.entrarASucursal(self.ruta[2])
 
         simulacionThread = threading.Thread(target=simulacion_thread)
         simulacionThread.start()
