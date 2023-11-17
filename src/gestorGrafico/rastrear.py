@@ -22,7 +22,7 @@ class Rastrear(Frame):
             
         def verificar():
             if entrada.get() == "":
-                return messagebox.showwarning("Error")
+                return messagebox.showwarning("Error", "Ingrese un código válido")
             
             elif entrada.get().isdigit():
                 guia = None
@@ -30,15 +30,27 @@ class Rastrear(Frame):
                 for producto in Producto.getTodosLosProductos():
                     if producto.getCodigo() == int(entrada.get()):
                         guia = producto.getGuia()
-                        consultarProgreso(guia)
                         break
             else:
-                return messagebox.showwarning("Error, ingrese un código válido")
+                return messagebox.showwarning("Error", "Ingrese un código válido")
             
             if guia != None:
-                consultarProgreso
+                enviado = False
+                if guia.getTipoDePago() == Guia.tipoDePago.REMITENTE:
+                    if guia.getPagoPendiente() == 0:
+                        enviado = True
+                elif guia.getTipoDePago() == Guia.tipoDePago.FRACCIONADO:
+                    if guia.getPagoPendiente() == guia.getPrecioTotal() / 2:
+                        enviado = True
+                else:
+                    enviado = True
+                if enviado:
+                    consultarProgreso(guia)
+                else:
+                    return messagebox.showwarning("Error", "Lo sentimos, completa el pago para finalizar el registro del envío")
+                    
             else:
-                return messagebox.showwarning("Lo sentimos, el código de la guía no coincide, intentelo de nuevo")
+                return messagebox.showwarning("Error", "Lo sentimos, el código de la guía no coincide, intentelo de nuevo")
         
         texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()))
         descripcion = Label(self, text=texto0, font=("Arial", 11), fg="white", bg="#085870")
@@ -56,18 +68,43 @@ class Rastrear(Frame):
 class Estado(Frame):
     def __init__(self, ventana, guiaPaquete):
         super().__init__(ventana)
-        self.config(highlightbackground="#085870", highlightthickness=3, width=565, height=100)
+        self.config(highlightbackground="#085870", highlightthickness=3, width=570, height=100)
         self.pack_propagate(False)
         self.pack(side="top", expand=True)
         
         camion = Sucursal.getTodasLasSucursales()[0].getCamionesEnSucursal()[0]
         camion.iniciarRecorrido()
-        enviado = False
-
+        
         progress_var = tk.IntVar()
-        progress_var.set(guiaPaquete.avancePedido())
 
-        avance = Label(self, text="El camión con tu pedido está preparándose para salir \n")
+        print(guiaPaquete.getEstado())
+        def actualizarBarra():
+            for i in range(150):
+                time.sleep(1)
+                if guiaPaquete.getEstado() == Guia.estado.ENSUCURSALORIGEN:
+                    mensaje = "El camión con su pedido está preparándose para salir \n"
+                    progress_var.set(0)
+                    break
+                elif guiaPaquete.getEstado() == Guia.estado.ENTRANSITO:
+                    progress_var.set(guiaPaquete.avancePedido())
+                    avance.config(text=camion.ubicarTransporte())
+                    porcentaje.config(text="%"+str(guiaPaquete.avancePedido()))
+                elif guiaPaquete.getEstado() == Guia.estado.ENESPERA:
+                    mensaje = "El producto ya llegó a la sucursal de destino.\n" \
+                        "Diríjase a la pestaña recoger para reclamar su pedido"
+                    progress_var.set(100)
+                    avance.config(text=mensaje)
+                    porcentaje.config(text="%100")
+                    print("llego")         
+                    break
+                elif guiaPaquete.getEstado() == Guia.estado.ENTREGADO:
+                    mensaje = "El pedido ya ha sido reclamado"
+                    progress_var.set(100)
+                    avance.config(text=mensaje)
+                    porcentaje.config(text="%100")
+                    break
+            
+        avance = Label(self, text=camion.ubicarTransporte())
         avance.pack(pady=0, fill="x")
 
         progress_bar = ttk.Progressbar(self, variable=progress_var, maximum=100, length=500)
@@ -82,40 +119,9 @@ class Estado(Frame):
         porcentaje = Label(self, text="%"+str(guiaPaquete.avancePedido()))
         porcentaje.pack(side="bottom", pady=5)
 
-        # Prevent the frame from adapting to its content
-        # Set the specific width for the frame
-
-        
-
-        
-        # if guia.getTipoDePago() == Guia.tipoDePago.REMITENTE:
-        #     if guia.getPagoPendiente() == 0:
-        #         enviado = True
-        
-        def actualizarBarra():
-            print(guiaPaquete.avancePedido())
-            for i in range(150):
-                print(guiaPaquete.avancePedido())
-                x = guiaPaquete.avancePedido()
-                time.sleep(1)
-                avance.config(text=camion.ubicarTransporte())
-                if x != guiaPaquete.avancePedido():
-                    porcentaje.config(text="%"+str(guiaPaquete.avancePedido()))
-                    progress_var.set(guiaPaquete.avancePedido())
-                    avance.config(text=camion.ubicarTransporte())
-                
         hilo = threading.Thread(target=actualizarBarra)
         hilo.start()
-        # elif guia.getTipoDePago() == Guia.tipoDePago.FRACCIONADO:
-        #     if guia.getPagoPendiente() == guia.getPrecioTotal() / 2:
-        #         enviado = True
-        
-        # else:
-        #     enviado = True
-        
-        # if enviado:
-        #     frame = Frame(ventana, width=400, height=200,bg="green",highlightbackground="#085870",highlightthickness=5)
-        #     texto = Label(self, "Lo sentimos, completa el pago para finalizar el registro del envío", font=("Arial", 14)).place(width=100, x=200)
+
             
 
         

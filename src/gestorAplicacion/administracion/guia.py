@@ -39,6 +39,12 @@ class Guia:
         self.asignarPrecio()
         self.aplicarDescuento()
         self._pagoPendiente = self._precioTotal
+        # if tipoDePago == Guia.tipoDePago.REMITENTE:
+        #     self._pagoPendiente = 0
+        # elif tipoDePago == Guia.tipoDePago.FRACCIONADO:
+        #     self._pagoPendiente = self._precioTotal / 2
+        # elif tipoDePago == Guia.tipoDePago.DESTINATARIO:
+        #     self._pagoPendiente = self._precioTotal
 
     def avancePedido(self):
         from gestorAplicacion.transportes.camion import Camion

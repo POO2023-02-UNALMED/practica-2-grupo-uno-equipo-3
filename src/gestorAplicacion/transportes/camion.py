@@ -62,17 +62,17 @@ class Camion(Transporte):
         def simulacion_thread():
             for i in range(1, len(self.ruta) - 1):
                 try:
-                    time.sleep(10)
+                    time.sleep(5)
                 except KeyboardInterrupt:
                     raise RuntimeError()
                 self.entrarASucursal(self.ruta[i])
                 try:
-                    time.sleep(10)
+                    time.sleep(5)
                 except KeyboardInterrupt:
                     raise RuntimeError()
                 self.salirDeSucursal(self.ruta[i])
             try:
-                time.sleep(10)
+                time.sleep(5)
             except KeyboardInterrupt:
                 raise RuntimeError()
             self.entrarASucursal(self.ruta[-1])

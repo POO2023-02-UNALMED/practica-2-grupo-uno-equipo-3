@@ -90,7 +90,7 @@ if __name__=="__main__":
     davidCuenta = CuentaBancaria(david, 987654321, 333, "08/25", 300000)
     
     documento = Documento()
-    guiaDocumento = Guia(documento, guzman, david, medellinNorte, bogotaSur, Guia.tipoDePago.FRACCIONADO, camionesMN[0])
+    guiaDocumento = Guia(documento, guzman, david, medellinNorte, pastoNorte, Guia.tipoDePago.DESTINATARIO, camionesMN[0])
 
     #Deserializador.deserializar()
 
@@ -98,8 +98,9 @@ if __name__=="__main__":
     # camion = medellinNorte.getCamionesEnSucursal()[0]
     # camion.iniciarRecorrido()
     
+    print(guiaDocumento)
 
-    print(medellinNorte.getCamionesEnSucursal()[0].getInventario())
+    print(guiaDocumento.getPagoPendiente())
     
     MainWindow()
     
