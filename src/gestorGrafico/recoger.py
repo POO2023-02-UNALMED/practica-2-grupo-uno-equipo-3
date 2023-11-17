@@ -10,53 +10,48 @@ from excepeciones.ExcepEntrys import *
 from excepeciones.ExcepObj import *
 
 class Recoger(tk.Frame):
-    def __init__(self,ventana):
+    def __init__(self, ventana):
         super().__init__(ventana)
-        self.config(highlightbackground="#085870",highlightthickness=3)
-        self.pack(expand=True)
-
-        frame = Frame(ventana, width=400, height=200,bg="green",highlightbackground="#085870",highlightthickness=5)
-        frame.pack(fill=tk.BOTH,expand=True)
-
-        # Label Titulo
-        self.Label_Titulo = tk.Label(self,text= "Recoger Paquete",font=("arial",30))
+        self.config(highlightbackground="#085870", highlightthickness=3)
+  
+        self.Label_Titulo = tk.Label(self, text="Recoger Paquete", font=("Arial", 30))
         self.Label_Titulo.pack(pady=10)
 
-        self.Label_descripcion = tk.Label(self, text="En este apartado podrás reclamar los paquetes que te hayan enviado, solo debes llenar la información que se te pide en los siguientes recuadros", font=("arial",11),wraplength=250)
-        self.Label_descripcion.pack(pady=10)
+        labelCod = Label(tk.Frame, text="Código del paquete",font=("Arial",12))
+        labelCod.grid(pady=10,column=0,row=1)
 
-        self.Label_escogerSucursal = tk.Label(self,"Escoge la sucursal", font=("arial",11))
-        self.Label_escogerSucursal.pack(side="left")
+        botonReclamar = Button(self, text="Reclamar Paquete", command=self.reclamar_paquete)
+        botonReclamar.pack(pady=20)
 
-        todas_las_sucursales = [s.getNombre() for s in Sucursal.getTodasLasSucursales()]
-        self.combobox_sucursales = ttk.Combobox(self, values=todas_las_sucursales)
-        self.combobox_sucursales.pack(pady=10)
+    def reclamar_paquete(self):
+        try:
+            codigo_paquete = int(self.entry_codigo.get())
+            nombre_destinatario = self.entry_nombre.get()
+            cedula_destinatario = int(self.entry_cedula.get())
 
-        # Configurar evento para cambio en el ComboBox
-        self.combobox_sucursales.bind("<<ComboboxSelected>>", self.cambiar_frame_sucursal)
+           
 
+            producto = self.encontrar_producto_por_codigo(codigo_paquete)
 
-        Nombre_dest = Label(frame,text="Ingrese su nombre:", font=("arial",11))
-        entrada_Nombre = Entry(frame)
-        entrada_Nombre.pack(side="bottom", pady=5)
-        Cedula_dest = Label(frame, text="Ingrese su cédula:",font=("arial",11))
-        entrada_cedula = Entry(frame)
-        entrada_cedula.pack(side="bottom",pady=10)
+            if producto:
+                guia = producto.getGuia()
+                if self.verificar_datos(producto, cedula_destinatario):
+                    if guia.getSucursalLlegada() == self.sucursal:
+                        if producto in self.sucursal.getInventario() and guia.getEstado() != guia.estado.ENTREGADO:
+                            # Resto del código para recoger el paquete
+                            messagebox.showinfo("Operación exitosa", "Paquete recogido con éxito")
+                            self.destroy()
+                        else:
+                            messagebox.showinfo("Error", "El paquete no está disponible para ser recogido.")
+                    else:
+                        messagebox.showinfo("Error", "El paquete no está en esta sucursal.")
+                else:
+                    messagebox.showinfo("Error", "Los datos ingresados no corresponden con los del remitente.")
+            else:
+                messagebox.showinfo("Error", "El paquete que intenta buscar no existe.")
 
-
-    def verificarDatos(producto, cedulaDestinatario):
-            guia = producto.getGuia()
-            destinatario = guia.getDestinatario()
-            if int(destinatario.getCedula()) == cedulaDestinatario:
-                return True
-            return False 
-
-
-    def encontrarProductoPorCodigo(codigo):
-            for producto in producto.getTodosLosProductos():
-                if producto.getCodigo() == codigo:
-                    return producto
-            return None
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
 
     def cambiar_frame_sucursal(self, event):
