@@ -22,6 +22,7 @@ class Rastrear(Frame):
             
         def verificar():
             if entrada.get() == "":
+                entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Ingrese un código válido")
             
             elif entrada.get().isdigit():
@@ -32,6 +33,7 @@ class Rastrear(Frame):
                         guia = producto.getGuia()
                         break
             else:
+                entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Ingrese un código válido")
             
             if guia != None:
@@ -50,7 +52,9 @@ class Rastrear(Frame):
                     return messagebox.showwarning("Error", "Lo sentimos, completa el pago para finalizar el registro del envío")
                     
             else:
+                entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Lo sentimos, el código de la guía no coincide, intentelo de nuevo")
+                
         
         texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()))
         descripcion = Label(self, text=texto0, font=("Arial", 11), fg="white", bg="#085870")
@@ -76,8 +80,8 @@ class Estado(Frame):
         camion.iniciarRecorrido()
         
         progress_var = tk.IntVar()
+        progress_var.set(guiaPaquete.avancePedido())
 
-        print(guiaPaquete.getEstado())
         def actualizarBarra():
             for i in range(150):
                 time.sleep(1)
@@ -85,18 +89,20 @@ class Estado(Frame):
                     mensaje = "El camión con su pedido está preparándose para salir \n"
                     progress_var.set(0)
                     break
+                
                 elif guiaPaquete.getEstado() == Guia.estado.ENTRANSITO:
                     progress_var.set(guiaPaquete.avancePedido())
                     avance.config(text=camion.ubicarTransporte())
                     porcentaje.config(text="%"+str(guiaPaquete.avancePedido()))
+                    
                 elif guiaPaquete.getEstado() == Guia.estado.ENESPERA:
                     mensaje = "El producto ya llegó a la sucursal de destino.\n" \
                         "Diríjase a la pestaña recoger para reclamar su pedido"
                     progress_var.set(100)
                     avance.config(text=mensaje)
                     porcentaje.config(text="%100")
-                    print("llego")         
                     break
+                
                 elif guiaPaquete.getEstado() == Guia.estado.ENTREGADO:
                     mensaje = "El pedido ya ha sido reclamado"
                     progress_var.set(100)
