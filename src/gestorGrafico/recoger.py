@@ -106,14 +106,14 @@ class FrameSucursal(tk.Frame):
                             if paq not in self.sucursal_seleccionada.getInventario():
                                 if guiaPaq.getSucursalLlegada() == self.sucursal_seleccionada and (guiaPaq.getEstado() == guia.Estado.ENTRANSITO):
                                     messagebox.showinfo("No ha llegado","El paquete no está disponible para ser recogido")
-                                if guiaPaq.getSucursalLlegada() != self.sucursal_seleccionada:
+
+                        if guiaPaq.getSucursalLlegada() != self.sucursal_seleccionada:
                                     messagebox.showinfo("Sucursal errónea", "El paquete no tiene como destino la sucursal en la que te encuentras")
-                 
-                    else:
-                        messagebox.showinfo("Datos no válidos","Lo sentimos pero los datos que ingresaste no corresponden con los proporcionados por el remitente")
+                    else: 
+                        messagebox.showinfo("Datos incorrectos", "Los datos que proporcionó no coindicen con los que digitó el remitente")  
+
                 else:
-                    messagebox.showinfo("Paquete no existente", "El paquete que intentas buscar no existe o ya fue entregado")
-                 
+                    self.destroy()              
             except:
                 messagebox.showerror("Error", CampoInvalido().mostrarMensaje())
 
