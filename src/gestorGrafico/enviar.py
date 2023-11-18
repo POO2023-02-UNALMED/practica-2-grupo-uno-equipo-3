@@ -189,6 +189,47 @@ class Enviar(tk.Frame):
 
         messagebox.showinfo("Información del Cliente", info_text_cliente)
 
+        self.frame.pack_forget()
+
+        #Segundo Frame Detalles Envio
+        nuevo_frame = tk.Frame(self, width=800, height=800, bg="blue", highlightbackground="#085870", highlightthickness=5)
+        nuevo_frame.grid(row=0, column=0, sticky="nsew")
+
+        label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), fg="white", bg="blue")
+        label_nuevo_frame.grid(row=0, column=0, pady=10)
+
+        nuevo_frame_2 = tk.Frame(self, width=800, height=800, bg="red", highlightbackground="#085870", highlightthickness=5)
+        nuevo_frame_2.grid(row=0, column=0, sticky="nsew")
+
+        label_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Detalles Del Envio", font=("Helvetica", 16), fg="white", bg="red")
+        label_nuevo_frame_2.grid(row=0, column=0, pady=10, columnspan=2)
+
+        descripcion_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Por favor selecciona la ciudad desde la que envias tu producto y a cual deseas enviarlo.", font=("Helvetica", 12), fg="white", bg="red")
+        descripcion_nuevo_frame_2.grid(row=1, column=0, pady=10,columnspan=2)
+
+        ciudades_origen = ["Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
+        ciudad_origen_label = tk.Label(nuevo_frame_2, text="Ciudad de Origen:")
+        ciudad_origen_label.grid(row=2, column=0, pady=5, sticky="e")
+        ciudad_origen_var = tk.StringVar()
+        ciudad_origen_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_origen_var, *ciudades_origen)
+        ciudad_origen_dropdown.grid(row=2, column=1, pady=5, padx=5, sticky="w")
+
+        ciudades_destino = ["Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
+        ciudad_destino_label = tk.Label(nuevo_frame_2, text="Ciudad de Destino:")
+        ciudad_destino_label.grid(row=3, column=0, pady=5, sticky="e")
+        ciudad_destino_var = tk.StringVar()
+        ciudad_destino_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_destino_var, *ciudades_destino)
+        ciudad_destino_dropdown.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+
+        labelPago = tk.Label(nuevo_frame_2,text="Método de pago:")
+        labelPago.grid(row=4,column=0,pady=5,sticky="e")
+
+        pago_lista = ["Pago total","Pago Fraccionado", "Pago contraentrega"]
+        pago_lista_var = tk.StringVar()
+        pago_lista_menu = tk.OptionMenu(nuevo_frame_2, pago_lista_var, *pago_lista)
+        pago_lista_menu.grid(row=4,column=1,pady=5,padx=5,sticky="w")
+
+
     def enviar_animal(self):
         print("Has seleccionado enviar un animal.")
 
@@ -271,388 +312,3 @@ class Enviar(tk.Frame):
 #                     break;
 #             }
 ###         }
-
-
-#         println("----------------DATOS DEL USUARIO----------------");
-
-#         print("Nombre del remitente: ");
-#         String nombreRemitente = scanner.nextLine();
-#         print("Cédula del remitente: ");
-#         long cedulaRemitente = scanner.nextLong();
-#         print("Telefono del remitente: ");
-#         long telefonoRemitente = scanner.nextLong();
-#         scanner.nextLine();
-
-#         Cliente remitente = new Cliente(nombreRemitente, cedulaRemitente, telefonoRemitente);
-
-#         println("-------------------------------------------------");
-#         print("Nombre del destinatario: ");
-#         String nombreDestinatario = scanner.nextLine();
-#         print("Cédula del destinatario: ");
-#         long cedulaDestinatario = scanner.nextLong();
-#         print("Telefono del destinatario: ");
-#         long telefonoDestinatario = scanner.nextLong();
-
-#         Destinatario destinatario = new Destinatario(nombreDestinatario, cedulaDestinatario, telefonoDestinatario);
-
-#         String[] palabra = sucursalOrigen.getNombre().split(" ");
-#         println("------------------DATOS DE ENVÍO-----------------");
-
-#         println("Ciudad de origen: " + sucursalOrigen.getCiudad());
-#         println("Sucursal: " + palabra[1]);
-
-#         ArrayList<Sucursal> ciudadesDestino = new ArrayList<>();
-
-#         for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
-#             if (!Objects.equals(sucursal.getCiudad(), sucursalOrigen.getCiudad())) {
-#                 ciudadesDestino.add(sucursal);
-#             }
-#         }
-
-#         String ciudades = String.format("Seleccione la ciudad de destino: \n" +
-#                 "1) %s\n" +
-#                 "2) %s\n" +
-#                 "3) %s", ciudadesDestino.get(0).getCiudad(), ciudadesDestino.get(2).getCiudad(), ciudadesDestino.get(4).getCiudad());
-
-#         println("-------------------------------------------------");
-#         println(ciudades);
-#         print("Elige una opción: ");
-
-#         Sucursal sucursalDestino = null;
-#         boolean numeroValido4 = false;
-
-#         while (!numeroValido4) {
-#             int destinoEntrada = scanner.nextInt();
-
-#             switch (destinoEntrada) {
-#                 case 1:
-#                     String sucursales = String.format("Seleccione la Sucursal de preferencia:\n" +
-#                             "1) %s\n" +
-#                             "2) %s", ciudadesDestino.get(0).getNombre(), ciudadesDestino.get(1).getNombre());
-
-#                     println("-------------------------------------------------");
-#                     println(sucursales);
-#                     print("Elige una opción: ");
-
-#                     boolean numeroValido5 = false;
-
-#                     while (!numeroValido5) {
-#                         int sucursalEntrada = scanner.nextInt();
-
-#                         switch (sucursalEntrada) {
-#                             case 1:
-#                                 sucursalDestino = ciudadesDestino.get(0);
-#                                 numeroValido5 = true;
-#                                 break;
-#                             case 2:
-#                                 sucursalDestino = ciudadesDestino.get(1);
-#                                 numeroValido5 = true;
-#                                 break;
-#                             default:
-#                                 print("Número no válido. Inténtalo de nuevo: ");
-#                         }
-#                     }
-#                     numeroValido4 = true;
-#                     break;
-#                 case 2:
-#                     String sucursales1 = String.format("Seleccione la Sucursal de preferencia:\n" +
-#                             "1) %s\n" +
-#                             "2) %s", ciudadesDestino.get(2).getNombre(), ciudadesDestino.get(3).getNombre());
-
-#                     println("-------------------------------------------------");
-#                     println(sucursales1);
-#                     print("Elige una opción: ");
-
-#                     boolean numeroValido6 = false;
-
-#                     while (!numeroValido6) {
-#                         int sucursalEntrada = scanner.nextInt();
-
-#                         switch (sucursalEntrada) {
-#                             case 1:
-#                                 sucursalDestino = ciudadesDestino.get(2);
-#                                 numeroValido6 = true;
-#                                 break;
-#                             case 2:
-#                                 sucursalDestino = ciudadesDestino.get(3);
-#                                 numeroValido6 = true;
-#                                 break;
-#                             default:
-#                                 print("Número no válido. Inténtalo de nuevo: ");
-#                         }
-#                     }
-#                     numeroValido4 = true;
-#                     break;
-#                 case 3:
-#                     String sucursales2 = String.format("Seleccione la Sucursal de preferencia:\n" +
-#                             "1) %s\n" +
-#                             "2) %s", ciudadesDestino.get(4).getNombre(), ciudadesDestino.get(5).getNombre());
-
-#                     println("-------------------------------------------------");
-#                     println(sucursales2);
-#                     print("Elige una opción: ");
-
-#                     boolean numeroValido7 = false;
-
-#                     while (!numeroValido7) {
-#                         int sucursalEntrada = scanner.nextInt();
-
-#                         switch (sucursalEntrada) {
-#                             case 1:
-#                                 sucursalDestino = ciudadesDestino.get(4);
-#                                 numeroValido7 = true;
-#                                 break;
-#                             case 2:
-#                                 sucursalDestino = ciudadesDestino.get(5);
-#                                 numeroValido7 = true;
-#                                 break;
-#                             default:
-#                                 print("Número no válido. Inténtalo de nuevo: ");
-#                         }
-#                     }
-#                     numeroValido4 = true;
-#                     break;
-#                 default:
-#                     print("Número no válido. Inténtalo de nuevo: ");
-#             }
-#         }
-
-#         boolean disponibilidadSucursal = false;
-#         boolean disponibilidadTransporte = false;
-
-#         if (producto instanceof Paquete || producto instanceof Documento) {
-#             if (sucursalOrigen.verificarDisponibilidad(producto)) {
-#                 disponibilidadSucursal = true;
-#             }
-#         } else if (producto instanceof Animal) {
-#         	if (sucursalOrigen.verificarDisponibilidad(producto)) {
-#                 if (sucursalOrigen.disponibilidadJaulas((Animal) producto)) {
-#                     disponibilidadSucursal = true;
-#                 }
-#             }
-#         }
-
-#         Transporte vehiculo = null;
-
-#         if (disponibilidadSucursal) {
-
-#             println("---------------DATOS DE TRANSPORTE---------------");
-#             println("Ingrese el tipo de tranporte de su preferencia:");
-#             println("1) Camión");
-#             println("2) Avión (Envío directo y más rápido)");
-#             print("Elige una opción: ");
-
-#             boolean numeroValido5 = false;
-
-#             while (!numeroValido5) {
-#                 int transporteEntrada = scanner.nextInt();
-
-#                 switch (transporteEntrada) {
-#                     case 1:
-#                         if (!sucursalOrigen.getCamionesEnSucursal().isEmpty()) {
-#                             vehiculo = sucursalOrigen.getCamionesEnSucursal().get(0);
-#                             numeroValido5 = true;
-#                             disponibilidadTransporte = true;
-#                             break;
-#                         } else {
-#                             println("Lo sentimos no tenemos disponibilidad de camiones en este momento");
-#                             println("");
-#                             print("1) Volver al menú principal: ");
-
-#                             boolean numerovalido = false;
-
-#                             while (!numerovalido) {
-#                                 int menuPrincipalEntrada = scanner.nextInt();
-#                                 switch (menuPrincipalEntrada) {
-#                                     case 1:
-#                                         Main.menuPrincipal(sucursalOrigen);
-#                                         numerovalido = true;
-#                                         break;
-#                                     default:
-#                                         print("Número no válido. Inténtalo de nuevo: ");
-#                                 }
-#                             }
-#                             numeroValido5 = true;
-#                             break;
-#                         }
-#                     case 2:
-#                         if (!sucursalOrigen.getAvionesEnSucursal().isEmpty()) {
-#                             for (Avion aviones : sucursalOrigen.getAvionesEnSucursal()) {
-#                                 if (aviones.getSucursalDestino() == sucursalDestino) {
-#                                     vehiculo = aviones;
-#                                     disponibilidadTransporte = true;
-#                                     break;
-#                                 }
-#                                 if (vehiculo == null) {
-#                                     println("Lo sentimos no tenemos disponibilidad de aviones que se dirigen a esa sucursal en este momento");
-#                                     println("");
-#                                     print("1) Volver al menú principal: ");
-
-#                                     boolean numerovalido = false;
-
-#                                     while (!numerovalido) {
-#                                         int menuPrincipalEntrada = scanner.nextInt();
-#                                         switch (menuPrincipalEntrada) {
-#                                             case 1:
-#                                                 Main.menuPrincipal(sucursalOrigen);
-#                                                 numerovalido = true;
-#                                                 break;
-#                                             default:
-#                                                 print("Número no válido. Inténtalo de nuevo: ");
-#                                         }
-#                                     }
-#                                 }
-#                             }
-#                             numeroValido5 = true;
-#                             break;
-#                         } else {
-#                             println("Lo sentimos no tenemos disponibilidad de aviones en este momento");
-#                             println("");
-#                             print("1) Volver al menú principal: ");
-
-#                             boolean numerovalido = false;
-
-#                             while (!numerovalido) {
-#                                 int menuPrincipalEntrada = scanner.nextInt();
-#                                 switch (menuPrincipalEntrada) {
-#                                     case 1:
-#                                         Main.menuPrincipal(sucursalOrigen);
-#                                         numerovalido = true;
-#                                         break;
-#                                     default:
-#                                         print("Número no válido. Inténtalo de nuevo: ");
-#                                 }
-#                             }
-#                             numeroValido5 = true;
-#                             break;
-#                         }
-#                     default:
-#                         print("Número no válido. Inténtalo de nuevo: ");
-#                 }
-#             }
-
-
-#         } else {
-#             println("Lo sentimos, no tenemos disponibilidad en la sucursal");
-#             println("");
-#             print("1) Volver al menú principal: ");
-
-#             boolean numerovalido = false;
-
-#             while (!numerovalido) {
-#                 int menuPrincipalEntrada = scanner.nextInt();
-#                 switch (menuPrincipalEntrada) {
-#                     case 1:
-#                         Main.menuPrincipal(sucursalOrigen);
-#                         numerovalido = true;
-#                         break;
-#                     default:
-#                         print("Número no válido. Inténtalo de nuevo: ");
-#                 }
-#             }
-#         }
-
-#         if (disponibilidadTransporte) {
-#             println("------------------FORMA DE PAGO------------------");
-#             println("Seleccione el pago de su preferencia para el pedido:");
-#             println("1) Pago total");
-#             println("2) Pago fraccionado");
-#             println("3) Pago contraentrega");
-#             print("Elige una opción: ");
-
-#             boolean numeroValido6 = false;
-
-#             tipoDePago tipoDePago = null;
-
-#             while (!numeroValido6) {
-#                 int pagoEntrada = scanner.nextInt();
-
-#                 Guia guia = null;
-
-#                 switch (pagoEntrada) {
-#                     case 1:
-#                         tipoDePago = Guia.tipoDePago.REMITENTE;
-#                         guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
-#                         println(guia.toString());
-
-#                         println("Diríjase a la pestaña principal para pagar su servicio.");
-#                         println("");
-
-#                         print("1) Volver al menú principal: ");
-
-#                         boolean numerovalido7 = false;
-
-#                         while (!numerovalido7) {
-#                             int menuPrincipalEntrada = scanner.nextInt();
-#                             switch (menuPrincipalEntrada) {
-#                                 case 1:
-#                                     Main.menuPrincipal(sucursalOrigen);
-#                                     numerovalido7 = true;
-#                                     break;
-#                                 default:
-#                                     print("Número no válido. Inténtalo de nuevo: ");
-#                             }
-#                         }
-
-#                         numeroValido6 = true;
-#                         break;
-#                     case 2:
-#                         tipoDePago = Guia.tipoDePago.FRACCIONADO;
-#                         guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
-#                         println(guia.toString());
-
-#                         println("Diríjase a la pestaña principal para pagar su servicio.");
-#                         println("");
-#                         print("1) Volver al menú principal: ");
-
-#                         boolean numerovalido8 = false;
-
-#                         while (!numerovalido8) {
-#                             int menuPrincipalEntrada = scanner.nextInt();
-#                             switch (menuPrincipalEntrada) {
-#                                 case 1:
-#                                     Main.menuPrincipal(sucursalOrigen);
-#                                     numerovalido8 = true;
-#                                     break;
-#                                 default:
-#                                     print("Número no válido. Inténtalo de nuevo: ");
-#                             }
-#                         }
-
-#                         numeroValido6 = true;
-#                         break;
-#                     case 3:
-#                         tipoDePago = Guia.tipoDePago.DESTINATARIO;
-#                         guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
-#                         println(guia.toString());
-
-#                         sucursalOrigen.agregarProducto(producto);
-
-#                         Random random = new Random();
-#                         println("Muchas gracias por usar nuestro servicio, favor acerquese \na la caja #" +
-#                                 (random.nextInt(5) + 1) + " para entregar el " + guia.getProducto().getClass().getSimpleName());
-#                         println("");
-#                         print("1) Volver al menú principal: ");
-
-#                         boolean numerovalido9 = false;
-
-#                         while (!numerovalido9) {
-#                             int menuPrincipalEntrada = scanner.nextInt();
-#                             switch (menuPrincipalEntrada) {
-#                                 case 1:
-#                                     Main.menuPrincipal(sucursalOrigen);
-#                                     numerovalido9 = true;
-#                                     break;
-#                                 default:
-#                                     print("Número no válido. Inténtalo de nuevo: ");
-#                             }
-#                         }
-#                         numeroValido6 = true;
-#                         break;
-#                     default:
-#                         print("Número no válido. Inténtalo de nuevo: ");
-#                 }
-#             }
-#         }
-#         scanner.close();
-#     }
