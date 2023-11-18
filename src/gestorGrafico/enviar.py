@@ -129,7 +129,6 @@ class Enviar(tk.Frame):
             label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), fg="white", bg="blue")
             label_nuevo_frame.grid(row=0, column=0, pady=10)
 
-            # Información del Remitente
             remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:")
             remitente_nombre_label.grid(row=1, column=0, pady=5, sticky="e")
 
@@ -148,7 +147,6 @@ class Enviar(tk.Frame):
             remitente_telefono_entry = tk.Entry(nuevo_frame)
             remitente_telefono_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
 
-            # Información del Destinatario
             destinatario_nombre_label = tk.Label(nuevo_frame, text="Nombre del Destinatario:")
             destinatario_nombre_label.grid(row=4, column=0, pady=5, sticky="e")
 
