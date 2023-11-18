@@ -46,7 +46,7 @@ class Principal(Tk):
             Enviar(self).pack()
             
         def pagar():
-            limpiar()
+            limpiar(self)
             Pagar(self).pack()
             
         def rastrear():
