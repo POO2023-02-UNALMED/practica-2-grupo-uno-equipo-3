@@ -120,7 +120,7 @@ class FrameSucursal(tk.Frame):
 
 
     #crear instancias para poder acceder a las funciones de la clase que necesito
-    Self.ejemplo = producto()
+    #Self.ejemplo = producto()
 
 
     def verificarDatos(self, paq, Cedula):
