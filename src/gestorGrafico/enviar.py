@@ -270,18 +270,36 @@ class Enviar(tk.Frame):
         
         #a
         tiposDeAnimales = ["Perro", "Gato", "Hamster", "Loro", "Caballo", "Vaca"]
-        tiposDeAnimales_label = tk.Label(self.frame, text="Tipo de animal:")
+        tiposDeAnimales_label = tk.Label(self.frame, text="Tipo de animal:", font=("arial",10))
         tiposDeAnimales_label.grid(row=6, column=0, pady=5, sticky="e")
         tipoDeAnimal_var = tk.StringVar()
         tipoDeAnimal_dropdown = tk.OptionMenu(self.frame, tipoDeAnimal_var, *tiposDeAnimales)
         tipoDeAnimal_dropdown.grid(row=6, column=1, pady=5, padx=5, sticky="w")
 
+        botonSiguiente = tk.Button(self.frame,text="Siguiente", font=("arial",10))
+        botonSiguiente.grid(row=7,column=0,columnspan=2,pady=5, padx=5)
 
+        #falta colocar lo del usuario y ciudades después de esto
 
 
     def enviar_documento(self):
-        print("Has seleccionado enviar un documento.")
-        pass
+        self.bienvenida_label.grid_forget()
+        self.boton_paquete.grid_forget()
+        self.boton_animal.grid_forget()
+        self.boton_documento.grid_forget()
+
+        self.texto_bienvenida1 = "Has seleccionado Enviar un Documento."
+        self.texto_bienvenida2 = "Para continuar deberá diligenciar los siguientes datos: "
+        self.bienvenida_label1 = tk.Label(self.frame, text=self.texto_bienvenida1, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label1.grid(row=1, column=0, columnspan=2, pady=10)
+        self.bienvenida_label2 = tk.Label(self.frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label2.grid(row=2, column=0, columnspan=2, pady=10)
+ 
+
+        #qué se pregunta acá? xd
+        infoDoc_label = tk.Label(self.frame, text="Documento xd:")
+        infoDoc_label.grid(row=3, column=0, pady=(10, 0), sticky="e")
+
     
 
 #                 case 2: //Animal
