@@ -27,6 +27,7 @@ class Avion(Transporte):
             if producto in self.inventario:
                 self.inventario.remove(producto)
         self.enSucursal = True
+        print("entra"+ sucursal.getNombre())
 
     def salirDeSucursal(self, sucursal):
         self.ubicacionAnterior = self.ubicacionActual
@@ -36,8 +37,10 @@ class Avion(Transporte):
                 self.ubicacionSiguiente = self.ruta[i + 1]
         sucursal.removerAvion(self)
         self.enSucursal = False
+        print("sale")
 
     def iniciarRecorrido(self):
+        print("recorrido")
         for producto in self.inventario:
             producto.getGuia().setEstado(Guia.estado.ENTRANSITO)
 
@@ -47,19 +50,19 @@ class Avion(Transporte):
 
         def simulacion_thread():
             try:
-                time.sleep(10)
+                time.sleep(5)
             except KeyboardInterrupt:
                 raise RuntimeError()
             self.entrarASucursal(self.ruta[1])
 
             try:
-                time.sleep(50)
+                time.sleep(5)
             except KeyboardInterrupt:
                 raise RuntimeError()
             self.salirDeSucursal(self.ruta[1])
 
             try:
-                time.sleep(10)
+                time.sleep(5)
             except KeyboardInterrupt:
                 raise RuntimeError()
             self.entrarASucursal(self.ruta[2])

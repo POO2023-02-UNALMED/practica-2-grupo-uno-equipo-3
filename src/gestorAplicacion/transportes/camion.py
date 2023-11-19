@@ -35,10 +35,7 @@ class Camion(Transporte):
             if producto in self.inventario:
                 self.inventario.remove(producto)
         self.enSucursal = True
-        self.progreso += 6.25
-        
-        #print(self.progreso)
-        #print("entre a "+ self.ubicacionActual.getNombre())
+
 
     def salirDeSucursal(self, sucursal):
         self.ubicacionAnterior = self.ubicacionActual
@@ -56,6 +53,7 @@ class Camion(Transporte):
         self.enSucursal = False
         for producto in self.inventario:
             producto.getGuia().setEstado(Guia.estado.ENTRANSITO)
+            
         self.ubicacionAnterior = self.sucursalOrigen
         self.ubicacionActual = None
         self.ubicacionSiguiente = self.ruta[1]
@@ -67,11 +65,13 @@ class Camion(Transporte):
                 except KeyboardInterrupt:
                     raise RuntimeError()
                 self.entrarASucursal(self.ruta[i])
+                
                 try:
                     time.sleep(5)
                 except KeyboardInterrupt:
                     raise RuntimeError()
                 self.salirDeSucursal(self.ruta[i])
+                
             try:
                 time.sleep(5)
             except KeyboardInterrupt:

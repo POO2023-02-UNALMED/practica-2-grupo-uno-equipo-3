@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from typing import Self
+#from typing import Self
 from gestorAplicacion.administracion import guia
 from gestorAplicacion.productos import producto
 from gestorGrafico.FieldFrame import FieldFrame

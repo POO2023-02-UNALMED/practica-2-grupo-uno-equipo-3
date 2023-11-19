@@ -7,6 +7,7 @@ import threading
 from gestorAplicacion.productos.producto import Producto 
 from gestorAplicacion.administracion.guia import Guia
 from gestorAplicacion.transportes.camion import Camion
+from gestorAplicacion.transportes.avion import Avion
 from gestorAplicacion.administracion.sucursal import Sucursal
 
 class Rastrear(Frame):
@@ -14,6 +15,8 @@ class Rastrear(Frame):
         super().__init__(ventana)
         self.config(highlightbackground="#085870",highlightthickness=3)
         self.pack(expand=True)
+
+        print(Guia.getTodasLasGuias()[1].getEstado())
 
         def consultarProgreso(guia):
             self.pack_forget()
@@ -58,7 +61,7 @@ class Rastrear(Frame):
         titulo = tk.Label(self, text="Rastrear Pedido", font=("Arial", 30))
         titulo.pack(pady=5)
         
-        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()))
+        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()) + "\nCaso de prueba avion: " +  str(Guia.getTodasLasGuias()[1].getProducto().getCodigo()))
         descripcion = Label(self, text=texto0, font=("Arial", 11))
         descripcion.pack(pady=5, padx=5)
         
@@ -80,26 +83,31 @@ class Estado(Frame):
         self.pack(side="top", expand=True)
         Estado.hilos = True
                 
-        camion = guiaPaquete.getVehiculo()
+        transporte = guiaPaquete.getVehiculo()
         #camion.iniciarRecorrido()
+        print(transporte.getInventario()[0].getCodigo())
         
+        print(guiaPaquete.getEstado())
         progress_var = tk.IntVar()
         progress_var.set(guiaPaquete.avancePedido())
+        guiaPaquete.avancePedido()
 
         def actualizarBarra():
             for i in range(150):
                 if Estado.hilos:
                     if guiaPaquete.getEstado() == Guia.estado.ENSUCURSALORIGEN:
-                        mensaje = "El camión con su pedido está preparándose para salir \n"
+                        if type(guiaPaquete.getVehiculo()) is Camion:
+                            mensaje = "El camión con su pedido está preparándose para salir \n"
+                        elif type(guiaPaquete.getVehiculo()) is Avion:
+                            mensaje = "El avión con su pedido está preparándose para salir \n"                            
                         avance.config(text=mensaje)
                         progress_var.set(0)
                         break
                     
                     elif guiaPaquete.getEstado() == Guia.estado.ENTRANSITO:
                         progress_var.set(guiaPaquete.avancePedido())
-                        avance.config(text=camion.ubicarTransporte())
+                        avance.config(text=transporte.ubicarTransporte())
                         porcentaje.config(text="%"+str(guiaPaquete.avancePedido()))
-
                     elif guiaPaquete.getEstado() == Guia.estado.ENESPERA:
                         mensaje = "El producto ya llegó a la sucursal de destino.\n" \
                             "Diríjase a la pestaña recoger para reclamar su pedido"

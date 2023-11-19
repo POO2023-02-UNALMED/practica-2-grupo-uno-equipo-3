@@ -117,9 +117,9 @@ class Guia:
                             self._ruta.append(sucursales[k])
                 i += 1
 
-        elif isinstance(self.vehiculo, Avion):
-            self.ruta.append(self._sucursalOrigen)
-            self.ruta.append(self._sucursalLlegada)
+        elif isinstance(self._vehiculo, Avion):
+            self._ruta.append(self._sucursalOrigen)
+            self._ruta.append(self._sucursalLlegada)
 
     def __str__(self):
         format_str = "| {:<18} | {:<18} |"
