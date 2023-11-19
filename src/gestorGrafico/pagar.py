@@ -17,10 +17,10 @@ class Pagar(Frame):
         self.Label_descripcion.grid(row=1, column=0, columnspan=2, pady=10)
 
         text = Label(self, text="Ingrese el código de su guía", font=("Arial", 12, "bold"))
-        text.pack(pady=5)
+        text.grid(row=2, column=0, columnspan=2, pady=5, sticky="n")
 
         entrada= Entry(self)
-        entrada.pack(pady=5)
+        entrada.grid(row=3, column=0, columnspan=2, pady=5)
 
         def verificar():
             if entrada.get() == "":
