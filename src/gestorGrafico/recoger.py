@@ -39,20 +39,26 @@ class Recoger(tk.Frame):
         self.combobox_sucursales.bind("<<ComboboxSelected>>", self.cambiar_frame_sucursal)
 
     def cambiar_frame_sucursal(self, event):
-        sucursal_seleccionada = self.combobox_sucursales.get()
-        frame_sucursal = FrameSucursal(self.master, sucursal_seleccionada)
-        self.pack_forget()  
-        frame_sucursal.pack()
-
+        nombresucursal_seleccionada = self.combobox_sucursales.get()
+        sucursal_seleccionada = None
+        for sucursal in Sucursal.getTodasLasSucursales():
+            if sucursal.getNombre() == nombresucursal_seleccionada:
+                sucursal_seleccionada = sucursal
+                break
+        if sucursal_seleccionada:
+            frame_sucursal = FrameSucursal(self.master, sucursal_seleccionada,nombresucursal_seleccionada)
+            self.pack_forget()  
+            frame_sucursal.pack()
 
 class FrameSucursal(tk.Frame):
-    def __init__(self, ventana, sucursal_seleccionada):
+    def __init__(self, ventana, sucursal_seleccionada, nombresucursalSeleccionada):
         super().__init__(ventana)
+        self.nombresucursalSeleccionada = nombresucursalSeleccionada
         self.sucursal_seleccionada = sucursal_seleccionada
         self.config(bg="#085870")
         self.pack(fill="both", expand=True)
 
-        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}", font=("arial", 20))
+        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {nombresucursalSeleccionada}", font=("arial", 20))
         etiqueta.pack(pady=40)
 
         self.entryCod = Entry(self)
@@ -81,56 +87,62 @@ class FrameSucursal(tk.Frame):
             Cod = int(self.entryCod.get())
             paq = self.encontrarProductoPorCodigo(Cod)
 
+
             confirmacion = messagebox.askokcancel("Confirmación", f"¿Está seguro de reclamar el paquete {Cod}?")
 
+            ciudadSiNo = self.verificarCiudadDestino(paq,self.nombresucursalSeleccionada)
+            guiaPaq = paq.getGuia()
             if confirmacion:
                 if paq:
-                    guiaPaq = paq.getGuia()
-                    if self.verificarDatos(paq, int(self.entryCC.get())):
-                        if guiaPaq.getSucursalLlegada() == self.sucursal_seleccionada:
-                            if paq in self.sucursal_seleccionada.getInventario():
-                                if guiaPaq.getEstado() != guia.estado.ENTREGADO:
-                                    if guiaPaq.getTipoDePago() == guia.tipoDePago.REMITENTE:
-                                        if guiaPaq.getPagoPendiente() == 0:
-                                            messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
-                                            self.destroy()
-                                        else:
-                                            messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar el total por el envío")
-                                    elif guiaPaq.getTipoDePago() == guia.tipoDePago.FRACCIONADO:
-                                        if guiaPaq.getPagoPendiente() != 0:
-                                            messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar la mitad del envío")
-                                    elif guiaPaq.getTipoDePago() == guia.tipoDePago.DESTINATARIO:
-                                        if guiaPaq.getPagoPendiente() != 0:
-                                            messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar el total por el envío")
+                    
+                    if guiaPaq:
+                        if self.verificarDatos(paq, int(self.entryCC.get())):
+                            if ciudadSiNo:
+                                if (paq in self.sucursal_seleccionada.getInventario()):
+                                    if (guiaPaq.getEstado() != guia.Guia.estado.ENTREGADO):
+                                        if (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.REMITENTE):
+                                            if (guiaPaq.getPagoPendiente() == 0):
+                                                messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
+                                                self.destroy()
+
+                                        elif (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.FRACCIONADO):
+                                            if (guiaPaq.getPagoPendiente() != 0):
+                                                messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar la mitad del envío")
+                                        elif (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.DESTINATARIO):
+                                            if (guiaPaq.getPagoPendiente() != 0):
+                                                messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar el total por el envío")
+                                    else:
+                                        messagebox.showinfo("Paquete no encontrado", "Tu paquete ya ha sido reclamado")
                                 else:
-                                    messagebox.showinfo("Paquete no encontrado", "Tu paquete ya ha sido reclamado")
+                                    messagebox.showinfo("No ha llegado", "El paquete no está disponible para ser recogido")
                             else:
-                                messagebox.showinfo("No ha llegado", "El paquete no está disponible para ser recogido")
+                                messagebox.showinfo("Sucursal errónea", "El paquete no tiene como destino la sucursal en la que te encuentras")
                         else:
-                            messagebox.showinfo("Sucursal errónea", "El paquete no tiene como destino la sucursal en la que te encuentras")
+                            messagebox.showinfo("Datos incorrectos", "Los datos que proporcionó no coinciden con los del remitente")
                     else:
-                        messagebox.showinfo("Datos incorrectos", "Los datos que proporcionó no coinciden con los del remitente")
+                        messagebox.showinfo("Paquete no encontrado", f"No se encontró ningún paquete con el código {Cod}")
                 else:
-                    messagebox.showinfo("Paquete no encontrado", f"No se encontró ningún paquete con el código {Cod}")
-            else:
-                self.destroy()
+                    self.destroy()
         except Exception as e:
             messagebox.showerror("Error", str(e))
 
-
-
-    #crear instancias para poder acceder a las funciones de la clase que necesito
-    #Self.ejemplo = producto()
-
+    def verificarCiudadDestino(self, paq, posibleCiudad):
+        guia = paq.getGuia()
+        sucursalDestino = guia.getSucursalLlegada().getNombre()
+        print("verificar ciudad (sucursalDestino)",sucursalDestino)
+        print("posible ciudad(escogida)",posibleCiudad)
+        return sucursalDestino == posibleCiudad
+    
 
     def verificarDatos(self, paq, Cedula):
         guia = paq.getGuia()
         destinatario = guia.getDestinatario()
-        return int(destinatario.getCedula()) == Cedula
+        
+        return int(destinatario.getCedula()) == int(Cedula)
 
     def encontrarProductoPorCodigo(self, cod):
-        for i in producto.getTodosLosProductos():
-            if i.getCodigo() == cod:
+        for i in producto.Producto.getTodosLosProductos():
+            if int(i.getCodigo()) == int(cod):
                 return i
         return None
 

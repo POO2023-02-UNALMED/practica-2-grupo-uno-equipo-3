@@ -20,22 +20,6 @@ class Opinion:
         suma = sum(self.opinionIntegridad)
         return suma/ len(self.opinionIntegridad)
     
-    # @classmethod
-    # def generar_tabla_sucursales(cls):
-    #     tabla = []
-    #     tabla.append("{:<20} {:>20} {:>20}".format("Sucursales", "Punt. Puntualidad", "Punt. Integridad"))
-    #     tabla.append("------------------------------------------------------------")
-
-    #     todas_las_sucursales = Sucursal.getTodasLasSucursales() 
-    #     for sucursal in todas_las_sucursales:
-    #         tabla.append("{:<20} {:>15.2f} {:>15.2f}".format(
-    #             sucursal.getNombre(),
-    #             sucursal.getOpinionSucursal().promedioPuntualidad(),
-    #             sucursal.getOpinionSucursal().promedioIntegridad()
-    #         ))
-
-    #     tabla.append("------------------------------------------------------------")
-    #     return '\n'.join(tabla)
     
     def getOpinionPuntualidad(self):
         return self.opinionPuntualidad

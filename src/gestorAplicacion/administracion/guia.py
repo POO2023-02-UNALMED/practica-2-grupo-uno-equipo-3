@@ -25,6 +25,7 @@ class Guia:
         self._destinatario = destinatario
         self._sucursalOrigen = sucursalOrigen
         self._sucursalLlegada = sucursalLlegada
+ 
         self._tipoDePago = tipoDePago
         self._vehiculo = vehiculo
         self._ruta = []
@@ -38,13 +39,17 @@ class Guia:
         self.asignarRuta()
         self.asignarPrecio()
         self.aplicarDescuento()
-        self._pagoPendiente = self._precioTotal
+        self._pagoPendiente = self._precioTotal #puse esto en 0 para verificar que se podía reclamar
         # if tipoDePago == Guia.tipoDePago.REMITENTE:
         #     self._pagoPendiente = 0
         # elif tipoDePago == Guia.tipoDePago.FRACCIONADO:
         #     self._pagoPendiente = self._precioTotal / 2
         # elif tipoDePago == Guia.tipoDePago.DESTINATARIO:
         #     self._pagoPendiente = self._precioTotal
+
+
+
+
 
     def avancePedido(self):
         from gestorAplicacion.transportes.camion import Camion
@@ -148,9 +153,11 @@ class Guia:
         return self._producto
 
     def getSucursalOrigen(self):
+
         return self._sucursalOrigen
 
     def getSucursalLlegada(self):
+
         return self._sucursalLlegada
 
     def getRuta(self):
