@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import PhotoImage, messagebox
 
 class VentanaEmergente(tk.Toplevel):
     def __init__(self, mensaje):
@@ -36,20 +36,27 @@ class Enviar(tk.Frame):
         self.frame.pack(expand=True)
 
         self.titulo_label = tk.Label(self.frame, text="Enviar Paquete", font=("Helvetica", 16), fg="white", bg="#085870")
-        self.titulo_label.grid(row=0, column=0, columnspan=2, pady=10)
+        self.titulo_label.grid(row=0, column=0, columnspan=3, pady=10)
 
         self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nElige una de las siguientes opciones:"
         self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
-        self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
+        self.bienvenida_label.grid(row=1, column=0, columnspan=3, pady=10)
 
         self.boton_paquete = tk.Button(self.frame, text="Paquete", command=self.mostrar_ventana_paquete)
-        self.boton_paquete.grid(row=2, column=0, columnspan=2, pady=5, padx=5)
+        self.boton_paquete.grid(row=2, column=0,  pady=5, padx=5)
+        # imagenPaquete = PhotoImage(file=f"src\gestorGrafico\imagenes\iconos\paquete.png")
+        # self.boton_paquete.config(image=imagenPaquete)
+   
 
         self.boton_animal = tk.Button(self.frame, text="Animal", command=self.enviar_animal)
-        self.boton_animal.grid(row=3, column=0, pady=5, padx=5)
+        self.boton_animal.grid(row=2, column=1, pady=5, padx=5)
+        # imagenAnimal = PhotoImage(file=f"src\gestorGrafico\imagenes\iconos\animal.png")  
+        # self.boton_animal.config(image=imagenAnimal)
 
         self.boton_documento = tk.Button(self.frame, text="Documento", command=self.enviar_documento)
-        self.boton_documento.grid(row=3, column=1, pady=5, padx=5)
+        self.boton_documento.grid(row=2, column=2, pady=5, padx=5)
+        # imagenDocumento = PhotoImage(file=f"src\gestorGrafico\imagenes\iconos\documento.png")  
+        # self.boton_documento.config(image=imagenDocumento)
 
         self.info_label = tk.Label(self.frame, text="", font=("Helvetica", 12), fg="white", bg="green")
         self.info_label.grid(row=6, column=0, columnspan=2, pady=10)
@@ -231,7 +238,46 @@ class Enviar(tk.Frame):
 
 
     def enviar_animal(self):
-        print("Has seleccionado enviar un animal.")
+        self.bienvenida_label.grid_forget()
+        self.boton_paquete.grid_forget()
+        self.boton_animal.grid_forget()
+        self.boton_documento.grid_forget()
+
+        self.texto_bienvenida1 = "Has seleccionado Enviar un Animal."
+        self.texto_bienvenida2 = "Para continuar deberá diligenciar los siguientes datos: "
+        self.bienvenida_label1 = tk.Label(self.frame, text=self.texto_bienvenida1, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label1.grid(row=1, column=0, columnspan=2, pady=10)
+        self.bienvenida_label2 = tk.Label(self.frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label2.grid(row=2, column=0, columnspan=2, pady=10)
+
+        nombreAnimal_label = tk.Label(self.frame, text="Nombre del animal:")
+        nombreAnimal_label.grid(row=3, column=0, pady=(10, 0), sticky="e")
+
+        entryNombreAnimal = tk.Entry(self.frame)
+        entryNombreAnimal.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+
+        edadAnimal_label = tk.Label(self.frame, text="Edad del animal:")
+        edadAnimal_label.grid(row=4, column=0, pady=10, sticky="e")
+
+        entryEdadAnimal = tk.Entry(self.frame)
+        entryEdadAnimal.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+
+        pesoAnimal_label = tk.Label(self.frame, text="Ancho:")
+        pesoAnimal_label.grid(row=5, column=0, pady=10, sticky="e")
+
+        entryPesoAnimal = tk.Entry(self.frame)
+        entryPesoAnimal.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+        
+        #a
+        tiposDeAnimales = ["Perro", "Gato", "Hamster", "Loro", "Caballo", "Vaca"]
+        tiposDeAnimales_label = tk.Label(self.frame, text="Tipo de animal:")
+        tiposDeAnimales_label.grid(row=6, column=0, pady=5, sticky="e")
+        tipoDeAnimal_var = tk.StringVar()
+        tipoDeAnimal_dropdown = tk.OptionMenu(self.frame, tipoDeAnimal_var, *tiposDeAnimales)
+        tipoDeAnimal_dropdown.grid(row=6, column=1, pady=5, padx=5, sticky="w")
+
+
+
 
     def enviar_documento(self):
         print("Has seleccionado enviar un documento.")
