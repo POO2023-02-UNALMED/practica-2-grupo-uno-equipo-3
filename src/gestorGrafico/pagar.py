@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import *
+from tkinter import messagebox
+from gestorAplicacion.productos.producto import Producto 
+#from gestorAplicacion.administracion.guia import Guia
 
 class Pagar(Frame): 
     def __init__(self, ventana):
@@ -18,6 +21,23 @@ class Pagar(Frame):
 
         entrada= Entry(self)
         entrada.pack(pady=5)
+
+        def verificar():
+            if entrada.get() == "":
+                entrada.delete(0, END)
+                return messagebox.showwarning("Error", "Ingrese un código válido")
+            
+            elif entrada.get().isdigit():
+                guia = None
+
+                for producto in Producto.getTodosLosProductos():
+                    if producto.getCodigo() == int(entrada.get()):
+                        guia = producto.getGuia()
+                        break
+            else:
+                entrada.delete(0, END)
+                return messagebox.showwarning("Error", "Ingrese un código válido")
+                
 
         boton = Button(self, text="Verificar", command=verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
         boton.pack(pady=5)
