@@ -102,7 +102,7 @@ if __name__=="__main__":
 
     #No me lo borren gracias 😉
     camion = medellinNorte.getCamionesEnSucursal()[0]
-    #camion.iniciarRecorrido()
+    camion.iniciarRecorrido()
     
     avion = medellinNorte.getAvionesEnSucursal()[0]
     avion.iniciarRecorrido()
