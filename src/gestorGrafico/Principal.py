@@ -46,11 +46,11 @@ class Principal(Tk):
             
             sucursal = Sucursal.getTodasLasSucursales()[0]
             
-            for camion in sucursal:
+            for camion in sucursal.getCamionesEnSucursal():
                 camion.agregarProductos()
                 
                 if camion.getUbicacionActual() == sucursal:
-                    if len(camion.getInventario()) == 2: #Cambiarlo
+                    if len(camion.getInventario()) >= 2: #Cambiarlo
                         camion.iniciarRecorrido()
                         camionesFuera.append(camion)
                 
@@ -64,7 +64,7 @@ class Principal(Tk):
                 avion.agregarProductos()
                 
                 if avion.getUbicacionActual() == sucursal:
-                    if len(avion.getInventario()) == 4: #Cambiar
+                    if len(avion.getInventario()) >= 4: #Cambiar
                         avion.iniciarRecorrido()
                         avionesFuera.append(avion)
                 

@@ -5,7 +5,7 @@ class Producto(ABC):
     _contadorProductos = 0 
     _todosLosProductos = []
 
-    def __init__(self, codigo, volumen, peso):
+    def __init__(self, codigo, peso, volumen=0):
         self._codigo = codigo
         self._peso = peso
         self._volumen = volumen

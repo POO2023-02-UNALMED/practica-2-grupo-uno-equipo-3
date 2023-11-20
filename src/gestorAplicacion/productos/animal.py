@@ -17,39 +17,41 @@ class Animal(Producto):
 
         
     def __init__(self, nombre, edad, peso, tipo):
-        super().__init__(Producto.generarCodigo(), self.asignarVolumen(), peso)
+        super().__init__(Producto.generarCodigo(), peso)
         self._nombre = nombre
         self._edad = edad
         self._tipo = tipo
         self._peligroso = False
         self._tamano = None
+        self.asignarVolumen()
         self.asignarTamano()
         self.asignarPeligro()
         self.asignarCostoDelPedido()
 
     def asignarPeligro(self):
-        if self._tipo == self.tipoAnimal.PERRO or self._tipo == self.tipoAnimal.CABALLO or self._tipo == self.tipoAnimal.VACA:
+        if self._tipo == Animal.tipoAnimal.PERRO or self._tipo == Animal.tipoAnimal.CABALLO or self._tipo == Animal.tipoAnimal.VACA:
             self.peligroso = True
         else:
             self.peligroso = False
 
     def asignarTamano(self):
-        if self._tipo == self.tipoAnimal.PERRO:
-            self._tamano = self.tamanoAnimal.MEDIANO
-        elif self._tipo == self.tipoAnimal.GATO:
-            self._tamano = self.tamanoAnimal.PEQUENO
-        elif self._tipo == self.tipoAnimal.CABALLO or self.tipo == self.tipoAnimal.VACA:
-            self._tamano = self.tamanoAnimal.GRANDE
+        if self._tipo == Animal.tipoAnimal.PERRO:
+            self._tamano = Animal.tamanoAnimal.MEDIANO
+        elif self._tipo == Animal.tipoAnimal.GATO:
+            self._tamano = Animal.tamanoAnimal.PEQUENO
+        elif self._tipo == Animal.tipoAnimal.CABALLO or self._tipo == Animal.tipoAnimal.VACA:  # Corregir aquí
+            self._tamano = Animal.tamanoAnimal.GRANDE
         else:
-            self._tamano = self.tamanoAnimal.PEQUENO
+            self._tamano = Animal.tamanoAnimal.PEQUENO
+
 
     def asignarVolumen(self):
-        if self._tamano == self.tamanoAnimal.PEQUENO:
-            return 1
-        elif self._tamano == self.tamanoAnimal.MEDIANO:
-            return 3
-        elif self._tamano == self.tamanoAnimal.GRANDE:
-            return 6
+        if self._tamano == Animal.tamanoAnimal.PEQUENO:
+            self._volumen = 1
+        elif self._tamano == Animal.tamanoAnimal.MEDIANO:
+            self._volumen = 3
+        elif self._tamano == Animal.tamanoAnimal.GRANDE:
+            self._volumen = 6
 
     def asignarCostoDelPedido(self):
         if self._tamano == self.tamanoAnimal.PEQUENO:
@@ -59,7 +61,7 @@ class Animal(Producto):
         elif self._tamano == self.tamanoAnimal.GRANDE:
             self._costoDelPedido = 500000
 
-        if self.peligroso:
+        if self._peligroso:
             self._costoDelPedido *= 1.25
 
     def getNombre(self):

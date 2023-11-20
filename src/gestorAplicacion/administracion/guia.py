@@ -29,7 +29,6 @@ class Guia:
         self._tipoDePago = tipoDePago
         self._vehiculo = vehiculo
         self._ruta = []
-        vehiculo.getInventario().append(producto)
         producto.setGuia(self)
         self._estado = Guia.estado.ENSUCURSALORIGEN
         self.progreso = 0

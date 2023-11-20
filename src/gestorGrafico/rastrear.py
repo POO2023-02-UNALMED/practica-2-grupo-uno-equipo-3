@@ -13,7 +13,7 @@ from gestorAplicacion.administracion.sucursal import Sucursal
 class Rastrear(Frame):
     def __init__(self, ventana):
         super().__init__(ventana)
-        self.config(highlightbackground="#085870",highlightthickness=3)
+        self.config(bg="#739072",highlightbackground="#3A4D39",highlightthickness=3)
         self.pack(expand=True)
 
         def consultarProgreso(guia):
@@ -56,27 +56,27 @@ class Rastrear(Frame):
                 entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Lo sentimos, el código de la guía no coincide, intentelo de nuevo")
                 
-        titulo = tk.Label(self, text="Rastrear Pedido", font=("Arial", 30))
+        titulo = tk.Label(self, text="Rastrear Pedido", font=("Arial", 30), bg="#739072", foreground="white")
         titulo.pack(pady=5)
         
-        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()) + "\nCaso de prueba avion: " +  str(Guia.getTodasLasGuias()[1].getProducto().getCodigo()))
-        descripcion = Label(self, text=texto0, font=("Arial", 11))
+        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()) + "\nCaso de prueba avion: " +  str(Guia.getTodasLasGuias()[2].getProducto().getCodigo()))
+        descripcion = Label(self, text=texto0, font=("Arial", 11), bg="#739072", fg="white")
         descripcion.pack(pady=5, padx=5)
         
-        texto = Label(self,text="Ingrese el código de su paquete:", font=("arial", 11, "bold"))
+        texto = Label(self,text="Ingrese el código de su paquete:", font=("arial", 11, "bold"), bg="#739072", fg="white")
         texto.pack(pady=5)
         
         entrada = Entry(self)
         entrada.pack(pady=5)
         
-        boton = Button(self, text="Verificar", command=verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
+        boton = Button(self, text="Verificar", command=verificar,bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         boton.pack(pady=5)
         
 class Estado(Frame):
     hilos = False
     def __init__(self, ventana, guiaPaquete):
         super().__init__(ventana)
-        self.config(highlightbackground="#085870", highlightthickness=3, width=570, height=135)
+        self.config(bg="#739072", highlightbackground="#3A4D39", highlightthickness=3, width=570, height=135)
         self.pack_propagate(False)
         self.pack(side="top", expand=True)
         Estado.hilos = True
@@ -122,13 +122,13 @@ class Estado(Frame):
                 else:
                     break
             
-        avance = Label(self, text="\n")
+        avance = Label(self, text="\n", bg="#739072", fg="white")
         avance.pack(pady=0, fill="x")
         
-        frameCodigo = Frame(self)
+        frameCodigo = Frame(self, bg="#739072")
         frameCodigo.pack(side="bottom", pady=5)
         
-        codigoTexto = Label(frameCodigo, text="Código: ")
+        codigoTexto = Label(frameCodigo, text="Código: ", bg="#739072", fg="white")
         codigoTexto.pack(side="left")
         
         codigo = Entry(frameCodigo)
@@ -139,13 +139,13 @@ class Estado(Frame):
         progress_bar = ttk.Progressbar(self, variable=progress_var, maximum=100, length=500)
         progress_bar.pack(pady=5)
         
-        inicio = Label(self, text=guiaPaquete.getSucursalOrigen().getNombre())
+        inicio = Label(self, text=guiaPaquete.getSucursalOrigen().getNombre(), bg="#739072", fg="white")
         inicio.pack(side="left", anchor="sw", padx=5, pady=5)
 
-        final = Label(self, text=guiaPaquete.getSucursalLlegada().getNombre())
+        final = Label(self, text=guiaPaquete.getSucursalLlegada().getNombre(), bg="#739072", fg="white")
         final.pack(side="right", anchor="se", padx=5, pady=5)
 
-        porcentaje = Label(self, text="%"+str(guiaPaquete.avancePedido()))
+        porcentaje = Label(self, text="%"+str(guiaPaquete.avancePedido()), bg="#739072", fg="white")
         porcentaje.pack(side="bottom", pady=5)
 
         

@@ -104,7 +104,7 @@ if __name__=="__main__":
     guiaPaquete = Guia(paquete, guzman, david, medellinNorte, bogotaNorte, Guia.tipoDePago.DESTINATARIO, camionesMN[0])
 
     animal = Animal("Toby", 3, 10, Animal.tipoAnimal.PERRO)
-    guiaAnimal = Guia(animal, oswaldo, david, medellinNorte, bogotaNorte, Guia.tipoDePago.REMITENTE, avionesMN[0])
+    guiaAnimal = Guia(animal, oswaldo, david, medellinNorte, bogotaNorte, Guia.tipoDePago.DESTINATARIO, avionesMN[0])
     
     documento2 = Documento()
     guiaDocumento2 = Guia(documento2, guzman, oswaldo, medellinNorte, bogotaNorte, Guia.tipoDePago.REMITENTE, avionesMN[0])
@@ -126,10 +126,11 @@ if __name__=="__main__":
 
     #No me lo borren gracias 😉
     camion = medellinNorte.getCamionesEnSucursal()[0]
-    camion.iniciarRecorrido()
+    #amion.iniciarRecorrido()
     
     avion = medellinNorte.getAvionesEnSucursal()[0]
-    avion.iniciarRecorrido()    
-        
+    #avion.iniciarRecorrido()    
+    
+    
     MainWindow()
     
