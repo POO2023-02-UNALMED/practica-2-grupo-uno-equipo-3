@@ -332,10 +332,10 @@ class Enviar(tk.Frame):
                  print(camiones)
                  aviones = i.getAvionesEnSucursal()
                  print(aviones)
-                 if transporte == "Camión":
+            if transporte == "Camión":
                     transporteT = camiones[0]
-                 if transporte == "Avión":
-                     transporteT = aviones[0]
+            if transporte == "Avión":
+                    transporteT = aviones[0]
             
 
             destino = destino
@@ -356,10 +356,13 @@ class Enviar(tk.Frame):
             valores.append(transporteT)
             print(valores)
 
-    #Se va crear la guia del paquete que se envió
-    
+            #Se añade el paquete que se creó a la sucursal de origen
+            valores[3].getInventario().append(valores[0])
+
+
+            #Se va crear la guia del paquete que se envió
             guiaPaqueteAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
-            print(guiaPaqueteAEnviar)
+            print(guiaPaqueteAEnviar.getSucursalOrigen().getNombre()+"fghjkmnbvfgh")
 
 
     def enviar_animal(self):

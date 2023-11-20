@@ -92,9 +92,9 @@ class Estado(Frame):
                 if Estado.hilos:
                     if guiaPaquete.getEstado() == Guia.estado.ENSUCURSALORIGEN:
                         if type(guiaPaquete.getVehiculo()) is Camion:
-                            mensaje = "El camión con su pedido está preparándose para salir \n"
+                            mensaje = "El Camión con su pedido está preparándose para salir \n"
                         elif type(guiaPaquete.getVehiculo()) is Avion:
-                            mensaje = "El avión con su pedido está preparándose para salir \n"                            
+                            mensaje = "El Avión con su pedido está preparándose para salir \n"                            
                         avance.config(text=mensaje)
                         progress_var.set(0)
                         break
@@ -113,7 +113,7 @@ class Estado(Frame):
                         break
                     
                     elif guiaPaquete.getEstado() == Guia.estado.ENTREGADO:
-                        mensaje = "El pedido ya ha sido reclamado"
+                        mensaje = "El pedido ya ha sido reclamado\n"
                         progress_var.set(100)
                         avance.config(text=mensaje)
                         porcentaje.config(text="%100")
