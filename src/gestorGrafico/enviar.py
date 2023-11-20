@@ -49,7 +49,7 @@ class Enviar(tk.Frame):
         self.frame = tk.Frame(self, width=800, height=800, bg="#739072",highlightbackground="#3A4D39",highlightthickness=3)
         self.frame.pack(expand=True)
 
-        self.titulo_label = tk.Label(self.frame, text="Enviar Paquete", font=("Arial", 30), bg="#739072", foreground="white")
+        self.titulo_label = tk.Label(self.frame, text="Enviar Pedido", font=("Arial", 30), bg="#739072", foreground="white")
         self.titulo_label.grid(row=0, column=0, columnspan=3, pady=10)
 
         self.texto_bienvenida = "Hola, bienvenido a nuestro programa \"CorreMinas\".\n\nEstás en el apartado de enviar un paquete. ¿Qué tipo de paquete deseas enviar?\n \nElige una de las siguientes opciones:"
@@ -102,19 +102,19 @@ class Enviar(tk.Frame):
         valor_declarado_label.grid(row=6, column=0, pady=10, sticky="e")
 
         peso_entry = tk.Entry(self.frame)
-        peso_entry.grid(row=2, column=1, pady=(10, 0), padx=5, sticky="w")
+        peso_entry.grid(row=2, column=1, sticky="w")
 
         alto_entry = tk.Entry(self.frame)
-        alto_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+        alto_entry.grid(row=3, column=1,  sticky="w")
 
         ancho_entry = tk.Entry(self.frame)
-        ancho_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+        ancho_entry.grid(row=4, column=1, sticky="w")
 
         largo_entry = tk.Entry(self.frame)
-        largo_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+        largo_entry.grid(row=5, column=1,  sticky="w")
 
         valor_declarado_entry = tk.Entry(self.frame)
-        valor_declarado_entry.grid(row=6, column=1, pady=10, padx=5, sticky="w")
+        valor_declarado_entry.grid(row=6, column=1, sticky="w")
 
         # fragilLabel = tk.Label(self.frame, text="¿Es fragil?")
         # fragilLabel.grid(row=7,column=0,pady=10, sticky="e")
@@ -194,13 +194,13 @@ class Enviar(tk.Frame):
             remitente_telefono_label.grid(row=4, column=0, pady=5, sticky="e")
 
             remitente_nombre_entry = tk.Entry(nuevo_frame)
-            remitente_nombre_entry.grid(row=2, column=1, pady=5, padx=5, sticky="w")
+            remitente_nombre_entry.grid(row=2, column=1,sticky="w")
 
             remitente_cedula_entry = tk.Entry(nuevo_frame)
-            remitente_cedula_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+            remitente_cedula_entry.grid(row=3, column=1, sticky="w")
 
             remitente_telefono_entry = tk.Entry(nuevo_frame)
-            remitente_telefono_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+            remitente_telefono_entry.grid(row=4, column=1,sticky="w")
 
             destinatario_nombre_label = tk.Label(nuevo_frame, text="Nombre del Destinatario:", bg="#739072", fg="white")
             destinatario_nombre_label.grid(row=5, column=0, pady=5, sticky="e")
@@ -212,13 +212,13 @@ class Enviar(tk.Frame):
             destinatario_telefono_label.grid(row=7, column=0, pady=5, sticky="e")
 
             destinatario_nombre_entry = tk.Entry(nuevo_frame)
-            destinatario_nombre_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+            destinatario_nombre_entry.grid(row=5, column=1, sticky="w")
 
             destinatario_cedula_entry = tk.Entry(nuevo_frame)
-            destinatario_cedula_entry.grid(row=6, column=1, pady=5, padx=5, sticky="w")
+            destinatario_cedula_entry.grid(row=6, column=1, sticky="w")
 
             destinatario_telefono_entry = tk.Entry(nuevo_frame)
-            destinatario_telefono_entry.grid(row=7, column=1, pady=5, padx=5, sticky="w")
+            destinatario_telefono_entry.grid(row=7, column=1, sticky="w")
 
             boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
             boton_enviar_cliente.grid(row=8, column=0, columnspan=2, pady=10)
@@ -413,26 +413,26 @@ class Enviar(tk.Frame):
         nombreAnimal_label.grid(row=3, column=0, pady=(10, 0), sticky="e")
 
         entryNombreAnimal = tk.Entry(self.frame)
-        entryNombreAnimal.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+        entryNombreAnimal.grid(row=3, column=1, sticky="w")
 
         edadAnimal_label = tk.Label(self.frame, text="Edad del animal:", bg="#739072", fg="white")
         edadAnimal_label.grid(row=4, column=0, pady=10, sticky="e")
 
         entryEdadAnimal = tk.Entry(self.frame)
-        entryEdadAnimal.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+        entryEdadAnimal.grid(row=4, column=1, sticky="w")
 
         pesoAnimal_label = tk.Label(self.frame, text="Ancho:", bg="#739072", fg="white")
         pesoAnimal_label.grid(row=5, column=0, pady=10, sticky="e")
 
         entryPesoAnimal = tk.Entry(self.frame)
-        entryPesoAnimal.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+        entryPesoAnimal.grid(row=5, column=1, sticky="w")
         
         tiposDeAnimales = ["Perro", "Gato", "Hamster", "Loro", "Caballo", "Vaca"]
         tiposDeAnimales_label = tk.Label(self.frame, text="Tipo de animal:", bg="#739072", fg="white")
         tiposDeAnimales_label.grid(row=6, column=0, pady=5, sticky="e")
         tipoDeAnimal_var = tk.StringVar()
         tipoDeAnimal_dropdown = tk.OptionMenu(self.frame, tipoDeAnimal_var, *tiposDeAnimales)
-        tipoDeAnimal_dropdown.grid(row=6, column=1, pady=5, padx=5, sticky="w")
+        tipoDeAnimal_dropdown.grid(row=6, column=1, sticky="w")
 
         botonSiguiente = tk.Button(self.frame,text="Siguiente",bg="#3A4D39", font=("arial", 11, "bold"),fg="white")
         botonSiguiente.grid(row=7,column=0,columnspan=2,pady=5, padx=5)

@@ -42,13 +42,16 @@ class Rastrear(Frame):
                 if guia.getTipoDePago() == Guia.tipoDePago.REMITENTE:
                     if guia.getPagoPendiente() == 0:
                         enviado = True
+                        
                 elif guia.getTipoDePago() == Guia.tipoDePago.FRACCIONADO:
                     if guia.getPagoPendiente() == guia.getPrecioTotal() / 2:
                         enviado = True
                 else:
                     enviado = True
+                    
                 if enviado:
                     consultarProgreso(guia)
+                    
                 else:
                     return messagebox.showwarning("Error", "Lo sentimos, completa el pago para finalizar el registro del envío")
                     

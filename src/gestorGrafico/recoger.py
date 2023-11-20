@@ -65,30 +65,36 @@ class FrameSucursal(tk.Frame):
         super().__init__(ventana)
         self.nombresucursalSeleccionada = nombresucursalSeleccionada
         self.sucursal_seleccionada = sucursal_seleccionada
-        self.config(bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
+        self.config(bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,  height=160, width=570)
+        self.pack_propagate(False)
         self.pack(expand=True)
 
-        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {nombresucursalSeleccionada}", font=("arial", 20), bg="#739072", fg="white")
-        etiqueta.pack(pady=5)
+        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {nombresucursalSeleccionada}", font=("arial", 11), bg="#739072", fg="white")
+        etiqueta.pack(side="top", pady=5)
 
-        self.entryCod = Entry(self)
-        self.entryName = Entry(self)
-        self.entryCC = Entry(self)
+        frameDatos = Frame(self, bg="#739072")
+        frameDatos.pack(side="top", pady=5)
+        
+        labelCod = Label(frameDatos, text="Código del pedido: ", font=("Arial", 11), bg="#739072", fg="white")
+        labelCod.grid(row=1, column=1)
+        
+        entryCod = Entry(frameDatos)
+        entryCod.grid(row=1, column=2)
 
-        labelCod = Label(self, text="Código del Paquete", font=("Arial", 11), bg="#739072", fg="white")
-        labelCod.pack(padx=10, pady=8)
-        self.entryCod.pack(padx=10, pady=5)
+        labelName = Label(frameDatos, text="Nombre del destinatario: ", font=("Arial", 11),bg="#739072", fg="white")
+        labelName.grid(row=2, column=1)
+        
+        entryName = Entry(frameDatos)
+        entryName.grid(row=2, column=2)
 
-        labelName = Label(self, text="Nombre de quien reclama", font=("Arial", 11),bg="#739072", fg="white")
-        labelName.pack(padx=10, pady=8)
-        self.entryName.pack(padx=10, pady=5)
-
-        labelCC = Label(self, text="Cédula de quien reclama", font=("Arial", 11), bg="#739072", fg="white")
-        labelCC.pack(padx=10, pady=8)
-        self.entryCC.pack(padx=10, pady=5)
+        labelCC = Label(frameDatos, text="Cédula del destinatario: ", font=("Arial", 11), bg="#739072", fg="white")
+        labelCC.grid(row=3, column=1)
+        
+        entryCC = Entry(frameDatos)
+        entryCC.grid(row=3, column=2)
 
         botonReclamar = Button(self, text="Reclamar Paquete", command=self.reclamar,bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
-        botonReclamar.pack(padx=10, pady=5)
+        botonReclamar.pack(side="bottom", pady=5)
 
     #funcionalidad de reclamar
     def reclamar(self):
