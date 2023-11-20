@@ -1,10 +1,14 @@
 import tkinter as tk
 from tkinter import PhotoImage, messagebox
 from gestorAplicacion.administracion.guia import Guia
+from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorAplicacion.personas.cliente import Cliente
 from gestorAplicacion.personas.destinatario import Destinatario
 
 from gestorAplicacion.productos.paquete import Paquete
+from gestorAplicacion.transportes.avion import Avion
+from gestorAplicacion.transportes.camion import Camion
+from gestorAplicacion.transportes.transporte import Transporte
 valores = []
 class VentanaEmergente(tk.Toplevel):
     def __init__(self, mensaje):
@@ -283,7 +287,7 @@ class Enviar(tk.Frame):
         labelTransporte = tk.Label(nuevo_frame_2,text="Tipo De Transporte:")
         labelTransporte.grid(row=4,column=0,pady=5,sticky="e")
 
-        Transporte_lista = ["Camión","Avíon"]
+        Transporte_lista = ["Camión","Avión"]
         Transporte_lista_var = tk.StringVar()
         Transporte_lista_menu = tk.OptionMenu(nuevo_frame_2, Transporte_lista_var, *Transporte_lista)
         Transporte_lista_menu.grid(row=4,column=1,pady=5,padx=5,sticky="w")
@@ -319,27 +323,43 @@ class Enviar(tk.Frame):
 
             messagebox.showinfo("Información del Paquete", info_text)
             messagebox.showinfo("Los detalles del envío han sido enviados con éxito.")
-            sucursalOrigen = origen
-            sucurlLlegada = destino
-            valores.append(sucursalOrigen)
-            valores.append(sucurlLlegada)
-            valores.append(pago)
-            valores.append(transporte)
+            sucursales = Sucursal._todasLasSucursales
+            origen = origen
+            for i in sucursales:
+                if i._nombre == origen:
+                 valores.append(i)
+                 camiones = i.getCamionesEnSucursal()
+                 print(camiones)
+                 aviones = i.getAvionesEnSucursal()
+                 print(aviones)
+                 if transporte == "Camión":
+                    transporteT = camiones[0]
+                 if transporte == "Avión":
+                     transporteT = aviones[0]
+            
+
+            destino = destino
+            for k in sucursales:
+                if k._nombre == destino:
+                    valores.append(k)
+            
+            if pago == "Pago contraentrega":
+                pagoTipo = Guia.tipoDePago.DESTINATARIO
+            if pago == "Pago total":
+                pagoTipo = Guia.tipoDePago.REMITENTE
+            if pago == "Pago Fraccionado":
+                pagoTipo = Guia.tipoDePago.FRACCIONADO
+
+            valores.append(pagoTipo)
+
+
+            valores.append(transporteT)
             print(valores)
 
     #Se va crear la guia del paquete que se envió
     
             guiaPaqueteAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
             print(guiaPaqueteAEnviar)
-
-
-
-
-
-
-
-
-
 
 
     def enviar_animal(self):
