@@ -8,6 +8,7 @@ from gestorGrafico.recoger import Recoger
 from gestorAplicacion.transportes.camion import Camion
 from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorGrafico.OpinionesSucursal import TablaSucursales
+from gestorAplicacion.transportes.transporte import Transporte
 
 
 
@@ -47,6 +48,7 @@ class Principal(Tk):
             
             sucursal = Sucursal.getTodasLasSucursales()[0]
             
+            print("camion" + str(len(Transporte.getTodosLosTransportes()[0].getInventario())))
             for camion in sucursal.getCamionesEnSucursal():
                 camion.agregarProductos()
                 
