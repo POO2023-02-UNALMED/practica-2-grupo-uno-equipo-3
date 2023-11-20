@@ -29,6 +29,11 @@ class VentanaEmergente(tk.Toplevel):
 class Enviar(tk.Frame):
     def __init__(self, ventana):
         super().__init__(ventana)
+
+#ESTAS 2 LINEA SERA PARA QUE SIRVIERA. NO SIRVE.
+        self.ciudad_origen_var = tk.StringVar()
+        self.ciudad_destino_var = tk.StringVar()
+
         self.config(width=1000, height=1000, highlightbackground="#085870", highlightthickness=3)
         self.pack(expand=True)
 
@@ -60,6 +65,7 @@ class Enviar(tk.Frame):
 
         self.info_label = tk.Label(self.frame, text="", font=("Helvetica", 12), fg="white", bg="green")
         self.info_label.grid(row=6, column=0, columnspan=2, pady=10)
+
 
     def mostrar_ventana_paquete(self):
         self.bienvenida_label.grid_forget()
@@ -136,44 +142,48 @@ class Enviar(tk.Frame):
             label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), fg="white", bg="blue")
             label_nuevo_frame.grid(row=0, column=0, pady=10)
 
+            self.texto_bienvenida2 = "Por favor diligencie los siguientes datos."
+            self.bienvenida2_label = tk.Label(nuevo_frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="blue")
+            self.bienvenida2_label.grid(row=1, column=0, columnspan=3, pady=10)
+
             remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:")
-            remitente_nombre_label.grid(row=1, column=0, pady=5, sticky="e")
+            remitente_nombre_label.grid(row=2, column=0, pady=5, sticky="e")
 
             remitente_cedula_label = tk.Label(nuevo_frame, text="Cédula del Remitente:")
-            remitente_cedula_label.grid(row=2, column=0, pady=5, sticky="e")
+            remitente_cedula_label.grid(row=3, column=0, pady=5, sticky="e")
 
             remitente_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Remitente:")
-            remitente_telefono_label.grid(row=3, column=0, pady=5, sticky="e")
+            remitente_telefono_label.grid(row=4, column=0, pady=5, sticky="e")
 
             remitente_nombre_entry = tk.Entry(nuevo_frame)
-            remitente_nombre_entry.grid(row=1, column=1, pady=5, padx=5, sticky="w")
+            remitente_nombre_entry.grid(row=2, column=1, pady=5, padx=5, sticky="w")
 
             remitente_cedula_entry = tk.Entry(nuevo_frame)
-            remitente_cedula_entry.grid(row=2, column=1, pady=5, padx=5, sticky="w")
+            remitente_cedula_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
 
             remitente_telefono_entry = tk.Entry(nuevo_frame)
-            remitente_telefono_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+            remitente_telefono_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
 
             destinatario_nombre_label = tk.Label(nuevo_frame, text="Nombre del Destinatario:")
-            destinatario_nombre_label.grid(row=4, column=0, pady=5, sticky="e")
+            destinatario_nombre_label.grid(row=5, column=0, pady=5, sticky="e")
 
             destinatario_cedula_label = tk.Label(nuevo_frame, text="Cédula del Destinatario:")
-            destinatario_cedula_label.grid(row=5, column=0, pady=5, sticky="e")
+            destinatario_cedula_label.grid(row=6, column=0, pady=5, sticky="e")
 
             destinatario_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Destinatario:")
-            destinatario_telefono_label.grid(row=6, column=0, pady=5, sticky="e")
+            destinatario_telefono_label.grid(row=7, column=0, pady=5, sticky="e")
 
             destinatario_nombre_entry = tk.Entry(nuevo_frame)
-            destinatario_nombre_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+            destinatario_nombre_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
 
             destinatario_cedula_entry = tk.Entry(nuevo_frame)
-            destinatario_cedula_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+            destinatario_cedula_entry.grid(row=6, column=1, pady=5, padx=5, sticky="w")
 
             destinatario_telefono_entry = tk.Entry(nuevo_frame)
-            destinatario_telefono_entry.grid(row=6, column=1, pady=5, padx=5, sticky="w")
+            destinatario_telefono_entry.grid(row=7, column=1, pady=5, padx=5, sticky="w")
 
             boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()))
-            boton_enviar_cliente.grid(row=7, column=0, columnspan=2, pady=10)
+            boton_enviar_cliente.grid(row=8, column=0, columnspan=2, pady=10)
 
     def mostrar_info_cliente(self, remitente_nombre, remitente_cedula, remitente_telefono, destinatario_nombre, destinatario_cedula, destinatario_telefono):
         
@@ -228,13 +238,38 @@ class Enviar(tk.Frame):
         ciudad_destino_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_destino_var, *ciudades_destino)
         ciudad_destino_dropdown.grid(row=3, column=1, pady=5, padx=5, sticky="w")
 
+        labelTransporte = tk.Label(nuevo_frame_2,text="Tipo De Transporte:")
+        labelTransporte.grid(row=4,column=0,pady=5,sticky="e")
+
+        Transporte_lista = ["Camión","Avíon"]
+        Transporte_lista_var = tk.StringVar()
+        Transporte_lista_menu = tk.OptionMenu(nuevo_frame_2, Transporte_lista_var, *Transporte_lista)
+        Transporte_lista_menu.grid(row=4,column=1,pady=5,padx=5,sticky="w")
+
         labelPago = tk.Label(nuevo_frame_2,text="Método de pago:")
-        labelPago.grid(row=4,column=0,pady=5,sticky="e")
+        labelPago.grid(row=5,column=0,pady=5,sticky="e")
 
         pago_lista = ["Pago total","Pago Fraccionado", "Pago contraentrega"]
         pago_lista_var = tk.StringVar()
         pago_lista_menu = tk.OptionMenu(nuevo_frame_2, pago_lista_var, *pago_lista)
-        pago_lista_menu.grid(row=4,column=1,pady=5,padx=5,sticky="w")
+        pago_lista_menu.grid(row=5,column=1,pady=5,padx=5,sticky="w")
+
+        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=self.enviar_detalle_envio)
+        boton_enviar_2.grid(row=6, column=0, columnspan=2, pady=10)
+
+#NO SIRVE. AYUDA
+    def enviar_detalle_envio(self):
+        ciudad_origen = self.ciudad_origen_var.get()
+        ciudad_destino = self.ciudad_destino_var.get()
+
+        if ciudad_origen and ciudad_destino:
+            tipo_producto = "Paquete"
+            info_text = f"Tipo de producto: {tipo_producto}\n"
+            info_text += f"Ciudad De Origen: {ciudad_origen} \n"
+            info_text += f"Ciudad De Destino: {ciudad_destino} \n"
+
+            messagebox.showinfo("Información del Paquete", info_text)
+            messagebox.showinfo("Los detalles del envío han sido enviados con éxito.")
 
 
     def enviar_animal(self):
@@ -268,7 +303,6 @@ class Enviar(tk.Frame):
         entryPesoAnimal = tk.Entry(self.frame)
         entryPesoAnimal.grid(row=5, column=1, pady=5, padx=5, sticky="w")
         
-        #a
         tiposDeAnimales = ["Perro", "Gato", "Hamster", "Loro", "Caballo", "Vaca"]
         tiposDeAnimales_label = tk.Label(self.frame, text="Tipo de animal:", font=("arial",10))
         tiposDeAnimales_label.grid(row=6, column=0, pady=5, sticky="e")
@@ -280,7 +314,6 @@ class Enviar(tk.Frame):
         botonSiguiente.grid(row=7,column=0,columnspan=2,pady=5, padx=5)
 
         #falta colocar lo del usuario y ciudades después de esto
-
 
     def enviar_documento(self):
         self.bienvenida_label.grid_forget()
@@ -297,82 +330,5 @@ class Enviar(tk.Frame):
  
 
         #qué se pregunta acá? xd
-        infoDoc_label = tk.Label(self.frame, text="Documento xd:")
+        infoDoc_label = tk.Label(self.frame, text="Documento:")
         infoDoc_label.grid(row=3, column=0, pady=(10, 0), sticky="e")
-
-    
-
-#                 case 2: //Animal
-#                     println("-------------------------------------------------");
-#                     print("Nombre del animal: ");
-#                     String nombre = scanner.nextLine();
-#                     print("Edad del animal: ");
-#                     int edad = scanner.nextInt();
-#                     print("Peso del animal: ");
-#                     double peso1 = scanner.nextDouble();
-
-#                     println("-------------------------------------------------");
-#                     println("Ingrese el tipo del animal:");
-#                     println("1) Perro");
-#                     println("2) Gato");
-#                     println("3) Hamster");
-#                     println("4) Loro");
-#                     println("5) Caballo");
-#                     println("6) Vaca");
-#                     print("Elige una opción: ");
-
-#                     tipoAnimal tipoAnimal = null;
-#                     boolean numeroValido3 = false;
-
-#                     while (!numeroValido3) {
-#                         int tipoAnimalEntrada = scanner.nextInt();
-#                         scanner.nextLine();
-
-#                         switch (tipoAnimalEntrada) {
-#                             case 1: //Perro
-#                                 tipoAnimal = Animal.tipoAnimal.PERRO;
-#                                 numeroValido3 = true;
-#                                 break;
-#                             case 2:
-#                                 tipoAnimal = Animal.tipoAnimal.GATO;
-#                                 numeroValido3 = true;
-#                                 break;
-#                             case 3:
-#                                 tipoAnimal = Animal.tipoAnimal.HAMSTER;
-#                                 numeroValido3 = true;
-#                                 break;
-#                             case 4:
-#                                 tipoAnimal = Animal.tipoAnimal.LORO;
-#                                 numeroValido3 = true;
-#                                 break;
-#                             case 5:
-#                                 tipoAnimal = Animal.tipoAnimal.CABALLO;
-#                                 numeroValido3 = true;
-#                                 break;
-#                             case 6:
-#                                 tipoAnimal = Animal.tipoAnimal.VACA;
-#                                 numeroValido3 = true;
-#                                 break;
-#                             default:
-#                                 print("Número no válido. Inténtalo de nuevo: ");
-#                         }
-#                     }
-
-#                     producto = new Animal(nombre, edad, peso1, tipoAnimal);
-#                     Animal animal = (Animal) producto;
-#                     println(animal);
-#                     numeroValido = true;
-#                     break;
-#                 case 3:
-#                     producto = new Documento();
-#                     Documento documento = (Documento) producto;
-#                     numeroValido = true;
-#                     break;
-#                 case 4:
-#                     Main.menuPrincipal(sucursalOrigen);
-
-#                 default:
-#                     print("Número no válido. Inténtalo de nuevo: ");
-#                     break;
-#             }
-###         }
