@@ -17,7 +17,7 @@ from excepeciones.ExcepObj import *
 class TablaSucursales(tk.Frame):
     def __init__(self, ventana):
         super().__init__(ventana)
-        self.config(bg="#3A4D39", highlightthickness=3)
+        self.config(bg="#ECE3CE", highlightthickness=3)
         
 
         # Label Titulo
