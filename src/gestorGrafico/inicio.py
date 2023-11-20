@@ -35,7 +35,7 @@ class Inicio(Frame):
 
         # Frame 3 Saludo bienvenida
         mensaje="BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE MEDELLIN NORTE"
-        mensajeBienv = Label(p3Frame,text=mensaje,font=("arial", 15 , "bold"),bg="#3A4D39",wraplength=415,fg="#cedae0")
+        mensajeBienv = Label(p3Frame,text=mensaje,font=("arial", 15 , "bold"),bg="#3A4D39",wraplength=415,fg="white")
         mensajeBienv.pack(expand=True)
 
 
@@ -44,7 +44,7 @@ class Inicio(Frame):
         bibi2="Hola mi nombre es Tomas Murillo Aristizabal tengo 19 años y ahora mismo estoy en  tercer semestre en la mejor universidad de Colombia, nací en Bogotá a pesar de que mi familia es de aquí de Medellín y desde los 14 años estoy viviendo en Rionegro. Mis pasatiempos preferidos son jugar videojuegos, el fútbol  y pasar tiempo con mi familia y mis amigos."
         bibi3="Mi nombre es Daniela Sánchez, soy estudiante de ciencias de la computación con una gran pasión por la biología. Disfruto aprendiendo sobre el desarrollo de códigos para el procesamiento de datos moleculares y compartiendo tiempo con mis perritos en la finca"
         bibi4="Hola me llamo Luis Alejandro Martinez Ramirez, estudio en la Universidad Nacional De Colombia Sede Medellin, en mi tiempo libre me la paso ya sea aprendiendo nuevas caracteristicas ya sea de programación o jugando con amigos ya sea videojuegos o algun deporte, aspiro a futuro terminar esta carrera y trabajar en lo que me gusta."
-        bibi5="Hola soy Tomás Gómez, a veces soy estudiante y otras veces soy persona. Disfruto de los pequeños momentos de la vida y mi única propósito es ser mejor persona. Me gusta bailar, entrenar, jugar voleibol, programar y conocer gente nueva."
+        bibi5="Hola soy Tomás Gómez, a veces soy estudiante y otras veces soy persona. Disfruto de los pequeños momentos de la vida y mi único propósito es ser mejor persona. Me gusta bailar, entrenar, jugar voleibol, escuchar música, programar y conocer gente nueva."
 
         self.biblios = [bibi1,bibi2,bibi3,bibi4,bibi5]
           
@@ -77,7 +77,7 @@ class Inicio(Frame):
                 self.punteroIntergrante = i
             
 
-        biblioTexto = Label(p5Frame,text=bibi1,font=("arial", 10),bg="#739072",wraplength=405,highlightbackground="#085870",highlightthickness=2)
+        biblioTexto = Label(p5Frame,text=bibi1,font=("arial", 10),bg="#739072",wraplength=405,highlightbackground="#3A4D39",highlightthickness=2, fg="black")
         biblioTexto.pack(expand=True,fill="both")
         biblioTexto.bind("<Button-1>",cambiarTextoEImagenF6)
 
@@ -152,7 +152,7 @@ class Inicio(Frame):
 
             
         
-        botonIngreso=Button(p4Frame,text="Ingresar",command=cambioVentana,bg="#085870",font=("arial", 12, "bold"),fg="#cedae0")
+        botonIngreso=Button(p4Frame,text="Ingresar",command=cambioVentana,bg="#3A4D39",font=("arial", 12, "bold"),fg="white")
         botonIngreso.pack(side="top",pady=(10,20))
            
         
