@@ -27,7 +27,6 @@ class Avion(Transporte):
             if producto in self.inventario:
                 self.inventario.remove(producto)
         self.enSucursal = True
-        print("entra"+ sucursal.getNombre())
 
     def salirDeSucursal(self, sucursal):
         self.ubicacionAnterior = self.ubicacionActual
@@ -37,10 +36,9 @@ class Avion(Transporte):
                 self.ubicacionSiguiente = self.ruta[i + 1]
         sucursal.removerAvion(self)
         self.enSucursal = False
-        print("sale")
 
     def iniciarRecorrido(self):
-        print("recorrido")
+        self.enSucursal = False
         for producto in self.inventario:
             producto.getGuia().setEstado(Guia.estado.ENTRANSITO)
 
@@ -50,19 +48,19 @@ class Avion(Transporte):
 
         def simulacion_thread():
             try:
-                time.sleep(5)
+                time.sleep(30)
             except KeyboardInterrupt:
                 raise RuntimeError()
             self.entrarASucursal(self.ruta[1])
 
             try:
-                time.sleep(5)
+                time.sleep(10)
             except KeyboardInterrupt:
                 raise RuntimeError()
             self.salirDeSucursal(self.ruta[1])
 
             try:
-                time.sleep(5)
+                time.sleep(30)
             except KeyboardInterrupt:
                 raise RuntimeError()
             self.entrarASucursal(self.ruta[2])
@@ -72,12 +70,11 @@ class Avion(Transporte):
 
     def ubicarTransporte(self):
         if self.enSucursal:
-            return f"El Avión de matrícula {self.matricula}\n" \
-                   f"que contiene su pedido en este momento se encuentra en la sucursal {self.ubicacionActual.getNombre()}"
+            return f"El Avión de matrícula {self.matricula} que contiene su pedido en este momento se encuentra:\n" \
+                   f"En la sucursal {self.ubicacionActual.getNombre()}"
         else:
-            return f"El Avión de matrícula {self.matricula} que contiene su pedido\n" \
-                   f"en este momento se encuentra volando entre la sucursal de\n" \
-                   f"{self.ubicacionAnterior.getNombre()} y la sucursal de {self.ubicacionSiguiente.getNombre()}"
+            return f"El Avión de matrícula {self.matricula} que contiene su pedido en este momento se encuentra volando entre:\n" \
+                   f"La sucursal de {self.ubicacionAnterior.getNombre()} y la sucursal de {self.ubicacionSiguiente.getNombre()}"
 
     def getSucursalDestino(self):
         return self.sucursalDestino

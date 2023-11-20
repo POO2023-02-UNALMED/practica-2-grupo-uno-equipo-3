@@ -105,8 +105,7 @@ if __name__=="__main__":
     camion.iniciarRecorrido()
     
     avion = medellinNorte.getAvionesEnSucursal()[0]
-    avion.iniciarRecorrido()
-    
+    avion.iniciarRecorrido()    
         
     MainWindow()
     
