@@ -270,14 +270,14 @@ class Enviar(tk.Frame):
         descripcion_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Por favor selecciona la ciudad desde la que envias tu producto y a cual deseas enviarlo.", font=("Helvetica", 12), fg="white", bg="red")
         descripcion_nuevo_frame_2.grid(row=1, column=0, pady=10,columnspan=2)
 
-        ciudades_origen = ["Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
+        ciudades_origen = ["Medellin Norte", "Medellin Sur","Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
         ciudad_origen_label = tk.Label(nuevo_frame_2, text="Ciudad de Origen:")
         ciudad_origen_label.grid(row=2, column=0, pady=5, sticky="e")
         ciudad_origen_var = tk.StringVar()
         ciudad_origen_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_origen_var, *ciudades_origen)
         ciudad_origen_dropdown.grid(row=2, column=1, pady=5, padx=5, sticky="w")
 
-        ciudades_destino = ["Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
+        ciudades_destino = ["Medellin Norte", "Medellin Sur","Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
         ciudad_destino_label = tk.Label(nuevo_frame_2, text="Ciudad de Destino:")
         ciudad_destino_label.grid(row=3, column=0, pady=5, sticky="e")
         ciudad_destino_var = tk.StringVar()
