@@ -11,6 +11,7 @@ from gestorGrafico.OpinionesSucursal import TablaSucursales
 
 
 
+
 class Principal(Tk):
     def __init__(self):
         super().__init__()
@@ -97,6 +98,9 @@ class Principal(Tk):
             
         def salir():
             self.destroy()
+            
+
+
 
 
         def infoBasica():

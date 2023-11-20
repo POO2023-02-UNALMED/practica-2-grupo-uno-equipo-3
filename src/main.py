@@ -16,13 +16,11 @@ from gestorAplicacion.transportes.transporte import Transporte
 from gestorAplicacion.transportes.camion import Camion
 from gestorAplicacion.transportes.avion import Avion
 import time
-from gestorGrafico.OpinionesSucursal import FrameSucursal
-
-
 from baseDatos.deserializador import Deserializador
 from baseDatos.serializador import Serializador
 
 from gestorGrafico.inicio import Inicio
+
 
 class MainWindow(Tk):
     def __init__(self):

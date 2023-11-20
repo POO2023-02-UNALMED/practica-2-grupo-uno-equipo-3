@@ -1,6 +1,6 @@
 from tkinter import *
 import tkinter as tk
-from gestorGrafico.principal import Principal
+
 
 class Inicio(Frame):
     def __init__(self,ventana):
@@ -147,7 +147,7 @@ class Inicio(Frame):
     
 
         def cambioVentana():
-            self.destroy()
+            #self.destroy()
             ventana.abrirPrincipal()
 
             
