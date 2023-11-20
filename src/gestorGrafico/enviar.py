@@ -567,18 +567,12 @@ class Enviar(tk.Frame):
         label_nuevo_frame.grid(row=0, column=0, pady=10)
 
         self.texto_bienvenida1 = "Has seleccionado Enviar un Documento."
-<<<<<<< Updated upstream
-        self.texto_bienvenida2 = "Has seleccionado Enviar un Documento.\n\n Por favor diligencie los siguientes datos."
-        self.bienvenida2_label = tk.Label(nuevo_frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, bg="#739072", fg="white")
-        self.bienvenida2_label.grid(row=1, column=0, columnspan=3, pady=10)
-=======
         self.texto_bienvenida2 = "Para continuar deberá diligenciar los siguientes datos: "
         self.bienvenida_label1 = tk.Label(self.frame, text=self.texto_bienvenida1, justify="left", wraplength=380, font=("Arial", 11), bg="#739072", fg="white")
         self.bienvenida_label1.grid(row=1, column=0, columnspan=2, pady=10)
         self.bienvenida_label2 = tk.Label(self.frame, text=self.texto_bienvenida2, justify="left", wraplength=380, font=("Arial", 11), bg="#739072", fg="white")
         self.bienvenida_label2.grid(row=2, column=0, columnspan=2, pady=10)
  
->>>>>>> Stashed changes
 
         remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:", bg="#739072", fg="white")
         remitente_nombre_label.grid(row=2, column=0, pady=5, sticky="e")
