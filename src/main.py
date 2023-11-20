@@ -129,7 +129,7 @@ if __name__=="__main__":
     
     avion = medellinNorte.getAvionesEnSucursal()[0]
     #avion.iniciarRecorrido() 
-    #Serializador.serializar()   
+    Serializador.serializar()   
     
     
     MainWindow()
