@@ -151,8 +151,8 @@ class FrameSucursal(tk.Frame):
                         messagebox.showinfo("Paquete no encontrado", f"No se encontró ningún paquete con el código {Cod}")
                 else:
                     self.destroy()
-        except Exception as e:
-            messagebox.showerror("Error", str(e))
+        except:
+            messagebox.showerror("Error", CampoVacio().mostrarMensaje())
 
     #función que se encarga de verificar si la ciudad seleccionada es la misma que la ciudad destino accediendo a la guia del producto
     def verificarCiudadDestino(self, paq, posibleCiudad):
