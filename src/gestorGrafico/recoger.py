@@ -12,12 +12,15 @@ from excepeciones.ErrorAplicacion import ErrorAplicacion
 from excepeciones.ExcepEntrys import * 
 from excepeciones.ExcepObj import *
 
+#Creación de la clase Recoger que hereda de Frame
 class Recoger(tk.Frame):
     def __init__(self, ventana):
+        #se inicializa la ventana llamando al super
         super().__init__(ventana)
         self.config(highlightbackground="#085870", highlightthickness=3)
         self.pack(expand=True)
 
+        #Label de titulo, descripción y seleccion de sucursal, con sus respectivas configuraciones
         self.Label_Titulo = tk.Label(self, text="Reclamar Paquete", font=("Arial", 30))
         self.Label_Titulo.grid(row=0, column=0, columnspan=2, pady=10)
 
@@ -28,6 +31,8 @@ class Recoger(tk.Frame):
                                        "para ello por favor seleccione una de las opciones")
         self.Label_sele_suc.grid(row=2, column=0, columnspan=2, pady=10)
 
+
+        #Selección sucursal y combobox
         labelSucursal = Label(self, text="Selecciona la sucursal\n"+ 
                               "en la que te encuentras:", font=("Arial", 10))
         labelSucursal.grid(pady=10, column=0, row=3, columnspan=2)
@@ -38,6 +43,8 @@ class Recoger(tk.Frame):
 
         self.combobox_sucursales.bind("<<ComboboxSelected>>", self.cambiar_frame_sucursal)
 
+
+    #función para cambiar de frame dependiendo de la sucursal seleccionada
     def cambiar_frame_sucursal(self, event):
         nombresucursal_seleccionada = self.combobox_sucursales.get()
         sucursal_seleccionada = None
@@ -46,12 +53,15 @@ class Recoger(tk.Frame):
                 sucursal_seleccionada = sucursal
                 break
         if sucursal_seleccionada:
+            #se llama la clase FrameSucursal
             frame_sucursal = FrameSucursal(self.master, sucursal_seleccionada,nombresucursal_seleccionada)
             self.pack_forget()  
             frame_sucursal.pack()
 
+#Acá se obtiene el nuevo frame dependiendo de la sucursal seleccionada
 class FrameSucursal(tk.Frame):
     def __init__(self, ventana, sucursal_seleccionada, nombresucursalSeleccionada):
+        #configuración para la ventana
         super().__init__(ventana)
         self.nombresucursalSeleccionada = nombresucursalSeleccionada
         self.sucursal_seleccionada = sucursal_seleccionada
@@ -81,26 +91,36 @@ class FrameSucursal(tk.Frame):
                                bg="#085870")
         botonReclamar.pack(padx=10, pady=10)
 
+    #funcionalidad de reclamar
     def reclamar(self):
         try:
-
+            #se obtienen los valores de los entry
             Cod = int(self.entryCod.get())
+
+            #se llama a la funcion con el entry anterior
             paq = self.encontrarProductoPorCodigo(Cod)
 
-
+            #mensaje de confirmacion
             confirmacion = messagebox.askokcancel("Confirmación", f"¿Está seguro de reclamar el paquete {Cod}?")
 
+            #verificar ciudad de destino
             ciudadSiNo = self.verificarCiudadDestino(paq,self.nombresucursalSeleccionada)
+
+            #se obtiene la guia del paquete
             guiaPaq = paq.getGuia()
+
+            #Lógica para poder reclamar el paquete
             if confirmacion:
                 if paq:
-                    
                     if guiaPaq:
+                        #se verifican los datos del destinatario
                         if self.verificarDatos(paq, int(self.entryCC.get())):
                             if ciudadSiNo:
+                                #se verifica si el paquete se encuentra en el inventario de la sucursal seleccionada
                                 if (paq in self.sucursal_seleccionada.getInventario()):
+                                    #se verifica que el paquete no haya sido entregado aún
                                     if (guiaPaq.getEstado() != guia.Guia.estado.ENTREGADO):
-                                        #poner los otros casos
+                                        #se verifica el tipo de pago y si hay o no saldo pendiente
                                         if (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.REMITENTE):
                                             if (guiaPaq.getPagoPendiente() == 0):
                                                 messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
@@ -134,6 +154,7 @@ class FrameSucursal(tk.Frame):
         except Exception as e:
             messagebox.showerror("Error", str(e))
 
+    #función que se encarga de verificar si la ciudad seleccionada es la misma que la ciudad destino accediendo a la guia del producto
     def verificarCiudadDestino(self, paq, posibleCiudad):
         guia = paq.getGuia()
         sucursalDestino = guia.getSucursalLlegada().getNombre()
@@ -141,13 +162,14 @@ class FrameSucursal(tk.Frame):
         print("posible ciudad(escogida)",posibleCiudad)
         return sucursalDestino == posibleCiudad
     
-
+    #función que se encarga de verificar los datos ingresados en los entrys, compara la cc ingresada con la cc de la guia del producto
     def verificarDatos(self, paq, Cedula):
         guia = paq.getGuia()
         destinatario = guia.getDestinatario()
         
         return int(destinatario.getCedula()) == int(Cedula)
 
+    #Función que se encargar de encontrar el producto con el código digitado en el entry
     def encontrarProductoPorCodigo(self, cod):
         for i in producto.Producto.getTodosLosProductos():
             if int(i.getCodigo()) == int(cod):
