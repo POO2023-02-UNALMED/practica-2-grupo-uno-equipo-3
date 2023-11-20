@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import PhotoImage, messagebox
 
+from gestorAplicacion.productos.paquete import Paquete
+
 class VentanaEmergente(tk.Toplevel):
     def __init__(self, mensaje):
         super().__init__()
@@ -107,8 +109,23 @@ class Enviar(tk.Frame):
         valor_declarado_entry = tk.Entry(self.frame)
         valor_declarado_entry.grid(row=6, column=1, pady=10, padx=5, sticky="w")
 
+        fragilLabel = tk.Label(self.frame, text="¿Es fragil?")
+        fragilLabel.grid(row=7,column=0,pady=10, sticky="e")
+
+        fragilSioNo = ["Si", "No"]
+        fragilSioNo_var = tk.StringVar()
+        fragilSioNo_dropdown = tk.OptionMenu(self.frame, fragilSioNo_var, *fragilSioNo)
+        fragilSioNo_dropdown.grid(row=7, column=1, pady=5, padx=5, sticky="w")
+
         boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.mostrar_info_emergente(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get(), valor_declarado_entry.get()))
-        boton_enviar.grid(row=7, column=0, columnspan=2, pady=10)
+        boton_enviar.grid(row=8, column=0, columnspan=2, pady=10)
+
+        #NECESITO OBTENER EL VALOR DE LOS ENTRY EN INT O FLOAT PERO ME GENERA ERROR
+        paqueteEnviar = Paquete(peso_entry.get(),alto_entry.get(),ancho_entry.get(),largo_entry.get(),fragilSioNo_var.get(), valor_declarado_entry.get())
+        print(paqueteEnviar)
+    
+    # def obtenerValorSioNo():
+    #     valorSeleccionado = variable_opcion.get()
 
     def mostrar_info_emergente(self, peso, alto, ancho, largo, valor_declarado):
         if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit() or not valor_declarado.isdigit():
@@ -118,6 +135,7 @@ class Enviar(tk.Frame):
         mensaje = "¿El paquete es frágil?"
         ventana_emergente = VentanaEmergente(mensaje)
         ventana_emergente.wait_window()
+
 
         if ventana_emergente.respuesta is not None:
             tipo_producto = "Paquete"
@@ -257,6 +275,9 @@ class Enviar(tk.Frame):
         boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=self.enviar_detalle_envio)
         boton_enviar_2.grid(row=6, column=0, columnspan=2, pady=10)
 
+
+
+#AYUDAR KEVIN
 #NO SIRVE. AYUDA
     def enviar_detalle_envio(self):
         ciudad_origen = self.ciudad_origen_var.get()
