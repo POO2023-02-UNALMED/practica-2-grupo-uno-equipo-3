@@ -36,6 +36,10 @@ class MainWindow(Tk):
     def abrirPrincipal(self):
         self.destroy()         
         Principal()
+    
+    def abrirInicio(self):
+        self.destroy()
+        Inicio()
 
 if __name__=="__main__":
     medellinNorte = Sucursal("Medellin Norte", 500,500,10,10)

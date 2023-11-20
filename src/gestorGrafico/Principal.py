@@ -9,6 +9,8 @@ from gestorAplicacion.transportes.camion import Camion
 from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorGrafico.OpinionesSucursal import TablaSucursales
 
+
+
 class Principal(Tk):
     def __init__(self):
         super().__init__()
@@ -63,6 +65,7 @@ class Principal(Tk):
             
         def salir():
             self.destroy()
+
 
         def infoBasica():
             texto = """¡Bienvenido a la aplicación de Mensajería "Correminas"!
