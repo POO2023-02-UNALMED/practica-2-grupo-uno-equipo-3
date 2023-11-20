@@ -83,7 +83,7 @@ class Enviar(tk.Frame):
         self.boton_documento.grid_forget()
 
         self.texto_bienvenida = "Has seleccionado Enviar un Paquete, diligencie los siguientes datos: \n\n Tenga en cuenta que los datos son en Kg y Metros respectivamente"
-        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, font=("Helvetica", 12), justify="left", wraplength=380, fg="white", bg="green")
+        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, justify="left", wraplength=380, bg="#739072", fg="white")
         self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
 
         peso_label = tk.Label(self.frame, text="Peso:", bg="#739072", fg="white")
@@ -174,7 +174,7 @@ class Enviar(tk.Frame):
             self.frame.pack_forget()
 
             # Crea y muestra un nuevo frame  (que bendicion)
-            nuevo_frame = tk.Frame(self, width=800, height=800, bg="blue", highlightbackground="#085870", highlightthickness=5)
+            nuevo_frame = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
             nuevo_frame.grid(row=0, column=0, sticky="nsew")
 
             label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), bg="#739072", fg="white")
@@ -260,7 +260,7 @@ class Enviar(tk.Frame):
         label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), bg="#739072", fg="white")
         label_nuevo_frame.grid(row=0, column=0, pady=10)
 
-        nuevo_frame_2 = tk.Frame(self, width=800, height=800, bg="red", highlightbackground="#085870", highlightthickness=5)
+        nuevo_frame_2 = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
         nuevo_frame_2.grid(row=0, column=0, sticky="nsew")
 
         label_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Detalles Del Envio", font=("Helvetica", 16), bg="#739072", fg="white")
