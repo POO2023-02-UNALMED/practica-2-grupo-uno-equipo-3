@@ -377,6 +377,7 @@ class Enviar(tk.Frame):
 
 
     def enviar_animal(self):
+
         self.bienvenida_label.grid_forget()
         self.boton_paquete.grid_forget()
         self.boton_animal.grid_forget()
@@ -414,25 +415,276 @@ class Enviar(tk.Frame):
         tipoDeAnimal_dropdown = tk.OptionMenu(self.frame, tipoDeAnimal_var, *tiposDeAnimales)
         tipoDeAnimal_dropdown.grid(row=6, column=1, pady=5, padx=5, sticky="w")
 
-        botonSiguiente = tk.Button(self.frame,text="Siguiente",bg="#3A4D39", font=("arial", 11, "bold"),fg="white")
+        botonSiguiente = tk.Button(self.frame,text="Siguiente",command=lambda: self.mostrar_info_animal(), bg="#3A4D39", font=("arial", 11, "bold"),fg="white")
         botonSiguiente.grid(row=7,column=0,columnspan=2,pady=5, padx=5)
 
-        #falta colocar lo del usuario y ciudades después de esto
+    def mostrar_info_animal(self):
+        
+        self.frame.pack_forget()
+
+        # Crea y muestra un nuevo frame  (que bendicion)
+        nuevo_frame = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
+        nuevo_frame.grid(row=0, column=0, sticky="nsew")
+
+        label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), bg="#739072", fg="white")
+        label_nuevo_frame.grid(row=0, column=0, pady=10)
+
+        self.texto_bienvenida2 = "Por favor diligencie los siguientes datos."
+        self.bienvenida2_label = tk.Label(nuevo_frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, bg="#739072", fg="white")
+        self.bienvenida2_label.grid(row=1, column=0, columnspan=3, pady=10)
+
+        remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:", bg="#739072", fg="white")
+        remitente_nombre_label.grid(row=2, column=0, pady=5, sticky="e")
+
+        remitente_cedula_label = tk.Label(nuevo_frame, text="Cédula del Remitente:", bg="#739072", fg="white")
+        remitente_cedula_label.grid(row=3, column=0, pady=5, sticky="e")
+
+        remitente_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Remitente:", bg="#739072", fg="white")
+        remitente_telefono_label.grid(row=4, column=0, pady=5, sticky="e")
+
+        remitente_nombre_entry = tk.Entry(nuevo_frame)
+        remitente_nombre_entry.grid(row=2, column=1, pady=5, padx=5, sticky="w")
+
+        remitente_cedula_entry = tk.Entry(nuevo_frame)
+        remitente_cedula_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+
+        remitente_telefono_entry = tk.Entry(nuevo_frame)
+        remitente_telefono_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+
+        destinatario_nombre_label = tk.Label(nuevo_frame, text="Nombre del Destinatario:", bg="#739072", fg="white")
+        destinatario_nombre_label.grid(row=5, column=0, pady=5, sticky="e")
+
+        destinatario_cedula_label = tk.Label(nuevo_frame, text="Cédula del Destinatario:", bg="#739072", fg="white")
+        destinatario_cedula_label.grid(row=6, column=0, pady=5, sticky="e")
+
+        destinatario_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Destinatario:", bg="#739072", fg="white")
+        destinatario_telefono_label.grid(row=7, column=0, pady=5, sticky="e")
+
+        destinatario_nombre_entry = tk.Entry(nuevo_frame)
+        destinatario_nombre_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+
+        destinatario_cedula_entry = tk.Entry(nuevo_frame)
+        destinatario_cedula_entry.grid(row=6, column=1, pady=5, padx=5, sticky="w")
+
+        destinatario_telefono_entry = tk.Entry(nuevo_frame)
+        destinatario_telefono_entry.grid(row=7, column=1, pady=5, padx=5, sticky="w")
+
+        boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        boton_enviar_cliente.grid(row=8, column=0, columnspan=2, pady=10)
+
+    def mostrar_info_cliente(self, remitente_nombre, remitente_cedula, remitente_telefono, destinatario_nombre, destinatario_cedula, destinatario_telefono):
+        
+        if not (remitente_nombre.isalpha() and destinatario_nombre.isalpha()):
+            messagebox.showerror("Error", "Los campos de *Nombre* no deben estar vacios y aparta deben ser solo Letras.")
+            return
+        if not remitente_telefono.isdigit() or not remitente_cedula.isdigit() or not destinatario_cedula.isdigit() or not destinatario_telefono.isdigit():
+            messagebox.showerror("Error", "No se permite letras en la casillas de *Cedula* y *Telefono*, dejar casillas vacías o caracteres especiales, solo números enteros.")
+            return
+        
+        info_text_cliente = "\nInformación del Remitente:\n"
+        info_text_cliente += f"Nombre: {remitente_nombre}\n"
+        info_text_cliente += f"Cédula: {remitente_cedula}\n"
+        info_text_cliente += f"Teléfono: {remitente_telefono}\n"
+
+        info_text_cliente += "\nInformación del Destinatario:\n"
+        info_text_cliente += f"Nombre: {destinatario_nombre}\n"
+        info_text_cliente += f"Cédula: {destinatario_cedula}\n"
+        info_text_cliente += f"Teléfono: {destinatario_telefono}"
+
+        remitente = Cliente(remitente_nombre,remitente_cedula,remitente_telefono)
+
+        valores.append(remitente)
+        destinatario = Destinatario(destinatario_nombre,destinatario_cedula,destinatario_telefono)
+
+        valores.append(destinatario)
+
+        messagebox.showinfo("Información del Cliente", info_text_cliente)
+
+        self.frame.pack_forget()
+
+        #Segundo Frame Detalles Envio
+        nuevo_frame = tk.Frame(self, width=800, height=800, bg="blue", highlightbackground="#085870", highlightthickness=5)
+        nuevo_frame.grid(row=0, column=0, sticky="nsew")
+
+        label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), bg="#739072", fg="white")
+        label_nuevo_frame.grid(row=0, column=0, pady=10)
+
+        nuevo_frame_2 = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
+        nuevo_frame_2.grid(row=0, column=0, sticky="nsew")
+
+        label_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Detalles Del Envio", font=("Helvetica", 16), bg="#739072", fg="white")
+        label_nuevo_frame_2.grid(row=0, column=0, pady=10, columnspan=2)
+
+        descripcion_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Por favor selecciona la ciudad desde la que envias tu Animal y a cual deseas enviarlo.", bg="#739072", fg="white")
+        descripcion_nuevo_frame_2.grid(row=1, column=0, pady=10,columnspan=2)
+
+        ciudades_origen = ["Medellin Norte", "Medellin Sur","Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
+        ciudad_origen_label = tk.Label(nuevo_frame_2, text="Ciudad de Origen:", bg="#739072", fg="white")
+        ciudad_origen_label.grid(row=2, column=0, pady=5, sticky="e")
+        ciudad_origen_var = tk.StringVar()
+        ciudad_origen_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_origen_var, *ciudades_origen)
+        ciudad_origen_dropdown.grid(row=2, column=1, pady=5, padx=5, sticky="w")
+
+        ciudades_destino = ["Medellin Norte", "Medellin Sur","Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
+        ciudad_destino_label = tk.Label(nuevo_frame_2, text="Ciudad de Destino:", bg="#739072", fg="white")
+        ciudad_destino_label.grid(row=3, column=0, pady=5, sticky="e")
+        ciudad_destino_var = tk.StringVar()
+        ciudad_destino_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_destino_var, *ciudades_destino)
+        ciudad_destino_dropdown.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+
+        labelTransporte = tk.Label(nuevo_frame_2,text="Tipo De Transporte:", bg="#739072", fg="white")
+        labelTransporte.grid(row=4,column=0,pady=5,sticky="e")
+
+        Transporte_lista = ["Camión","Avión"]
+        Transporte_lista_var = tk.StringVar()
+        Transporte_lista_menu = tk.OptionMenu(nuevo_frame_2, Transporte_lista_var, *Transporte_lista)
+        Transporte_lista_menu.grid(row=4,column=1,pady=5,padx=5,sticky="w")
+
+        labelPago = tk.Label(nuevo_frame_2,text="Método de pago:", bg="#739072", fg="white")
+        labelPago.grid(row=5,column=0,pady=5,sticky="e")
+
+        pago_lista = ["Pago total","Pago Fraccionado", "Pago contraentrega"]
+        pago_lista_var = tk.StringVar()
+        pago_lista_menu = tk.OptionMenu(nuevo_frame_2, pago_lista_var, *pago_lista)
+        pago_lista_menu.grid(row=5,column=1,pady=5,padx=5,sticky="w")
+
+        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=lambda:self.enviar_detalle_envio(ciudad_origen_var.get(),ciudad_destino_var.get(),Transporte_lista_var.get(),pago_lista_var.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        boton_enviar_2.grid(row=6, column=0, columnspan=2, pady=10)
 
     def enviar_documento(self):
         self.bienvenida_label.grid_forget()
         self.boton_paquete.grid_forget()
         self.boton_animal.grid_forget()
         self.boton_documento.grid_forget()
+        
+        self.frame.pack_forget()
+
+        # Crea y muestra un nuevo frame  (que bendicion)
+        nuevo_frame = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
+        nuevo_frame.grid(row=0, column=0, sticky="nsew")
+
+        label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), bg="#739072", fg="white")
+        label_nuevo_frame.grid(row=0, column=0, pady=10)
 
         self.texto_bienvenida1 = "Has seleccionado Enviar un Documento."
-        self.texto_bienvenida2 = "Para continuar deberá diligenciar los siguientes datos: "
-        self.bienvenida_label1 = tk.Label(self.frame, text=self.texto_bienvenida1, justify="left", wraplength=380, bg="#739072", fg="white")
-        self.bienvenida_label1.grid(row=1, column=0, columnspan=2, pady=10)
-        self.bienvenida_label2 = tk.Label(self.frame, text=self.texto_bienvenida2, justify="left", wraplength=380, bg="#739072", fg="white")
-        self.bienvenida_label2.grid(row=2, column=0, columnspan=2, pady=10)
- 
+        self.texto_bienvenida2 = "Has seleccionado Enviar un Documento.\n\n Por favor diligencie los siguientes datos."
+        self.bienvenida2_label = tk.Label(nuevo_frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, bg="#739072", fg="white")
+        self.bienvenida2_label.grid(row=1, column=0, columnspan=3, pady=10)
 
-        #qué se pregunta acá? xd
-        infoDoc_label = tk.Label(self.frame, text="Documento:")
-        infoDoc_label.grid(row=3, column=0, pady=(10, 0), sticky="e")
+        remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:", bg="#739072", fg="white")
+        remitente_nombre_label.grid(row=2, column=0, pady=5, sticky="e")
+
+        remitente_cedula_label = tk.Label(nuevo_frame, text="Cédula del Remitente:", bg="#739072", fg="white")
+        remitente_cedula_label.grid(row=3, column=0, pady=5, sticky="e")
+
+        remitente_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Remitente:", bg="#739072", fg="white")
+        remitente_telefono_label.grid(row=4, column=0, pady=5, sticky="e")
+
+        remitente_nombre_entry = tk.Entry(nuevo_frame)
+        remitente_nombre_entry.grid(row=2, column=1, pady=5, padx=5, sticky="w")
+
+        remitente_cedula_entry = tk.Entry(nuevo_frame)
+        remitente_cedula_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+
+        remitente_telefono_entry = tk.Entry(nuevo_frame)
+        remitente_telefono_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+
+        destinatario_nombre_label = tk.Label(nuevo_frame, text="Nombre del Destinatario:", bg="#739072", fg="white")
+        destinatario_nombre_label.grid(row=5, column=0, pady=5, sticky="e")
+
+        destinatario_cedula_label = tk.Label(nuevo_frame, text="Cédula del Destinatario:", bg="#739072", fg="white")
+        destinatario_cedula_label.grid(row=6, column=0, pady=5, sticky="e")
+
+        destinatario_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Destinatario:", bg="#739072", fg="white")
+        destinatario_telefono_label.grid(row=7, column=0, pady=5, sticky="e")
+
+        destinatario_nombre_entry = tk.Entry(nuevo_frame)
+        destinatario_nombre_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+
+        destinatario_cedula_entry = tk.Entry(nuevo_frame)
+        destinatario_cedula_entry.grid(row=6, column=1, pady=5, padx=5, sticky="w")
+
+        destinatario_telefono_entry = tk.Entry(nuevo_frame)
+        destinatario_telefono_entry.grid(row=7, column=1, pady=5, padx=5, sticky="w")
+
+        boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        boton_enviar_cliente.grid(row=8, column=0, columnspan=2, pady=10)
+
+    def mostrar_info_cliente(self, remitente_nombre, remitente_cedula, remitente_telefono, destinatario_nombre, destinatario_cedula, destinatario_telefono):
+        
+        if not (remitente_nombre.isalpha() and destinatario_nombre.isalpha()):
+            messagebox.showerror("Error", "Los campos de *Nombre* no deben estar vacios y aparta deben ser solo Letras.")
+            return
+        if not remitente_telefono.isdigit() or not remitente_cedula.isdigit() or not destinatario_cedula.isdigit() or not destinatario_telefono.isdigit():
+            messagebox.showerror("Error", "No se permite letras en la casillas de *Cedula* y *Telefono*, dejar casillas vacías o caracteres especiales, solo números enteros.")
+            return
+        
+        info_text_cliente = "\nInformación del Remitente:\n"
+        info_text_cliente += f"Nombre: {remitente_nombre}\n"
+        info_text_cliente += f"Cédula: {remitente_cedula}\n"
+        info_text_cliente += f"Teléfono: {remitente_telefono}\n"
+
+        info_text_cliente += "\nInformación del Destinatario:\n"
+        info_text_cliente += f"Nombre: {destinatario_nombre}\n"
+        info_text_cliente += f"Cédula: {destinatario_cedula}\n"
+        info_text_cliente += f"Teléfono: {destinatario_telefono}"
+
+        remitente = Cliente(remitente_nombre,remitente_cedula,remitente_telefono)
+
+        valores.append(remitente)
+        destinatario = Destinatario(destinatario_nombre,destinatario_cedula,destinatario_telefono)
+
+        valores.append(destinatario)
+
+        messagebox.showinfo("Información del Cliente", info_text_cliente)
+
+        self.frame.pack_forget()
+
+        #Segundo Frame Detalles Envio
+        nuevo_frame = tk.Frame(self, width=800, height=800, bg="blue", highlightbackground="#085870", highlightthickness=5)
+        nuevo_frame.grid(row=0, column=0, sticky="nsew")
+
+        label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), bg="#739072", fg="white")
+        label_nuevo_frame.grid(row=0, column=0, pady=10)
+
+        nuevo_frame_2 = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
+        nuevo_frame_2.grid(row=0, column=0, sticky="nsew")
+
+        label_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Detalles Del Envio", font=("Helvetica", 16), bg="#739072", fg="white")
+        label_nuevo_frame_2.grid(row=0, column=0, pady=10, columnspan=2)
+
+        descripcion_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Por favor selecciona la ciudad desde la que envias tu Documento y a cual deseas enviarlo.", bg="#739072", fg="white")
+        descripcion_nuevo_frame_2.grid(row=1, column=0, pady=10,columnspan=2)
+
+        ciudades_origen = ["Medellin Norte", "Medellin Sur","Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
+        ciudad_origen_label = tk.Label(nuevo_frame_2, text="Ciudad de Origen:", bg="#739072", fg="white")
+        ciudad_origen_label.grid(row=2, column=0, pady=5, sticky="e")
+        ciudad_origen_var = tk.StringVar()
+        ciudad_origen_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_origen_var, *ciudades_origen)
+        ciudad_origen_dropdown.grid(row=2, column=1, pady=5, padx=5, sticky="w")
+
+        ciudades_destino = ["Medellin Norte", "Medellin Sur","Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
+        ciudad_destino_label = tk.Label(nuevo_frame_2, text="Ciudad de Destino:", bg="#739072", fg="white")
+        ciudad_destino_label.grid(row=3, column=0, pady=5, sticky="e")
+        ciudad_destino_var = tk.StringVar()
+        ciudad_destino_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_destino_var, *ciudades_destino)
+        ciudad_destino_dropdown.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+
+        labelTransporte = tk.Label(nuevo_frame_2,text="Tipo De Transporte:", bg="#739072", fg="white")
+        labelTransporte.grid(row=4,column=0,pady=5,sticky="e")
+
+        Transporte_lista = ["Camión","Avión"]
+        Transporte_lista_var = tk.StringVar()
+        Transporte_lista_menu = tk.OptionMenu(nuevo_frame_2, Transporte_lista_var, *Transporte_lista)
+        Transporte_lista_menu.grid(row=4,column=1,pady=5,padx=5,sticky="w")
+
+        labelPago = tk.Label(nuevo_frame_2,text="Método de pago:", bg="#739072", fg="white")
+        labelPago.grid(row=5,column=0,pady=5,sticky="e")
+
+        pago_lista = ["Pago total","Pago Fraccionado", "Pago contraentrega"]
+        pago_lista_var = tk.StringVar()
+        pago_lista_menu = tk.OptionMenu(nuevo_frame_2, pago_lista_var, *pago_lista)
+        pago_lista_menu.grid(row=5,column=1,pady=5,padx=5,sticky="w")
+
+        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=lambda:self.enviar_detalle_envio(ciudad_origen_var.get(),ciudad_destino_var.get(),Transporte_lista_var.get(),pago_lista_var.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        boton_enviar_2.grid(row=6, column=0, columnspan=2, pady=10)
