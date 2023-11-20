@@ -16,27 +16,30 @@ class Paquete(Producto):
     def __str__(self):
         return "---------------------PRODUCTO--------------------\n" + \
                "Tipo de producto: Paquete\n" + \
-               "Código de pedido: " + str(self.codigo) + "\n" + \
-               "Peso: " + str(self.peso) + "kg\n" + \
-               "Altura: " + str(self.alto) + "m\n" + \
-               "Ancho: " + str(self.ancho) + "m\n" + \
-               "Largo: " + str(self.largo) + "m\n" + \
-               "Volumen: " + str(self.alto * self.ancho * self.largo) + "m3\n" + \
-               "Fragil: " + ("Sí" if self.fragil else "No") + "\n" + \
-               "Valor declarado: " + str(self.valor_declarado)
+               "Código de pedido: " + str(self._codigo) + "\n" + \
+               "Peso: " + str(self._peso) + "kg\n" + \
+               "Altura: " + str(self._alto) + "m\n" + \
+               "Ancho: " + str(self._ancho) + "m\n" + \
+               "Largo: " + str(self._largo) + "m\n" + \
+               "Volumen: " + str(self._alto * self._ancho * self._largo) + "m3\n" + \
+               "Fragil: " + ("Sí" if self._fragil else "No") + "\n" + \
+               "Valor declarado: " + str(self._valorDeclarado)
 
     def asignarCostoDelPedido(self):
         tarifa_base_por_kg = 1000
         tarifa_base_por_metro_cubico = 4000
         tarifa_adicional_fragil = 1.25
-        costo_pedido = (tarifa_base_por_metro_cubico * self.volumen) + (tarifa_base_por_kg * self.peso) + self.valor_declarado * 0.3
-        if not self.fragil:
+        costo_pedido = (tarifa_base_por_metro_cubico * self._volumen) + (tarifa_base_por_kg * self._peso) + self._valorDeclarado * 0.3
+        if not self._fragil:
             self.costoDelPedido = costo_pedido
         else:
             self.costoDelPedido = costo_pedido * tarifa_adicional_fragil
 
     def isFragil(self):
         return self._fragil
+    
+    def getCodigo(self):
+        return self._codigo
 
     def getValorDeclarado(self):
         return self._valorDeclarado

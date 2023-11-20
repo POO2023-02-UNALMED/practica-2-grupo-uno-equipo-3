@@ -7,4 +7,4 @@ class Destinatario(Persona):
         super().__init__(nombre, cedula, telefono)
     
     def __str__(self):
-        return f"El destinatario identificado como {self.nombre} y cedula {self.cedula}"
+        return f"El destinatario identificado como {self._nombre} y cedula {self._cedula}"

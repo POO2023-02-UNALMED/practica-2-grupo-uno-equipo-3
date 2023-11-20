@@ -1,8 +1,11 @@
 import tkinter as tk
 from tkinter import PhotoImage, messagebox
+from gestorAplicacion.administracion.guia import Guia
+from gestorAplicacion.personas.cliente import Cliente
+from gestorAplicacion.personas.destinatario import Destinatario
 
 from gestorAplicacion.productos.paquete import Paquete
-
+valores = []
 class VentanaEmergente(tk.Toplevel):
     def __init__(self, mensaje):
         super().__init__()
@@ -109,23 +112,21 @@ class Enviar(tk.Frame):
         valor_declarado_entry = tk.Entry(self.frame)
         valor_declarado_entry.grid(row=6, column=1, pady=10, padx=5, sticky="w")
 
-        fragilLabel = tk.Label(self.frame, text="¿Es fragil?")
-        fragilLabel.grid(row=7,column=0,pady=10, sticky="e")
+        # fragilLabel = tk.Label(self.frame, text="¿Es fragil?")
+        # fragilLabel.grid(row=7,column=0,pady=10, sticky="e")
 
-        fragilSioNo = ["Si", "No"]
-        fragilSioNo_var = tk.StringVar()
-        fragilSioNo_dropdown = tk.OptionMenu(self.frame, fragilSioNo_var, *fragilSioNo)
-        fragilSioNo_dropdown.grid(row=7, column=1, pady=5, padx=5, sticky="w")
+        # fragilSioNo = ["Si", "No"]
+        # fragilSioNo_var = tk.StringVar()
+        # fragilSioNo_dropdown = tk.OptionMenu(self.frame, fragilSioNo_var, *fragilSioNo)
+        # fragilSioNo_dropdown.grid(row=7, column=1, pady=5, padx=5, sticky="w")
+
 
         boton_enviar = tk.Button(self.frame, text="Enviar", command=lambda: self.mostrar_info_emergente(peso_entry.get(), alto_entry.get(), ancho_entry.get(), largo_entry.get(), valor_declarado_entry.get()))
         boton_enviar.grid(row=8, column=0, columnspan=2, pady=10)
 
-        #NECESITO OBTENER EL VALOR DE LOS ENTRY EN INT O FLOAT PERO ME GENERA ERROR
-        paqueteEnviar = Paquete(peso_entry.get(),alto_entry.get(),ancho_entry.get(),largo_entry.get(),fragilSioNo_var.get(), valor_declarado_entry.get())
-        print(paqueteEnviar)
+
     
-    # def obtenerValorSioNo():
-    #     valorSeleccionado = variable_opcion.get()
+
 
     def mostrar_info_emergente(self, peso, alto, ancho, largo, valor_declarado):
         if not peso.isdigit() or not alto.isdigit() or not ancho.isdigit() or not largo.isdigit() or not valor_declarado.isdigit():
@@ -140,6 +141,11 @@ class Enviar(tk.Frame):
         if ventana_emergente.respuesta is not None:
             tipo_producto = "Paquete"
             es_fragil = "Sí" if ventana_emergente.respuesta else "No"
+            if es_fragil == "Si":
+                fragil = True
+            else:
+                fragil = False
+
             info_text = f"Tipo de producto: {tipo_producto}\n"
             info_text += f"Peso: {peso} Kg\n"
             info_text += f"Alto: {alto} m\n"
@@ -148,7 +154,18 @@ class Enviar(tk.Frame):
             info_text += f"Es frágil: {es_fragil}\n"
             info_text += f"Precio Del Paquete: $ {valor_declarado}"
 
+            peso = int(peso)
+            alto = int(alto)
+            ancho = int(ancho)
+            largo = int(largo)
+            valor_declarado = int(valor_declarado)
+
+            #ya se crea el objeto de tipo paquete - Kevin
+            paqueteAEnviar = Paquete(peso,alto,ancho,largo,fragil,valor_declarado)
+            print(paqueteAEnviar)
+            valores.append(paqueteAEnviar)
             messagebox.showinfo("Información del Paquete", info_text)
+
 
             # Oculta el frame actual para poder crear uno ahorita mas adelante
             self.frame.pack_forget()
@@ -222,6 +239,13 @@ class Enviar(tk.Frame):
         info_text_cliente += f"Cédula: {destinatario_cedula}\n"
         info_text_cliente += f"Teléfono: {destinatario_telefono}"
 
+        remitente = Cliente(remitente_nombre,remitente_cedula,remitente_telefono)
+        print(remitente)
+        valores.append(remitente)
+        destinatario = Destinatario(destinatario_nombre,destinatario_cedula,destinatario_telefono)
+        print(destinatario)
+        valores.append(destinatario)
+
         messagebox.showinfo("Información del Cliente", info_text_cliente)
 
         self.frame.pack_forget()
@@ -272,25 +296,50 @@ class Enviar(tk.Frame):
         pago_lista_menu = tk.OptionMenu(nuevo_frame_2, pago_lista_var, *pago_lista)
         pago_lista_menu.grid(row=5,column=1,pady=5,padx=5,sticky="w")
 
-        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=self.enviar_detalle_envio)
+        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=lambda:self.enviar_detalle_envio(ciudad_origen_var.get(),ciudad_destino_var.get(),Transporte_lista_var.get(),pago_lista_var.get()))
         boton_enviar_2.grid(row=6, column=0, columnspan=2, pady=10)
+
+
 
 
 
 #AYUDAR KEVIN
 #NO SIRVE. AYUDA
-    def enviar_detalle_envio(self):
-        ciudad_origen = self.ciudad_origen_var.get()
-        ciudad_destino = self.ciudad_destino_var.get()
+    def enviar_detalle_envio(self,origen,destino,transporte,pago):
+        origen = origen
+        destino = destino
+        transporte = transporte
+        pago = pago
 
-        if ciudad_origen and ciudad_destino:
+        if origen and destino != None:
             tipo_producto = "Paquete"
             info_text = f"Tipo de producto: {tipo_producto}\n"
-            info_text += f"Ciudad De Origen: {ciudad_origen} \n"
-            info_text += f"Ciudad De Destino: {ciudad_destino} \n"
+            info_text += f"Ciudad De Origen: {origen} \n"
+            info_text += f"Ciudad De Destino: {destino} \n"
 
             messagebox.showinfo("Información del Paquete", info_text)
             messagebox.showinfo("Los detalles del envío han sido enviados con éxito.")
+            sucursalOrigen = origen
+            sucurlLlegada = destino
+            valores.append(sucursalOrigen)
+            valores.append(sucurlLlegada)
+            valores.append(pago)
+            valores.append(transporte)
+            print(valores)
+
+    #Se va crear la guia del paquete que se envió
+    
+            guiaPaqueteAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
+            print(guiaPaqueteAEnviar)
+
+
+
+
+
+
+
+
+
 
 
     def enviar_animal(self):
