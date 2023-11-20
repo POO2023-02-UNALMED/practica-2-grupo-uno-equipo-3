@@ -47,8 +47,6 @@ class Camion(Transporte):
         self.enSucursal = False
         self.progreso += 6.25
 
-        #print("Sali de "+ self.ubicacionAnterior.getNombre())
-
     def iniciarRecorrido(self):
         self.enSucursal = False
         for producto in self.inventario:

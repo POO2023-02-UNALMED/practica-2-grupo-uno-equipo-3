@@ -16,8 +16,6 @@ class Rastrear(Frame):
         self.config(highlightbackground="#085870",highlightthickness=3)
         self.pack(expand=True)
 
-        print(Guia.getTodasLasGuias()[1].getEstado())
-
         def consultarProgreso(guia):
             self.pack_forget()
             estado = Estado(ventana, guia)
@@ -78,16 +76,13 @@ class Estado(Frame):
     hilos = False
     def __init__(self, ventana, guiaPaquete):
         super().__init__(ventana)
-        self.config(highlightbackground="#085870", highlightthickness=3, width=570, height=100)
+        self.config(highlightbackground="#085870", highlightthickness=3, width=570, height=135)
         self.pack_propagate(False)
         self.pack(side="top", expand=True)
         Estado.hilos = True
                 
         transporte = guiaPaquete.getVehiculo()
-        #camion.iniciarRecorrido()
-        print(transporte.getInventario()[0].getCodigo())
-        
-        print(guiaPaquete.getEstado())
+
         progress_var = tk.IntVar()
         progress_var.set(guiaPaquete.avancePedido())
         guiaPaquete.avancePedido()
@@ -108,6 +103,7 @@ class Estado(Frame):
                         progress_var.set(guiaPaquete.avancePedido())
                         avance.config(text=transporte.ubicarTransporte())
                         porcentaje.config(text="%"+str(guiaPaquete.avancePedido()))
+                        
                     elif guiaPaquete.getEstado() == Guia.estado.ENESPERA:
                         mensaje = "El producto ya llegó a la sucursal de destino.\n" \
                             "Diríjase a la pestaña recoger para reclamar su pedido"
@@ -128,10 +124,21 @@ class Estado(Frame):
             
         avance = Label(self, text="\n")
         avance.pack(pady=0, fill="x")
+        
+        frameCodigo = Frame(self)
+        frameCodigo.pack(side="bottom", pady=5)
+        
+        codigoTexto = Label(frameCodigo, text="Código: ")
+        codigoTexto.pack(side="left")
+        
+        codigo = Entry(frameCodigo)
+        codigo.insert(0, guiaPaquete.getProducto().getCodigo())
+        codigo.config(state="readonly")
+        codigo.pack(side="left")
 
         progress_bar = ttk.Progressbar(self, variable=progress_var, maximum=100, length=500)
         progress_bar.pack(pady=5)
-
+        
         inicio = Label(self, text=guiaPaquete.getSucursalOrigen().getNombre())
         inicio.pack(side="left", anchor="sw", padx=5, pady=5)
 
@@ -141,9 +148,12 @@ class Estado(Frame):
         porcentaje = Label(self, text="%"+str(guiaPaquete.avancePedido()))
         porcentaje.pack(side="bottom", pady=5)
 
+        
+        
         hilo = threading.Thread(target=actualizarBarra)
         hilo.start()
         
+
     def detenerHilos():
         Estado.hilos = False
 

@@ -58,7 +58,6 @@ class Guia:
         elif self._estado == Guia.estado.ENESPERA or self.estado == Guia.estado.ENTREGADO:
             return 100
         elif self._estado == Guia.estado.ENTRANSITO:
-            porcentaje = 30
             if isinstance(self._vehiculo, Camion):
                 escalas = 100.0 / (len(self._ruta) - 1)
                 camion = self._vehiculo
@@ -71,7 +70,7 @@ class Guia:
                     redondeado = round(porcentaje, 1)
                     return redondeado
             else:
-                return 0
+                return 50
         else:
             return 0
 
