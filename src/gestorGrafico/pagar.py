@@ -40,4 +40,4 @@ class Pagar(Frame):
                 
 
         boton = Button(self, text="Verificar", command=verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
-        boton.pack(pady=5)
+        boton.grid(row=4, column=0, columnspan=2, pady=5)
