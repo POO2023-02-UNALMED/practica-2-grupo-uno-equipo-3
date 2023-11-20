@@ -302,8 +302,7 @@ class Enviar(tk.Frame):
         boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=lambda:self.enviar_detalle_envio(ciudad_origen_var.get(),ciudad_destino_var.get(),Transporte_lista_var.get(),pago_lista_var.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         boton_enviar_2.grid(row=6, column=0, columnspan=2, pady=10)
 
-
-
+ 
 
 
 #AYUDAR KEVIN
@@ -357,11 +356,13 @@ class Enviar(tk.Frame):
 
         #Se añade el paquete que se creó a la sucursal de origen
         #se verifica si es necesario pagar para enviar
-        if guiaPaqueteAEnviar.getTipoDePago == Guia.tipoDePago.DESTINATARIO:
+        print(str(guiaPaqueteAEnviar.getTipoDePago()))
+        print(str(Guia.tipoDePago.DESTINATARIO))
+        if guiaPaqueteAEnviar.getTipoDePago() == Guia.tipoDePago.DESTINATARIO:
             valores[3].getInventario().append(valores[0])
 
 
-        if (guiaPaqueteAEnviar.getTipoDePago == Guia.tipoDePago.REMITENTE) or (guiaPaqueteAEnviar.getTipoDePago == Guia.tipoDePago.FRACCIONADO):
+        if (guiaPaqueteAEnviar.getTipoDePago() == Guia.tipoDePago.REMITENTE) or (guiaPaqueteAEnviar.getTipoDePago == Guia.tipoDePago.FRACCIONADO):
             if guiaPaqueteAEnviar.getPagoPendiente == 0:
                   valores[3].getInventario().append(valores[0])
             
@@ -389,7 +390,9 @@ class Enviar(tk.Frame):
 
 
             messagebox.showinfo("Los detalles del envío han sido enviados con éxito.", info_text)
-            Enviar.destroy(self)
+
+        valores.clear()
+
             
 
 

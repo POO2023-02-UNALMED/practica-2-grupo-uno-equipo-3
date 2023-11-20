@@ -160,8 +160,7 @@ class FrameSucursal(tk.Frame):
     def verificarCiudadDestino(self, paq, posibleCiudad):
         guia = paq.getGuia()
         sucursalDestino = guia.getSucursalLlegada().getNombre()
-        print("verificar ciudad (sucursalDestino)",sucursalDestino)
-        print("posible ciudad(escogida)",posibleCiudad)
+
         return sucursalDestino == posibleCiudad
     
     #función que se encarga de verificar los datos ingresados en los entrys, compara la cc ingresada con la cc de la guia del producto
