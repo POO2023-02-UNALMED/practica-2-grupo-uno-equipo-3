@@ -124,6 +124,7 @@ class FrameSucursal(tk.Frame):
                                         if (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.REMITENTE):
                                             if (guiaPaq.getPagoPendiente() == 0):
                                                 messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
+                                                #HAY QUE ELIMINAR EL PAQUETE DEL INVENTARIO DE LA SUCURSAL 
                                                 self.destroy()
                                                 if (guiaPaq.getPagoPendiente() != 0):
                                                     messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar la mitad del envío")

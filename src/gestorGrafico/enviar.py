@@ -166,7 +166,6 @@ class Enviar(tk.Frame):
 
             #ya se crea el objeto de tipo paquete - Kevin
             paqueteAEnviar = Paquete(peso,alto,ancho,largo,fragil,valor_declarado)
-            print(paqueteAEnviar)
             valores.append(paqueteAEnviar)
             messagebox.showinfo("Información del Paquete", info_text)
 
@@ -244,10 +243,10 @@ class Enviar(tk.Frame):
         info_text_cliente += f"Teléfono: {destinatario_telefono}"
 
         remitente = Cliente(remitente_nombre,remitente_cedula,remitente_telefono)
-        print(remitente)
+
         valores.append(remitente)
         destinatario = Destinatario(destinatario_nombre,destinatario_cedula,destinatario_telefono)
-        print(destinatario)
+
         valores.append(destinatario)
 
         messagebox.showinfo("Información del Cliente", info_text_cliente)
@@ -315,54 +314,66 @@ class Enviar(tk.Frame):
         transporte = transporte
         pago = pago
 
-        if origen and destino != None:
-            tipo_producto = "Paquete"
-            info_text = f"Tipo de producto: {tipo_producto}\n"
-            info_text += f"Ciudad De Origen: {origen} \n"
-            info_text += f"Ciudad De Destino: {destino} \n"
 
-            messagebox.showinfo("Información del Paquete", info_text)
-            messagebox.showinfo("Los detalles del envío han sido enviados con éxito.")
-            sucursales = Sucursal._todasLasSucursales
-            origen = origen
-            for i in sucursales:
-                if i._nombre == origen:
-                 valores.append(i)
-                 camiones = i.getCamionesEnSucursal()
-                 print(camiones)
-                 aviones = i.getAvionesEnSucursal()
-                 print(aviones)
+
+        sucursales = Sucursal._todasLasSucursales
+        origen = origen
+        for i in sucursales:
+            if i._nombre == origen:
+                valores.append(i)
+                camiones = i.getCamionesEnSucursal()
+
+                aviones = i.getAvionesEnSucursal()
+
             if transporte == "Camión":
                     transporteT = camiones[0]
             if transporte == "Avión":
                     transporteT = aviones[0]
             
 
-            destino = destino
-            for k in sucursales:
-                if k._nombre == destino:
-                    valores.append(k)
+        destino = destino
+        for k in sucursales:
+            if k._nombre == destino:
+                valores.append(k)
             
-            if pago == "Pago contraentrega":
+        if pago == "Pago contraentrega":
                 pagoTipo = Guia.tipoDePago.DESTINATARIO
-            if pago == "Pago total":
+        if pago == "Pago total":
                 pagoTipo = Guia.tipoDePago.REMITENTE
-            if pago == "Pago Fraccionado":
+        if pago == "Pago Fraccionado":
                 pagoTipo = Guia.tipoDePago.FRACCIONADO
 
-            valores.append(pagoTipo)
+        valores.append(pagoTipo)
 
 
-            valores.append(transporteT)
-            print(valores)
-
-            #Se añade el paquete que se creó a la sucursal de origen
-            valores[3].getInventario().append(valores[0])
+        valores.append(transporteT)
 
 
-            #Se va crear la guia del paquete que se envió
-            guiaPaqueteAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
-            print(guiaPaqueteAEnviar.getSucursalOrigen().getNombre()+"fghjkmnbvfgh")
+        #Se añade el paquete que se creó a la sucursal de origen
+        valores[3].getInventario().append(valores[0])
+
+
+        #Se va crear la guia del paquete que se envió
+        guiaPaqueteAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
+
+        if origen and destino != None:
+            tipo_producto = "Paquete"
+            info_text = f"Tipo de producto: {tipo_producto}\n"
+            info_text += f"Código del paquete: {valores[0].getCodigo()}\n"
+            info_text += f"Ciudad De Origen: {origen} \n"
+            info_text += f"Ciudad De Destino: {destino} \n"
+            info_text += f"Tipo de pago: {pago} \n"
+            info_text += f"Precio total: ${guiaPaqueteAEnviar.getPrecioTotal()}\n"
+            info_text += f"Vehículo: {transporte}"
+            #ACA VA LA GUIA
+
+  
+
+
+
+            messagebox.showinfo("Los detalles del envío han sido enviados con éxito.", info_text)
+            
+            
 
 
     def enviar_animal(self):
