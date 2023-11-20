@@ -100,15 +100,23 @@ class FrameSucursal(tk.Frame):
                             if ciudadSiNo:
                                 if (paq in self.sucursal_seleccionada.getInventario()):
                                     if (guiaPaq.getEstado() != guia.Guia.estado.ENTREGADO):
+                                        #poner los otros casos
                                         if (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.REMITENTE):
                                             if (guiaPaq.getPagoPendiente() == 0):
                                                 messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
                                                 self.destroy()
-
+                                                if (guiaPaq.getPagoPendiente() != 0):
+                                                    messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar la mitad del envío")
                                         elif (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.FRACCIONADO):
+                                            if (guiaPaq.getPagoPendiente() == 0):
+                                                messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
+                                                self.destroy()
                                             if (guiaPaq.getPagoPendiente() != 0):
                                                 messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar la mitad del envío")
                                         elif (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.DESTINATARIO):
+                                            if (guiaPaq.getPagoPendiente() == 0):
+                                                messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
+                                                self.destroy()
                                             if (guiaPaq.getPagoPendiente() != 0):
                                                 messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar el total por el envío")
                                     else:
