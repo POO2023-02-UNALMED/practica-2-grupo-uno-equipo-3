@@ -41,6 +41,38 @@ class Principal(Tk):
             if Estado.hilos:
                 Estado.detenerHilos()
                 
+            camionesFuera = []
+            avionesFuera = []
+            
+            sucursal = Sucursal.getTodasLasSucursales()[0]
+            
+            for camion in sucursal:
+                camion.agregarProductos()
+                
+                if camion.getUbicacionActual() == sucursal:
+                    if len(camion.getInventario()) == 2: #Cambiarlo
+                        camion.iniciarRecorrido()
+                        camionesFuera.append(camion)
+                
+                else:
+                    camionesFuera.append(camion) #Evitar error de duplicacion
+                    
+            for camion in camionesFuera:
+                sucursal.getCamionesEnSucursal().remove(camion)
+                
+            for avion in sucursal.getAvionesEnSucursal():
+                avion.agregarProductos()
+                
+                if avion.getUbicacionActual() == sucursal:
+                    if len(avion.getInventario()) == 4: #Cambiar
+                        avion.iniciarRecorrido()
+                        avionesFuera.append(avion)
+                
+                else:
+                    avionesFuera.append(avion)
+            
+            for avion in avionesFuera:
+                sucursal.getAvionesEnSucursal().remove(avion)
 
         # Porfa no lo comenten que así no puedo hacer pruebas
         def enviar():

@@ -44,13 +44,13 @@ class Transporte(ABC):
         pass
 
     def agregarProductos(self):
-        for producto in self.sucursalOrigen.inventario:
-            if producto.guia.sucursalOrigen == self.sucursalOrigen and producto.guia.vehiculo == self:
+        for producto in self.sucursalOrigen.getInventario():
+            if producto.getGuia().getSucursalOrigen() == self.sucursalOrigen and producto.getGuia().getVehiculo() == self:
                 self.inventario.append(producto)
 
         for producto in self.inventario:
-            if producto in self.sucursalOrigen.inventario:
-                self.sucursalOrigen.inventario.remove(producto)
+            if producto in self.sucursalOrigen.getInventario():
+                self.sucursalOrigen.getInventario().remove(producto)
 
     def getUbicacionAnterior(self):
         return self.ubicacionAnterior

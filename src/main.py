@@ -94,14 +94,34 @@ if __name__=="__main__":
     david = Destinatario("David", 55555, 666666)
     davidCuenta = CuentaBancaria(david, 987654321, 333, "08/25", 300000)
     
+    oswaldo = Cliente("Oswaldo", 20202020, 567891234)
+    oswaldoCuenta = CuentaBancaria(oswaldo, 99999999, 123, "23/29", 0)
+    
     documento = Documento()
     guiaDocumento = Guia(documento, guzman, david, medellinNorte, pastoNorte, Guia.tipoDePago.DESTINATARIO, camionesMN[0])
     
     paquete = Paquete(4, 1, 1, 1, True, 10000)
-    guiaPaquete = Guia(paquete, guzman, david, medellinNorte, bogotaNorte, Guia.tipoDePago.DESTINATARIO, avionesMN[0])
+    guiaPaquete = Guia(paquete, guzman, david, medellinNorte, bogotaNorte, Guia.tipoDePago.DESTINATARIO, camionesMN[0])
 
+    animal = Animal("Toby", 3, 10, Animal.tipoAnimal.PERRO)
+    guiaAnimal = Guia(animal, oswaldo, david, medellinNorte, bogotaNorte, Guia.tipoDePago.REMITENTE, avionesMN[0])
     
+    documento2 = Documento()
+    guiaDocumento2 = Guia(documento2, guzman, oswaldo, medellinNorte, bogotaNorte, Guia.tipoDePago.REMITENTE, avionesMN[0])
+    
+    paquete2 = Paquete(10, 3, 3, 3, True, 200000)
+    guiaPaquete2 = Guia(paquete2, oswaldo, guzman, medellinNorte, bogotaNorte, Guia.tipoDePago.DESTINATARIO, avionesMN[0])
+    
+    animal2 = Animal("Ana", 5, 80, Animal.tipoAnimal.VACA)
+    guiaAnimal2 = Guia(animal2, david, guzman, medellinNorte, bogotaNorte, Guia.tipoDePago.DESTINATARIO, avionesMN[0])
 
+    medellinNorte.getInventario().append(documento)
+    medellinNorte.getInventario().append(paquete)
+    medellinNorte.getInventario().append(animal)
+    medellinNorte.getInventario().append(documento2)
+    medellinNorte.getInventario().append(paquete2)
+    medellinNorte.getInventario().append(animal2)
+    
     #Deserializador.deserializar()
 
     #No me lo borren gracias 😉
