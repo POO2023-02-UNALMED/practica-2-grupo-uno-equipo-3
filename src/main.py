@@ -94,7 +94,7 @@ if __name__=="__main__":
     guiaDocumento = Guia(documento, guzman, david, medellinNorte, pastoNorte, Guia.tipoDePago.DESTINATARIO, camionesMN[0])
     
     paquete = Paquete(4, 1, 1, 1, True, 10000)
-    guiaPaquete = Guia(paquete, guzman, david, medellinNorte, bogotaNorte, Guia.tipoDePago.REMITENTE, avionesMN[0])
+    guiaPaquete = Guia(paquete, guzman, david, medellinNorte, bogotaNorte, Guia.tipoDePago.DESTINATARIO, avionesMN[0])
 
     
 
