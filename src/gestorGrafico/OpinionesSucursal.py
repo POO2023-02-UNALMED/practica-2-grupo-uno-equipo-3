@@ -17,18 +17,18 @@ from excepeciones.ExcepObj import *
 class TablaSucursales(tk.Frame):
     def __init__(self, ventana):
         super().__init__(ventana)
-        self.config(bg="SkyBlue4", highlightthickness=3)
+        self.config(bg="#3A4D39", highlightthickness=3)
         
 
         # Label Titulo
-        self.Label_Titulo = tk.Label(self,text= "Opinion Sucursal",font=("Arial",30))
+        self.Label_Titulo = tk.Label(self,text= "Opinion Sucursal",font=("Arial",30),bg="#739072",fg="white")
         self.Label_Titulo.pack(pady=10)
 
-        self.Label_Descripccion = tk.Label(self,text="Queremos conocer tu experiencia. Utiliza esta función para compartir tus opiniones y comentarios sobre el servicio en nuestras sucursales. ¡Valoramos tu retroalimentación y trabajamos para ofrecerte la mejor experiencia posible!",font=("Arial",10),wraplength=250)
+        self.Label_Descripccion = tk.Label(self,text="Queremos conocer tu experiencia. Utiliza esta función para compartir tus opiniones y comentarios sobre el servicio en nuestras sucursales. ¡Valoramos tu retroalimentación y trabajamos para ofrecerte la mejor experiencia posible!",font=("Arial",10),wraplength=250,bg="#739072",fg="white")
         self.Label_Descripccion.pack(pady=10)
         
         # Crear el widget Text para la tabla
-        self.texto_tabla = tk.Text(self, height=10, width=60)
+        self.texto_tabla = tk.Text(self, height=10, width=60,bg="#739072")
         self.texto_tabla.pack()
 
         # Crear el Combobox para seleccionar sucursales
@@ -87,7 +87,7 @@ class FrameSucursal(tk.Frame):
         super().__init__(ventana)
         self.sucursal_seleccionada = sucursal_seleccionada
         self.sucursal_encontrada = sucursal_encontrada
-        self.config(bg="#085870")
+        self.config(bg="#ECE3CE")
         self.pack(fill="both",expand=True)
         
         def cambiar_frame_confirmacion():
@@ -136,11 +136,14 @@ class FrameSucursal(tk.Frame):
 
 
         # Crear contenido para el nuevo frame
-        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}",font=("Arial",20))
-        etiqueta.pack(pady=10)
+        frame = Frame(self,bg="#739072")
+        frame.pack(padx=10,pady=10)
 
-        label_info = tk.Label(self,text="Por favor, comparte tu opinión sobre la sucursal, calificándola en una escala del 1 al 5.",font=("Arial",10))
-        label_info.pack(pady=10)
+        etiqueta = tk.Label(frame, text=f"Ha seleccionado la sucursal: {self.sucursal_seleccionada}",font=("Arial",20),bg="#3A4D39",fg="white")
+        etiqueta.pack(pady=10,padx=10)
+
+        label_info = tk.Label(frame,text="Por favor, comparte tu opinión sobre la sucursal, calificándola en una escala del 1 al 5.",font=("Arial",10),bg="#3A4D39",fg="white")
+        label_info.pack(pady=10,padx=10)
 
         titulo_criterio = "Opiniones"
         criterios = ["Opinion Integridad", "Opinion Puntualidad"]
@@ -149,7 +152,7 @@ class FrameSucursal(tk.Frame):
 
         fieldFrame_opiniones = FieldFrame(self, titulo_criterio, criterios, titulo_valores,None,None)
         fieldFrame_opiniones.pack(padx=30,pady=30)
-        fieldFrame_opiniones.config(width=400,height=400)
+        fieldFrame_opiniones.config(width=400,height=400,bg="#ECE3CE")
         
         # Agregar un botón para guardar las opiniones
         boton_guardar = tk.Button(self, text="Guardar Opiniones", command=guardar_opiniones)
@@ -159,37 +162,28 @@ class FrameSucursal(tk.Frame):
 class FrameConfirmacion(tk.Frame):
         def __init__(self, ventana):
             super().__init__(ventana)
-            self.config(bg="SteelBlue4")
+            self.config(bg="#ECE3CE")
             self.pack(fill="both",expand=True)
 
-            frame = Frame(self)
+            frame = Frame(self,bg="#739072")
             
             frame.pack(anchor="center",expand=True)
 
-            Confirmacion_label = Label(frame, text="¡Muchas Gracias por registrar tu opinion!", font=("Arial", 20), fg="white", bg="#085870")
+            Confirmacion_label = Label(frame, text="¡Muchas Gracias por registrar tu opinion!", font=("Arial", 20), fg="white", bg="#3A4D39")
             Confirmacion_label.pack(padx=10, pady=10)
 
-            agradecimiento_label = Label(frame, text="En nuestra empresa tu opinion hace la diferencia...", font=("Arial",10),fg="white", bg="#085870")
+            agradecimiento_label = Label(frame, text="En nuestra empresa tu opinion hace la diferencia...", font=("Arial",10),fg="white", bg="#3A4D39")
             agradecimiento_label.pack(padx=10,pady=10)
 
 
 class FrameDatos(tk.Frame):
     def __init__(self,ventana):
         super().__init__(ventana)
-        self.config(bg="SteelBlue4")
+        self.config(bg="#ECE3CE")
         self.pack(fill="both",expand=True)
-
-
-
 
         def guardar_datos():
             datos = fieldFrame_Datos.guardarValores()
-
-
-            nombre = datos[0]
-            cedula = int(datos[1])
-            telefono = int(datos[2])
-            encontrado = False
 
             try:
                 nombre = datos[0]
@@ -219,21 +213,21 @@ class FrameDatos(tk.Frame):
         criterios = ["Nombre","Cedula","Telefono"]
         titulo_valores = ""
 
-        frame = Frame(self)
+        frame = Frame(self,bg="#739072")
         frame.pack(padx=10,pady=10)
-        Disculpas_label = Label(frame, text= "Sentimos su mala experiencia con nuestro servicio",font=("Arial",20),fg="white", bg="#085870")
+        Disculpas_label = Label(frame, text= "Sentimos su mala experiencia con nuestro servicio",font=("Arial",20),fg="white", bg="#3A4D39")
         Disculpas_label.pack(padx=10,pady=10)
-        info_label = Label(frame, text="Como compensación, por favor, proporcione sus datos y le otorgaremos una recompensa",font=("Arial",10),fg="white", bg="#085870",wraplength=0)
+        info_label = Label(frame, text="Como compensación, por favor, proporcione sus datos y le otorgaremos una recompensa",font=("Arial",10),fg="white", bg="#3A4D39",wraplength=0)
         info_label.pack(padx=10,pady=10)
 
         fieldFrame_Datos = FieldFrame(self,titulo_criterio,criterios,titulo_valores,None,None)
         fieldFrame_Datos.pack(padx=30,pady=30)
-        fieldFrame_Datos.config(width=400,height=400)
+        fieldFrame_Datos.config(width=400,height=400,bg="#ECE3CE")
 
-        boton_guardar = tk.Button(self, text="Guardar Opiniones", command=guardar_datos)
+        boton_guardar = tk.Button(self, text="Guardar Datos", command=guardar_datos)
         boton_guardar.pack(pady=10)
 
-        label_resultado = Label(self,text="",bg="SteelBlue4")
+        label_resultado = Label(self,text="",bg="#ECE3CE")
         label_resultado.pack(pady=10)
 
 

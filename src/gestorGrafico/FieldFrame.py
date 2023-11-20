@@ -43,8 +43,8 @@ class FieldFrame(tk.Frame):
             entry.grid(row=i, column=6,columnspan=6,sticky="w")
 
         # Botón para aceptar y guardar los valores
-        self.boton_aceptar = tk.Button(self, text="Aceptar", command=self.guardarValores)
-        self.boton_aceptar.grid(row=i + 4, column=0, columnspan=6, padx=10,pady=10,sticky="w")
+        #self.boton_aceptar = tk.Button(self, text="Aceptar", command=self.guardarValores)
+        #self.boton_aceptar.grid(row=i + 4, column=0, columnspan=6, padx=10,pady=10,sticky="w")
 
         # Botón para limpiar el texto de las entradas
         self.boton_clear = tk.Button(self, text="Clear", command=self.limpiarTextos)

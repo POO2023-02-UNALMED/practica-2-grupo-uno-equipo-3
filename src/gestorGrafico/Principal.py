@@ -15,7 +15,7 @@ class Principal(Tk):
         self.title("Sistema Principal Correminas")
         self.resizable(0, 0)
         self.geometry("865x480")
-        self.configure(bg="#cedae0")
+        self.configure(bg="#ECE3CE")
         self.pack_propagate(False)
 
         # Funciones para los Labels de los menus
@@ -87,11 +87,32 @@ class Principal(Tk):
 
 
         frame = Frame(self)
-        frame.pack(anchor="center",expand=True)
+        frame.config(bg="#739072")
+        frame.pack(expand=True)
 
-        bienvenida_label = Label(frame, text="¡Bienvenido a la ventana principal de CorreMinas!", font=("Arial", 14), fg="white", bg="#085870")
+        bienvenida_label = Label(frame, text="¡Bienvenido a la ventana principal de CorreMinas!", font=("Arial", 14), fg="white", bg="#3A4D39")
         bienvenida_label.pack(padx=10, pady=10)
-        
+
+        frame_2 = Frame(self)
+        frame_2.config(bg="#739072")
+        frame_2.pack(expand=True)
+
+        info_Label = Label(frame_2,text= """
+        Para comenzar a disfrutar de nuestra plataforma, dirígete al menú llamado "Procesos y Consultas" en la esquina superior derecha. Aquí encontrarás cinco funcionalidades clave:
+
+        1) Enviar un Paquete: Envía tus paquetes de manera sencilla. Solo necesitas seleccionar el tipo de paquete y proporcionar información básica, incluidos los detalles del remitente y del destinatario.
+
+        2) Pagar Servicios: Realiza el pago de los servicios que nuestra compañía ha proporcionado. Tienes tres opciones de pago: compartido, del remitente o contraentrega.
+
+        3) Rastrear Pedido: Mantén un seguimiento constante de tus paquetes. Ingresa el código de envío y sigue su trayectoria para tener siempre todo bajo control ;)
+
+        4) Recoger Paquete: Facilitamos la recogida de tus paquetes. Simplemente proporciona los datos del destinatario para verificar y retirar tu paquete de nuestra sucursal.
+
+        5) Opinión sobre Sucursales: Queremos conocer tu experiencia. Utiliza esta función para compartir tus opiniones y comentarios sobre el servicio en nuestras sucursales. ¡Valoramos tu retroalimentación y trabajamos para ofrecerte la mejor experiencia posible!
+
+        Gracias por elegir "Correminas". Esperamos que tengas una experiencia excepcional. ¡Envía, paga, sigue, recoge y comparte tu opinión con nosotros!""",font=("Arial",10),fg="white",bg="#3A4D39",wraplength=600)
+        info_Label.pack(padx=10,pady=10)
+
         # Menus
         menuBar = Menu(self)
         self.option_add("*tearOff",  False)
