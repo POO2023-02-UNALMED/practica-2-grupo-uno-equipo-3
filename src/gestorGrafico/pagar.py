@@ -29,9 +29,12 @@ class Pagar(Frame):
 
         self.combobox_sucursales.bind("<<ComboboxSelected>>", self.asignar_sucursal)
 
-    def asignar_sucursal(self, event):
+        def asignar_sucursal(self, event):
+            sucursal= self.combobox_sucursales.get()
 
-        sucursal= self.combobox_sucursales.get()
+        def metodo_pago(guia):
+            self.pack_forget()
+            metodos = Metodos(ventana, guia)
            
 
         text = Label(self, text="Ingrese el código de su guía", font=("Arial", 12, "bold"))
@@ -81,3 +84,10 @@ class Pagar(Frame):
                 
         boton = Button(self, text="Verificar", command=verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
         boton.grid(row=4, column=0, columnspan=2, pady=5)
+
+class Metodos(Frame):
+    def _init_(self, ventana):
+        super().__init__(ventana)
+        self.config(bg="#739072",highlightbackground="#3A4D39",highlightthickness=3)
+        self.pack(expand=True)
+    
