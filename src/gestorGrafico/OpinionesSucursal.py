@@ -28,7 +28,7 @@ class TablaSucursales(tk.Frame):
         self.Label_Descripccion.pack(pady=10)
         
         # Crear el widget Text para la tabla
-        self.texto_tabla = tk.Text(self, height=10, width=60,bg="#739072")
+        self.texto_tabla = tk.Text(self, height=10, width=60,bg="#739072",fg="white")
         self.texto_tabla.pack()
 
         # Crear el Combobox para seleccionar sucursales
