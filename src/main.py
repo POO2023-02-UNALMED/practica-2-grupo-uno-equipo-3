@@ -119,7 +119,7 @@ if __name__=="__main__":
     medellinNorte.getInventario().append(documento2)
     medellinNorte.getInventario().append(paquete2)
     medellinNorte.getInventario().append(animal2)
-    
+        
     #Deserializador.deserializar()
 
 

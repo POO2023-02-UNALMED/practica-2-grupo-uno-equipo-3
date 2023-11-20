@@ -362,7 +362,7 @@ class Enviar(tk.Frame):
 
             #Se va crear la guia del paquete que se envió
             guiaPaqueteAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
-            print(guiaPaqueteAEnviar)
+            print(guiaPaqueteAEnviar.getSucursalOrigen().getNombre()+"fghjkmnbvfgh")
 
 
     def enviar_animal(self):

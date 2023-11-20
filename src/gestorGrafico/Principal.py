@@ -48,7 +48,6 @@ class Principal(Tk):
             
             sucursal = Sucursal.getTodasLasSucursales()[0]
             
-            print("camion" + str(len(Transporte.getTodosLosTransportes()[0].getInventario())))
             for camion in sucursal.getCamionesEnSucursal():
                 camion.agregarProductos()
                 
