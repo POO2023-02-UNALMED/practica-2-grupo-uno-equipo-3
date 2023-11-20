@@ -122,12 +122,14 @@ if __name__=="__main__":
     
     #Deserializador.deserializar()
 
+
     #No me lo borren gracias 😉
     camion = medellinNorte.getCamionesEnSucursal()[0]
     #amion.iniciarRecorrido()
     
     avion = medellinNorte.getAvionesEnSucursal()[0]
-    #avion.iniciarRecorrido()    
+    #avion.iniciarRecorrido() 
+    #Serializador.serializar()   
     
     
     MainWindow()
