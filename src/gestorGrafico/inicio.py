@@ -9,19 +9,19 @@ class Inicio(Frame):
         
         # Creacion de Frames
 
-        p1Frame=Frame(self,height=450,width=425,bg="#cedae0")
+        p1Frame=Frame(self,height=450,width=425,bg="#ECE3CE")
         p1Frame.grid(row=0,column=0,columnspan=1,rowspan=1,padx=(5,0),pady=5)
         p1Frame.grid_propagate(False)
 
-        p2Frame=Frame(self,height=450,width=425,bg="#cedae0")
+        p2Frame=Frame(self,height=450,width=425,bg="#ECE3CE")
         p2Frame.grid(row=0,column=1,columnspan=1,rowspan=1,padx=(0,5),pady=5)
         p2Frame.grid_propagate(False)
 
-        p3Frame=Frame(p1Frame,height=70,width=415,bg="#085870")
+        p3Frame=Frame(p1Frame,height=70,width=415,bg="#3A4D39")
         p3Frame.grid(row=0,column=0,columnspan=1,rowspan=1,padx=5,pady=(5,3))
         p3Frame.pack_propagate(False)
 
-        p4Frame=Frame(p1Frame,height=365,width=415,bg="#cedae0")
+        p4Frame=Frame(p1Frame,height=365,width=415,bg="#739072")
         p4Frame.grid(row=1,column=0,columnspan=2,rowspan=1,padx=5,pady=(3,5))
         p4Frame.pack_propagate(False)
 
@@ -29,13 +29,13 @@ class Inicio(Frame):
         p5Frame.grid(row=0,column=0,columnspan=1,rowspan=1,padx=5,pady=(5,3))
         p5Frame.pack_propagate(False)
 
-        p6Frame=Frame(p2Frame,height=335,width=335,bg="#085870")
+        p6Frame=Frame(p2Frame,height=335,width=335,bg="#3A4D39")
         p6Frame.grid(row=1,column=0,columnspan=2,rowspan=1,padx=5,pady=(3,5))
         p6Frame.grid_propagate(False)
 
         # Frame 3 Saludo bienvenida
         mensaje="BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE MEDELLIN NORTE"
-        mensajeBienv = Label(p3Frame,text=mensaje,font=("arial", 15 , "bold"),bg="#085870",wraplength=415,fg="#cedae0")
+        mensajeBienv = Label(p3Frame,text=mensaje,font=("arial", 15 , "bold"),bg="#3A4D39",wraplength=415,fg="#cedae0")
         mensajeBienv.pack(expand=True)
 
 
@@ -77,7 +77,7 @@ class Inicio(Frame):
                 self.punteroIntergrante = i
             
 
-        biblioTexto = Label(p5Frame,text=bibi1,font=("arial", 10),bg="#cedae0",wraplength=405,highlightbackground="#085870",highlightthickness=2)
+        biblioTexto = Label(p5Frame,text=bibi1,font=("arial", 10),bg="#739072",wraplength=405,highlightbackground="#085870",highlightthickness=2)
         biblioTexto.pack(expand=True,fill="both")
         biblioTexto.bind("<Button-1>",cambiarTextoEImagenF6)
 
