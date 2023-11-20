@@ -39,7 +39,7 @@ class MainWindow(Tk):
     
     def abrirInicio(self):
         self.destroy()
-        Inicio()
+        MainWindow()
 
 if __name__=="__main__":
     medellinNorte = Sucursal("Medellin Norte", 500,500,10,10)
@@ -86,7 +86,7 @@ if __name__=="__main__":
     caliSur.setOpinionSucursal(opinion6)
     pastoNorte.setOpinionSucursal(opinion7)
     pastoSur.setOpinionSucursal(opinion8)
-    Serializador.serializar()
+    
     
     guzman = Cliente("Jaime Guzman", 123456789, 987654321)
     guzmanCuenta = CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000)
@@ -122,6 +122,7 @@ if __name__=="__main__":
     medellinNorte.getInventario().append(paquete2)
     medellinNorte.getInventario().append(animal2)
     
+    #Serializador.serializar()
     #Deserializador.deserializar()
 
     #No me lo borren gracias 😉

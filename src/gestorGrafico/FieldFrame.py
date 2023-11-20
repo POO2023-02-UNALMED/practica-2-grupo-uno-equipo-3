@@ -15,8 +15,6 @@ class FieldFrame(tk.Frame):
         self.pack()
 
 
-        #self.config(width=300,height=300)
-
         if self.habilitado is None:
             self.habilitado = [True] * len(self.criterios)
 
@@ -41,10 +39,6 @@ class FieldFrame(tk.Frame):
             entry = tk.Entry(self, state='normal' if self.habilitado[i-1] else 'disabled')
             entry.insert(0, self.valores[i-1])
             entry.grid(row=i, column=6,columnspan=6,sticky="w")
-
-        # Botón para aceptar y guardar los valores
-        #self.boton_aceptar = tk.Button(self, text="Aceptar", command=self.guardarValores)
-        #self.boton_aceptar.grid(row=i + 4, column=0, columnspan=6, padx=10,pady=10,sticky="w")
 
         # Botón para limpiar el texto de las entradas
         self.boton_clear = tk.Button(self, text="Clear", command=self.limpiarTextos)
@@ -77,20 +71,3 @@ class FieldFrame(tk.Frame):
         return entry_widget.get()
     
 
-
-                     
-
-
-
-# if __name__ == "__main__":
-#      root = tk.Tk()
-#      titulo_criterio = "Criterios"
-#      criterios = ["Criterio 1", "Criterio 2", "Criterio 3"]
-#      titulo_valores = "Valores"
-#      valores = [1234,13254,31235] 
-#      habilitado = None  
-#      field_frame = FieldFrame(root, titulo_criterio, criterios, titulo_valores, valores, habilitado)
-#      field_frame.pack()
-#      valor_criterio_2 = field_frame.getValue("Criterio 2")
-#      print(valor_criterio_2)
-#      root.mainloop()
