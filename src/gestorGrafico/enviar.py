@@ -83,22 +83,22 @@ class Enviar(tk.Frame):
         self.boton_documento.grid_forget()
 
         self.texto_bienvenida = "Has seleccionado Enviar un Paquete, diligencie los siguientes datos: \n\n Tenga en cuenta que los datos son en Kg y Metros respectivamente"
-        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, justify="left", wraplength=380, bg="#739072", fg="white")
+        self.bienvenida_label = tk.Label(self.frame, text=self.texto_bienvenida, justify="left", wraplength=380, bg="#739072", fg="white", font=("Arial", 11))
         self.bienvenida_label.grid(row=1, column=0, columnspan=2, pady=10)
 
-        peso_label = tk.Label(self.frame, text="Peso:", bg="#739072", fg="white")
+        peso_label = tk.Label(self.frame, text="Peso:", bg="#739072", fg="white", font=("Arial", 11))
         peso_label.grid(row=2, column=0, pady=(10, 0), sticky="e")
 
-        alto_label = tk.Label(self.frame, text="Alto:", bg="#739072", fg="white")
+        alto_label = tk.Label(self.frame, text="Alto:", font=("Arial", 11), bg="#739072", fg="white")
         alto_label.grid(row=3, column=0, pady=10, sticky="e")
 
-        ancho_label = tk.Label(self.frame, text="Ancho:", bg="#739072", fg="white")
+        ancho_label = tk.Label(self.frame, text="Ancho:", font=("Arial", 11), bg="#739072", fg="white")
         ancho_label.grid(row=4, column=0, pady=10, sticky="e")
 
-        largo_label = tk.Label(self.frame, text="Largo:", bg="#739072", fg="white")
+        largo_label = tk.Label(self.frame, text="Largo:", font=("Arial", 11), bg="#739072", fg="white")
         largo_label.grid(row=5, column=0, pady=10, sticky="e")
 
-        valor_declarado_label = tk.Label(self.frame, text="Precio Del Paquete:", bg="#739072", fg="white")
+        valor_declarado_label = tk.Label(self.frame, text="Precio Del Paquete:", font=("Arial", 11), bg="#739072", fg="white")
         valor_declarado_label.grid(row=6, column=0, pady=10, sticky="e")
 
         peso_entry = tk.Entry(self.frame)
@@ -177,20 +177,20 @@ class Enviar(tk.Frame):
             nuevo_frame = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
             nuevo_frame.grid(row=0, column=0, sticky="nsew")
 
-            label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), bg="#739072", fg="white")
+            label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Arial", 16), bg="#739072", fg="white")
             label_nuevo_frame.grid(row=0, column=0, pady=10)
 
             self.texto_bienvenida2 = "Por favor diligencie los siguientes datos."
-            self.bienvenida2_label = tk.Label(nuevo_frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, bg="#739072", fg="white")
+            self.bienvenida2_label = tk.Label(nuevo_frame, text=self.texto_bienvenida2, font=("Arial", 11), justify="left", wraplength=380, bg="#739072", fg="white")
             self.bienvenida2_label.grid(row=1, column=0, columnspan=3, pady=10)
 
-            remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:", bg="#739072", fg="white")
+            remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:", font=("Arial", 11), bg="#739072", fg="white")
             remitente_nombre_label.grid(row=2, column=0, pady=5, sticky="e")
 
-            remitente_cedula_label = tk.Label(nuevo_frame, text="Cédula del Remitente:", bg="#739072", fg="white")
+            remitente_cedula_label = tk.Label(nuevo_frame, text="Cédula del Remitente:", font=("Arial", 11), bg="#739072", fg="white")
             remitente_cedula_label.grid(row=3, column=0, pady=5, sticky="e")
 
-            remitente_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Remitente:", bg="#739072", fg="white")
+            remitente_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Remitente:", font=("Arial", 11), bg="#739072", fg="white")
             remitente_telefono_label.grid(row=4, column=0, pady=5, sticky="e")
 
             remitente_nombre_entry = tk.Entry(nuevo_frame)
@@ -202,13 +202,13 @@ class Enviar(tk.Frame):
             remitente_telefono_entry = tk.Entry(nuevo_frame)
             remitente_telefono_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
 
-            destinatario_nombre_label = tk.Label(nuevo_frame, text="Nombre del Destinatario:", bg="#739072", fg="white")
+            destinatario_nombre_label = tk.Label(nuevo_frame, text="Nombre del Destinatario:", font=("Arial", 11), bg="#739072", fg="white")
             destinatario_nombre_label.grid(row=5, column=0, pady=5, sticky="e")
 
-            destinatario_cedula_label = tk.Label(nuevo_frame, text="Cédula del Destinatario:", bg="#739072", fg="white")
+            destinatario_cedula_label = tk.Label(nuevo_frame, text="Cédula del Destinatario:", font=("Arial", 11), bg="#739072", fg="white")
             destinatario_cedula_label.grid(row=6, column=0, pady=5, sticky="e")
 
-            destinatario_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Destinatario:", bg="#739072", fg="white")
+            destinatario_telefono_label = tk.Label(nuevo_frame, text="Teléfono del Destinatario:", font=("Arial", 11), bg="#739072", fg="white")
             destinatario_telefono_label.grid(row=7, column=0, pady=5, sticky="e")
 
             destinatario_nombre_entry = tk.Entry(nuevo_frame)
@@ -257,33 +257,33 @@ class Enviar(tk.Frame):
         nuevo_frame = tk.Frame(self, width=800, height=800, bg="blue", highlightbackground="#085870", highlightthickness=5)
         nuevo_frame.grid(row=0, column=0, sticky="nsew")
 
-        label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Helvetica", 16), bg="#739072", fg="white")
+        label_nuevo_frame = tk.Label(nuevo_frame, text="Informacion Cliente", font=("Arial", 16), bg="#739072", fg="white")
         label_nuevo_frame.grid(row=0, column=0, pady=10)
 
         nuevo_frame_2 = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
         nuevo_frame_2.grid(row=0, column=0, sticky="nsew")
 
-        label_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Detalles Del Envio", font=("Helvetica", 16), bg="#739072", fg="white")
+        label_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Detalles Del Envio", font=("Arial", 16), bg="#739072", fg="white")
         label_nuevo_frame_2.grid(row=0, column=0, pady=10, columnspan=2)
 
-        descripcion_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Por favor selecciona la ciudad desde la que envias tu producto y a cual deseas enviarlo.", bg="#739072", fg="white")
+        descripcion_nuevo_frame_2 = tk.Label(nuevo_frame_2, text="Por favor selecciona la ciudad desde la que envias tu producto y a cual deseas enviarlo.", font=("Arial", 11), bg="#739072", fg="white")
         descripcion_nuevo_frame_2.grid(row=1, column=0, pady=10,columnspan=2)
 
         ciudades_origen = ["Medellin Norte", "Medellin Sur","Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
-        ciudad_origen_label = tk.Label(nuevo_frame_2, text="Ciudad de Origen:", bg="#739072", fg="white")
+        ciudad_origen_label = tk.Label(nuevo_frame_2, text="Ciudad de Origen:", bg="#739072", fg="white", font=("Arial", 11))
         ciudad_origen_label.grid(row=2, column=0, pady=5, sticky="e")
         ciudad_origen_var = tk.StringVar()
         ciudad_origen_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_origen_var, *ciudades_origen)
         ciudad_origen_dropdown.grid(row=2, column=1, pady=5, padx=5, sticky="w")
 
         ciudades_destino = ["Medellin Norte", "Medellin Sur","Bogota Norte", "Bogota Sur", "Cali Norte", "Cali Sur", "Pasto Norte", "Pasto Sur"]
-        ciudad_destino_label = tk.Label(nuevo_frame_2, text="Ciudad de Destino:", bg="#739072", fg="white")
+        ciudad_destino_label = tk.Label(nuevo_frame_2, text="Ciudad de Destino:", font=("Arial", 11), bg="#739072", fg="white")
         ciudad_destino_label.grid(row=3, column=0, pady=5, sticky="e")
         ciudad_destino_var = tk.StringVar()
         ciudad_destino_dropdown = tk.OptionMenu(nuevo_frame_2, ciudad_destino_var, *ciudades_destino)
         ciudad_destino_dropdown.grid(row=3, column=1, pady=5, padx=5, sticky="w")
 
-        labelTransporte = tk.Label(nuevo_frame_2,text="Tipo De Transporte:", bg="#739072", fg="white")
+        labelTransporte = tk.Label(nuevo_frame_2,text="Tipo De Transporte:", font=("Arial", 11), bg="#739072", fg="white")
         labelTransporte.grid(row=4,column=0,pady=5,sticky="e")
 
         Transporte_lista = ["Camión","Avión"]
@@ -291,7 +291,7 @@ class Enviar(tk.Frame):
         Transporte_lista_menu = tk.OptionMenu(nuevo_frame_2, Transporte_lista_var, *Transporte_lista)
         Transporte_lista_menu.grid(row=4,column=1,pady=5,padx=5,sticky="w")
 
-        labelPago = tk.Label(nuevo_frame_2,text="Método de pago:", bg="#739072", fg="white")
+        labelPago = tk.Label(nuevo_frame_2,text="Método de pago:", font=("Arial", 11), bg="#739072", fg="white")
         labelPago.grid(row=5,column=0,pady=5,sticky="e")
 
         pago_lista = ["Pago total","Pago Fraccionado", "Pago contraentrega"]
@@ -385,31 +385,31 @@ class Enviar(tk.Frame):
 
         self.texto_bienvenida1 = "Has seleccionado Enviar un Animal."
         self.texto_bienvenida2 = "Para continuar deberá diligenciar los siguientes datos: "
-        self.bienvenida_label1 = tk.Label(self.frame, text=self.texto_bienvenida1, font=("Helvetica", 12), justify="left", wraplength=380, bg="#739072", fg="white")
+        self.bienvenida_label1 = tk.Label(self.frame, text=self.texto_bienvenida1, font=("Arial", 12), justify="left", wraplength=380, bg="#739072", fg="white")
         self.bienvenida_label1.grid(row=1, column=0, columnspan=2, pady=10)
-        self.bienvenida_label2 = tk.Label(self.frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, bg="#739072", fg="white")
+        self.bienvenida_label2 = tk.Label(self.frame, text=self.texto_bienvenida2, font=("Arial", 12), justify="left", wraplength=380, bg="#739072", fg="white")
         self.bienvenida_label2.grid(row=2, column=0, columnspan=2, pady=10)
 
-        nombreAnimal_label = tk.Label(self.frame, text="Nombre del animal:", bg="#739072", fg="white")
+        nombreAnimal_label = tk.Label(self.frame, text="Nombre del animal:", font=("Arial", 11), bg="#739072", fg="white")
         nombreAnimal_label.grid(row=3, column=0, pady=(10, 0), sticky="e")
 
         entryNombreAnimal = tk.Entry(self.frame)
         entryNombreAnimal.grid(row=3, column=1, pady=5, padx=5, sticky="w")
 
-        edadAnimal_label = tk.Label(self.frame, text="Edad del animal:", bg="#739072", fg="white")
+        edadAnimal_label = tk.Label(self.frame, text="Edad del animal:", font=("Arial", 11), bg="#739072", fg="white")
         edadAnimal_label.grid(row=4, column=0, pady=10, sticky="e")
 
         entryEdadAnimal = tk.Entry(self.frame)
         entryEdadAnimal.grid(row=4, column=1, pady=5, padx=5, sticky="w")
 
-        pesoAnimal_label = tk.Label(self.frame, text="Ancho:", bg="#739072", fg="white")
+        pesoAnimal_label = tk.Label(self.frame, text="Peso del animal:", font=("Arial", 11), bg="#739072", fg="white")
         pesoAnimal_label.grid(row=5, column=0, pady=10, sticky="e")
 
         entryPesoAnimal = tk.Entry(self.frame)
         entryPesoAnimal.grid(row=5, column=1, pady=5, padx=5, sticky="w")
         
         tiposDeAnimales = ["Perro", "Gato", "Hamster", "Loro", "Caballo", "Vaca"]
-        tiposDeAnimales_label = tk.Label(self.frame, text="Tipo de animal:", bg="#739072", fg="white")
+        tiposDeAnimales_label = tk.Label(self.frame, text="Tipo de animal:", font=("Arial", 11), bg="#739072", fg="white")
         tiposDeAnimales_label.grid(row=6, column=0, pady=5, sticky="e")
         tipoDeAnimal_var = tk.StringVar()
         tipoDeAnimal_dropdown = tk.OptionMenu(self.frame, tipoDeAnimal_var, *tiposDeAnimales)
@@ -567,9 +567,18 @@ class Enviar(tk.Frame):
         label_nuevo_frame.grid(row=0, column=0, pady=10)
 
         self.texto_bienvenida1 = "Has seleccionado Enviar un Documento."
+<<<<<<< Updated upstream
         self.texto_bienvenida2 = "Has seleccionado Enviar un Documento.\n\n Por favor diligencie los siguientes datos."
         self.bienvenida2_label = tk.Label(nuevo_frame, text=self.texto_bienvenida2, font=("Helvetica", 12), justify="left", wraplength=380, bg="#739072", fg="white")
         self.bienvenida2_label.grid(row=1, column=0, columnspan=3, pady=10)
+=======
+        self.texto_bienvenida2 = "Para continuar deberá diligenciar los siguientes datos: "
+        self.bienvenida_label1 = tk.Label(self.frame, text=self.texto_bienvenida1, justify="left", wraplength=380, font=("Arial", 11), bg="#739072", fg="white")
+        self.bienvenida_label1.grid(row=1, column=0, columnspan=2, pady=10)
+        self.bienvenida_label2 = tk.Label(self.frame, text=self.texto_bienvenida2, justify="left", wraplength=380, font=("Arial", 11), bg="#739072", fg="white")
+        self.bienvenida_label2.grid(row=2, column=0, columnspan=2, pady=10)
+ 
+>>>>>>> Stashed changes
 
         remitente_nombre_label = tk.Label(nuevo_frame, text="Nombre del Remitente:", bg="#739072", fg="white")
         remitente_nombre_label.grid(row=2, column=0, pady=5, sticky="e")
