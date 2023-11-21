@@ -116,9 +116,12 @@ class Metodos(tk.Frame):
                             if pago == Guia.tipoDePago.REMITENTE:
                                 guiaPaq.setPagoPendiente(int(guiaPaq.getPagoPendiente()) * 0)
                                 precio = guiaPaq.getPrecioTotal()
+                                sucursal.getInventario().append(guiaPaq)
+                                
                             if pago == Guia.tipoDePago.FRACCIONADO:
                                 guiaPaq.setPagoPendiente(int(guiaPaq.getPagoPendiente()) / 2)
                                 precio = int(guiaPaq.getPrecioTotal()) / 2
+                                sucursal.getInventario().append(guiaPaq)
 
                         else:
                         # Está pagando el destinatario
@@ -307,8 +310,6 @@ class ConfirmarPago(Frame):
             
             return messagebox.showinfo("", "Servicio cancelado, vuelve pronto")
         
-        def opcionCredenciales():
-            return messagebox.showinfo("Credenciales", "Servicio cancelado, vuelve pronto")
             
         si = Button(frame, text="Sí",command=opcionSi,bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         si.pack(side="left", padx=20, pady=5)
@@ -316,8 +317,6 @@ class ConfirmarPago(Frame):
         no = Button(frame, text="No",command=opcionNo,bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         no.pack(side="left", padx=20, pady=5)
         
-        credenciales = Button(self, text="Credenciales",command=opcionCredenciales,bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
-        credenciales.pack(pady=5)
         
     
                         
