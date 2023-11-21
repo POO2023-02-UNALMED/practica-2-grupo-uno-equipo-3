@@ -124,18 +124,18 @@ if __name__=="__main__":
     medellinNorte.getInventario().append(paquete2)
     medellinNorte.getInventario().append(animal2)
     
-    #Serializador.serializar()
+    # Serializador.serializar()
     #Deserializador.deserializar()
 
     #No me lo borren gracias 😉
-    camion = medellinNorte.getCamionesEnSucursal()[0]
+    #camion = medellinNorte.getCamionesEnSucursal()[0]
     #amion.iniciarRecorrido()
     
-    avion = medellinNorte.getAvionesEnSucursal()[0]
+    #avion = medellinNorte.getAvionesEnSucursal()[0]
     #avion.iniciarRecorrido()  
       
     #avion.iniciarRecorrido()    
     
-    print(guiaDocumento2) 
+    #print(guiaDocumento2) 
     MainWindow()
     
