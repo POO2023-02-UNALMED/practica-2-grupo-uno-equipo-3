@@ -97,11 +97,11 @@ class Animal(Producto):
     def __str__(self):
         return "---------------------PRODUCTO--------------------\n" + \
             "Tipo de producto: Animal\n" + \
-            "Codigo de pedido: " + self._codigo + "\n" + \
-            "Nombre: " + self._nombre + "\n" + \
+            "Codigo de pedido: " + str(self._codigo) + "\n" + \
+            "Nombre: " + str(self._nombre) + "\n" + \
             "Edad: " + str(self._edad) + " años\n" + \
             "Peso: " + str(self._peso) + "kg\n" + \
-            "Tamaño: " + self._tamano.name.lower() + "\n" + \
+            "Tamaño: " + str(self._tamano) + "\n" + \
             "Peligroso: " + ("Sí" if self._peligroso else "No")
 
 

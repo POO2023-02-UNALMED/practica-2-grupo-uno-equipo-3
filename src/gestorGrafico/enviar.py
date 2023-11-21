@@ -4,6 +4,8 @@ from gestorAplicacion.administracion.guia import Guia
 from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorAplicacion.personas.cliente import Cliente
 from gestorAplicacion.personas.destinatario import Destinatario
+from gestorAplicacion.productos.animal import Animal
+from gestorAplicacion.productos.documento import Documento
 
 from gestorAplicacion.productos.paquete import Paquete
 from gestorAplicacion.transportes.avion import Avion
@@ -356,8 +358,7 @@ class Enviar(tk.Frame):
 
         #Se añade el paquete que se creó a la sucursal de origen
         #se verifica si es necesario pagar para enviar
-        print(str(guiaPaqueteAEnviar.getTipoDePago()))
-        print(str(Guia.tipoDePago.DESTINATARIO))
+
         if (guiaPaqueteAEnviar.getTipoDePago() == Guia.tipoDePago.DESTINATARIO):
             valores[3].getInventario().append(valores[0])
 
@@ -390,7 +391,7 @@ class Enviar(tk.Frame):
 
             
 
-
+    #ENVIAR ANIMAL  
     def enviar_animal(self):
         self.bienvenida_label.grid_forget()
         self.boton_paquete.grid_forget()
@@ -429,10 +430,11 @@ class Enviar(tk.Frame):
         tipoDeAnimal_dropdown = tk.OptionMenu(self.frame, tipoDeAnimal_var, *tiposDeAnimales)
         tipoDeAnimal_dropdown.grid(row=6, column=1, sticky="w")
 
-        botonSiguiente = tk.Button(self.frame,text="Siguiente",bg="#3A4D39", command=lambda:self.enviar_detalle_animal(entryNombreAnimal.get(), entryEdadAnimal.get(), entryPesoAnimal.get()), font=("arial", 11, "bold"),fg="white")
+        botonSiguiente = tk.Button(self.frame,text="Siguiente",bg="#3A4D39", command=lambda:self.enviar_detalle_animal(entryNombreAnimal.get(), entryEdadAnimal.get(), entryPesoAnimal.get(),tipoDeAnimal_var.get()), font=("arial", 11, "bold"),fg="white")
         botonSiguiente.grid(row=7,column=0,columnspan=2,pady=5, padx=5)
 
-    def enviar_detalle_animal(self, nombreAnimal, edadAnimal, pesoAnimal):  
+    def enviar_detalle_animal(self, nombreAnimal, edadAnimal, pesoAnimal,tipoDeAnimal):  
+        tipoDeAnimal = tipoDeAnimal
         if not nombreAnimal.isalpha():
             messagebox.showerror("Error", "Los campos de *Nombre* no deben estar vacios y aparta deben ser solo Letras.")
             return
@@ -440,8 +442,39 @@ class Enviar(tk.Frame):
             messagebox.showerror("Error", "No se permite letras, dejar casillas vacías o caracteres especiales, solo números enteros.")
             return
 
+        tipo_producto = "Animal"
+        info_text = f"Tipo de producto: {tipo_producto}\n"
+        info_text += f"Tipo de animal: {tipoDeAnimal} \n"
+        info_text += f"Nombre animal:{nombreAnimal} \n"
+        info_text += f"Edad animal:{edadAnimal} \n"
+        info_text += f"Peso animal:{pesoAnimal} \n"
+
+        edadAnimal = int(edadAnimal)
+        pesoAnimal = int(pesoAnimal)
+
+        if tipoDeAnimal == "Perro":
+             tipoAnimalT = Animal.tipoAnimal.PERRO
+        if tipoDeAnimal == "Gato":
+             tipoAnimalT = Animal.tipoAnimal.GATO
+        if tipoDeAnimal == "Hamster":
+             tipoAnimalT = Animal.tipoAnimal.HAMSTER
+        if tipoDeAnimal == "Loro":
+             tipoAnimalT = Animal.tipoAnimal.LORO
+        if tipoDeAnimal == "Caballo":
+             tipoAnimalT = Animal.tipoAnimal.CABALLO
+        if tipoDeAnimal == "Vaca":
+             tipoAnimalT = Animal.tipoAnimal.VACA
+
+        #se crea el objeto de tipo animal - Kevin
+        animalAEnviar = Animal(nombreAnimal,edadAnimal,pesoAnimal,tipoAnimalT)
+        valores.append(animalAEnviar)
+
+        messagebox.showinfo("Informacion del paquete", info_text)
+
+        # Oculta el frame actual para poder crear uno ahorita mas adelante
         self.frame.pack_forget()
 
+        # Crea y muestra un nuevo frame  (que bendicion)
         nuevo_frame = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#085870", highlightthickness=5)
         nuevo_frame.grid(row=0, column=0, sticky="nsew")
 
@@ -488,10 +521,10 @@ class Enviar(tk.Frame):
         destinatario_telefono_entry = tk.Entry(nuevo_frame)
         destinatario_telefono_entry.grid(row=7, column=1, sticky="w")
 
-        boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente2(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         boton_enviar_cliente.grid(row=8, column=0, columnspan=2, pady=10)
 
-    def mostrar_info_cliente(self, remitente_nombre, remitente_cedula, remitente_telefono, destinatario_nombre, destinatario_cedula, destinatario_telefono):
+    def mostrar_info_cliente2(self, remitente_nombre, remitente_cedula, remitente_telefono, destinatario_nombre, destinatario_cedula, destinatario_telefono):
         
         if not (remitente_nombre.isalpha() and destinatario_nombre.isalpha()):
             messagebox.showerror("Error", "Los campos de *Nombre* no deben estar vacios y aparta deben ser solo Letras.")
@@ -512,8 +545,10 @@ class Enviar(tk.Frame):
 
         remitente = Cliente(remitente_nombre,remitente_cedula,remitente_telefono)
 
+
         valores.append(remitente)
         destinatario = Destinatario(destinatario_nombre,destinatario_cedula,destinatario_telefono)
+
 
         valores.append(destinatario)
 
@@ -567,15 +602,15 @@ class Enviar(tk.Frame):
         pago_lista_menu = tk.OptionMenu(nuevo_frame_2, pago_lista_var, *pago_lista)
         pago_lista_menu.grid(row=5,column=1,pady=5,padx=5,sticky="w")
 
-        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=lambda:self.enviar_detalle_envio(ciudad_origen_var.get(),ciudad_destino_var.get(),Transporte_lista_var.get(),pago_lista_var.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=lambda:self.enviar_detalle_envioanimal(ciudad_origen_var.get(),ciudad_destino_var.get(),Transporte_lista_var.get(),pago_lista_var.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         boton_enviar_2.grid(row=6, column=0, columnspan=2, pady=10)
 
  
 
 
-#AYUDAR KEVIN
 
-    def enviar_detalle_envio(self,origen,destino,transporte,pago):
+
+    def enviar_detalle_envioanimal(self,origen,destino,transporte,pago):
         origen = origen
         destino = destino
         transporte = transporte
@@ -619,18 +654,19 @@ class Enviar(tk.Frame):
 
 
 
+
         #Se va crear la guia del paquete que se envió
-        guiaPaqueteAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
+        guiaAnimalAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
+
 
         #Se añade el paquete que se creó a la sucursal de origen
         #se verifica si es necesario pagar para enviar
-        print(str(guiaPaqueteAEnviar.getTipoDePago()))
-        print(str(Guia.tipoDePago.DESTINATARIO))
-        if (guiaPaqueteAEnviar.getTipoDePago() == Guia.tipoDePago.DESTINATARIO):
+      
+        if (guiaAnimalAEnviar.getTipoDePago() == Guia.tipoDePago.DESTINATARIO):
             valores[3].getInventario().append(valores[0])
 
         else:
-            if (guiaPaqueteAEnviar.getPagoPendiente == 0):
+            if (guiaAnimalAEnviar.getPagoPendiente == 0):
                   valores[3].getInventario().append(valores[0])
             else:
                  pass
@@ -643,7 +679,7 @@ class Enviar(tk.Frame):
             info_text += f"Ciudad De Origen: {origen} \n"
             info_text += f"Ciudad De Destino: {destino} \n"
             info_text += f"Tipo de pago: {pago} \n"
-            info_text += f"Precio total: ${guiaPaqueteAEnviar.getPrecioTotal()}\n"
+            info_text += f"Precio total: ${guiaAnimalAEnviar.getPrecioTotal()}\n"
             info_text += f"Vehículo: {transporte}"
 
             messagebox.showinfo("Los detalles del envío han sido enviados con éxito.", info_text)
@@ -704,10 +740,11 @@ class Enviar(tk.Frame):
         destinatario_telefono_entry = tk.Entry(nuevo_frame)
         destinatario_telefono_entry.grid(row=7, column=1, sticky="w")
 
-        boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+ 
+        boton_enviar_cliente = tk.Button(nuevo_frame, text="Enviar", command=lambda: self.mostrar_info_cliente3(remitente_nombre_entry.get(), remitente_cedula_entry.get(), remitente_telefono_entry.get(), destinatario_nombre_entry.get(), destinatario_cedula_entry.get(), destinatario_telefono_entry.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         boton_enviar_cliente.grid(row=8, column=0, columnspan=2, pady=10)
 
-    def mostrar_info_cliente(self, remitente_nombre, remitente_cedula, remitente_telefono, destinatario_nombre, destinatario_cedula, destinatario_telefono):
+    def mostrar_info_cliente3(self, remitente_nombre, remitente_cedula, remitente_telefono, destinatario_nombre, destinatario_cedula, destinatario_telefono):
         
         if not (remitente_nombre.isalpha() and destinatario_nombre.isalpha()):
             messagebox.showerror("Error", "Los campos de *Nombre* no deben estar vacios y aparta deben ser solo Letras.")
@@ -726,11 +763,15 @@ class Enviar(tk.Frame):
         info_text_cliente += f"Cédula: {destinatario_cedula}\n"
         info_text_cliente += f"Teléfono: {destinatario_telefono}"
 
+        #se crea el objeto de tipo documento
+        DocumentoAEnviar = Documento()
+  
+        valores.append(DocumentoAEnviar)
         remitente = Cliente(remitente_nombre,remitente_cedula,remitente_telefono)
 
         valores.append(remitente)
         destinatario = Destinatario(destinatario_nombre,destinatario_cedula,destinatario_telefono)
-
+     
         valores.append(destinatario)
 
         messagebox.showinfo("Información del Cliente", info_text_cliente)
@@ -783,7 +824,7 @@ class Enviar(tk.Frame):
         pago_lista_menu = tk.OptionMenu(nuevo_frame_2, pago_lista_var, *pago_lista)
         pago_lista_menu.grid(row=5,column=1,pady=5,padx=5,sticky="w")
 
-        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=lambda:self.enviar_detalle_envio(ciudad_origen_var.get(),ciudad_destino_var.get(),Transporte_lista_var.get(),pago_lista_var.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        boton_enviar_2 = tk.Button(nuevo_frame_2, text="Enviar", command=lambda:self.enviar_detalle_documento(ciudad_origen_var.get(),ciudad_destino_var.get(),Transporte_lista_var.get(),pago_lista_var.get()), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         boton_enviar_2.grid(row=6, column=0, columnspan=2, pady=10)
 
  
@@ -791,7 +832,7 @@ class Enviar(tk.Frame):
 
 #AYUDAR KEVIN
 
-    def enviar_detalle_envio(self,origen,destino,transporte,pago):
+    def enviar_detalle_documento(self,origen,destino,transporte,pago):
         origen = origen
         destino = destino
         transporte = transporte
@@ -836,18 +877,18 @@ class Enviar(tk.Frame):
 
 
         #Se va crear la guia del paquete que se envió
-        guiaPaqueteAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
+        guiaDocumentoAEnviar = Guia(valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6])
+
 
         #Se añade el paquete que se creó a la sucursal de origen
         #se verifica si es necesario pagar para enviar
-        print(str(guiaPaqueteAEnviar.getTipoDePago()))
-        print(str(Guia.tipoDePago.DESTINATARIO))
-        if (guiaPaqueteAEnviar.getTipoDePago() == Guia.tipoDePago.DESTINATARIO):
+
+        if (guiaDocumentoAEnviar.getTipoDePago() == Guia.tipoDePago.DESTINATARIO):
             valores[3].getInventario().append(valores[0])
 
 
         else:
-            if (guiaPaqueteAEnviar.getPagoPendiente == 0):
+            if (guiaDocumentoAEnviar.getPagoPendiente == 0):
                   valores[3].getInventario().append(valores[0])
             else:
                  pass
@@ -865,7 +906,7 @@ class Enviar(tk.Frame):
             info_text += f"Ciudad De Origen: {origen} \n"
             info_text += f"Ciudad De Destino: {destino} \n"
             info_text += f"Tipo de pago: {pago} \n"
-            info_text += f"Precio total: ${guiaPaqueteAEnviar.getPrecioTotal()}\n"
+            info_text += f"Precio total: ${guiaDocumentoAEnviar.getPrecioTotal()}\n"
             info_text += f"Vehículo: {transporte}"
 
             messagebox.showinfo("Los detalles del envío han sido enviados con éxito.", info_text)
