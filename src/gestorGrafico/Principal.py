@@ -52,7 +52,7 @@ class Principal(Tk):
                 camion.agregarProductos()
                 
                 if camion.getUbicacionActual() == sucursal:
-                    if len(camion.getInventario()) >= 2: #Cambiarlo
+                    if len(camion.getInventario()) >= 3: #Cambiarlo
                         camion.iniciarRecorrido()
                         camionesFuera.append(camion)
                 
