@@ -52,7 +52,7 @@ class Principal(Tk):
                 camion.agregarProductos()
                 
                 if camion.getUbicacionActual() == sucursal:
-                    if len(camion.getInventario()) >= 2: #Cambiarlo
+                    if len(camion.getInventario()) >= 3: #Cambiarlo
                         camion.iniciarRecorrido()
                         camionesFuera.append(camion)
                 
@@ -98,7 +98,9 @@ class Principal(Tk):
             TablaSucursales(self).pack()
             
         def salir():
+            from main import MainWindow
             self.destroy()
+            MainWindow()
             
 
 

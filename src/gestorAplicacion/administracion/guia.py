@@ -38,7 +38,7 @@ class Guia:
         self.asignarRuta()
         self.asignarPrecio()
         self.aplicarDescuento()
-        self._pagoPendiente = self._precioTotal #puse esto en 0 para verificar que se podía reclamar
+        self._pagoPendiente = 0 #puse esto en 0 para verificar que se podía reclamar
         # if tipoDePago == Guia.tipoDePago.REMITENTE:
         #     self._pagoPendiente = 0
         # elif tipoDePago == Guia.tipoDePago.FRACCIONADO:
