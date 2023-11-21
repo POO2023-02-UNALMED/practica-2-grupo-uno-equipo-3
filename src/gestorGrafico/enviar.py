@@ -515,7 +515,7 @@ class Enviar(tk.Frame):
 
         self.frame.pack_forget()
 
-        #Segundo Frame Detalles Envio
+        #Segundo Frame Detalles Envioooo
         nuevo_frame = tk.Frame(self, width=800, height=800, bg="blue", highlightbackground="#085870", highlightthickness=5)
         nuevo_frame.grid(row=0, column=0, sticky="nsew")
 
