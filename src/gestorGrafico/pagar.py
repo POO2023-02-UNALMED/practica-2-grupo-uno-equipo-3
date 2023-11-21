@@ -96,36 +96,49 @@ class Metodos(tk.Frame):
             tarjeta = Tarjeta(ventana, guia, sucursal)
             tarjeta.pack()
                 
-        def metodo_efectivo(guia, sucursal):
-            guia = guia
-            sucursal = sucursal
-            precio = 0
-            if guia.get_sucursal_origen() == sucursal: ##pago remitente
+        def metodoEfectivo(guia, sucursal):
             
-                tipo_pago = guia.getTipoPago()
-                if tipo_pago == guia.tipoPago.REMITENTE:
-                    guia.setPagoPendiente(guia.get_pago_pendiente() * 0)
-                    precio = guia.getPrecioTotal()
-                elif tipo_pago == guia.tipoPago.FRACCIONADO:
-                    guia.set_pago_pendiente(guia.get_pago_pendiente() / 2)
-                    precio = guia.get_precio_total() / 2
-            else:
-                # Está pagando el destinatario
-                tipo_pago = guia.get_tipo_pago()
-                if tipo_pago == guia.tipoPago.DESTINATARIO:
-                    guia.set_pago_pendiente(0)
-                    precio = guia.get_precio_total()
-                elif tipo_pago == guia.tipoPago.FRACCIONADO:
-                    guia.set_pago_pendiente(0)
-                    precio = guia.get_precio_total() / 2
+            paq = guia.getProducto()
 
-            sucursal.agregar_producto(guia.get_producto())
-            return messagebox.showwarning("Gracias por usar nuestro servicio, por favor acerquese a la caja numero 4 para cancelar"+str(precio))  
-            
+            #mensaje de confirmacion
+            confirmacion = messagebox.askokcancel("Confirmación", f"¿Está seguro de pagar el producto con código: {paq.getCodigo()}?")
+
+            #se obtiene la guia del paquete
+            guiaPaq = guia
+   
+            #Lógica para poder reclamar el paquete
+            if confirmacion:
+                if paq:
+                    if guiaPaq:
+                        #paga el remitente
+                        if guiaPaq.getSucursalOrigen() == sucursal: 
+                            pago = guiaPaq.getTipoDePago()
+                            if pago == Guia.tipoDePago.REMITENTE:
+                                guiaPaq.setPagoPendiente(int(guiaPaq.getPagoPendiente()) * 0)
+                                precio = guiaPaq.getPrecioTotal()
+                            if pago == Guia.tipoDePago.FRACCIONADO:
+                                guiaPaq.setPagoPendiente(int(guiaPaq.getPagoPendiente()) / 2)
+                                precio = int(guiaPaq.getPrecioTotal()) / 2
+
+                        else:
+                        # Está pagando el destinatario
+                            pago = guiaPaq.getTipoDePago()
+                            if pago == Guia.tipoDePago.DESTINATARIO:
+                                guiaPaq.setPagoPendiente(int(guiaPaq.getPagoPendiente()) / 2)
+                                precio = int(guiaPaq.getPrecioTotal()) / 2
+
+                            if pago == Guia.tipoDePago.FRACCIONADO:
+                                guiaPaq.setPagoPendiente(0)
+                                precio = int(guiaPaq.getPrecioTotal()) / 2
+
+
+                #sucursal.agregar_producto(guia.get_producto())
+            messagebox.showinfo("Pago realizado con éxito", f"Gracias por confiar en nosotros, por favor acerquese a la caja numero 4 para cancelar un total de $ {str(precio)}")
+
         Label_Titulo = tk.Label(self, text="Método de pago", font=("Arial", 30), bg="#739072", foreground="white")
         Label_Titulo.pack(pady=10)
 
-        Label_descripcion = tk.Label(self, text="Selecciona el método de pago de tu preferencia:")
+        Label_descripcion = tk.Label(self, text="Selecciona el método de pago de tu preferencia:", font=("Arial", 11),bg="#739072", fg="white")
         Label_descripcion.pack(pady=10)
 
         frame = Frame(self, bg="#739072")
@@ -134,7 +147,7 @@ class Metodos(tk.Frame):
         boton_tarjeta = tk.Button(frame, text="Tarjeta de crédito", command=lambda: metodoTarjeta(guia, sucursal_seleccionada), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         boton_tarjeta.pack(side="left", padx=20, pady=5)
 
-        boton_efectivo = tk.Button(frame, text="Efectivo", command=metodo_efectivo, bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        boton_efectivo = tk.Button(frame, text="Efectivo", command=lambda: metodoEfectivo(guia, sucursal_seleccionada), bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
         boton_efectivo.pack(side="left", padx=20, pady=5)
         
 class Tarjeta(Frame):
