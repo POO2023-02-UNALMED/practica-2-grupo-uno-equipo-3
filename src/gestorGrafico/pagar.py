@@ -13,7 +13,7 @@ class Pagar(Frame):
         self.config(highlightbackground="#085870", highlightthickness=3)
         self.pack(expand=True)
     
-        self.sucursal_prueba = None
+        sucursal_prueba = None
 
         self.Label_Titulo = tk.Label(self, text="Pagar", font=("Arial", 30), fg="#085870")
         self.Label_Titulo.pack(pady=5)
@@ -51,9 +51,9 @@ class Pagar(Frame):
                     if producto.getCodigo() == int(entrada.get()):
                         guia = producto.getGuia()
                         
-                        if self.sucursal_prueba != None:
+                        if sucursal_prueba != None:
                                 self.pack_forget()
-                                metodos = Metodos(ventana, self.sucursal_prueba, guia)
+                                metodos = Metodos(ventana, sucursal_prueba, guia)
                                 metodos.pack()
 
                         break
@@ -64,14 +64,14 @@ class Pagar(Frame):
         boton = Button(self, text="Verificar", command=verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
         boton.pack(pady=5)
 
-    def guardar_sucursal(self, event):
-            nombresucursal_seleccionada = self.combobox_sucursales.get()
-            sucursal_seleccionada = None
-            for sucursal in Sucursal.getTodasLasSucursales():
-                if sucursal.getNombre() == nombresucursal_seleccionada:
-                    sucursal_seleccionada = sucursal
-                    self.sucursal_prueba = sucursal_seleccionada
-                    break        
+        def guardar_sucursal(self, event):
+                nombresucursal_seleccionada = self.combobox_sucursales.get()
+                sucursal_seleccionada = None
+                for sucursal in Sucursal.getTodasLasSucursales():
+                    if sucursal.getNombre() == nombresucursal_seleccionada:
+                        sucursal_seleccionada = sucursal
+                        self.sucursal_prueba = sucursal_seleccionada
+                        break        
 
 class Metodos(Frame):
     def __init__(self, ventana, sucursal_seleccionada, guia):
@@ -104,31 +104,31 @@ class Metodos(Frame):
         self.boton_tarjeta.pack_forget()
 
         self.Label_Titulo = tk.Label(self.frame, text="Pago por tarjeta de crédito", font=("Arial", 30), fg="#085870")
-        self.Label_Titulo.grid(row=0, column=0, columnspan=2, pady=10)
+        self.Label_Titulo.pack(pady=10)
 
         self.Label_descripcion = tk.Label(self.frame, text="Ingresa los siguientes datos:")
-        self.Label_descripcion.grid(row=1, column=0, columnspan=2, pady=10)
+        self.Label_descripcion.pack(pady=10)
 
         nombre_label = tk.Label(self.frame, text="Nombre del titular:")
-        nombre_label.grid(row=2, column=0, pady=(10, 0), sticky="e")
+        nombre_label.pack(pady=5)
 
         numero_label = tk.Label(self.frame, text="Número:")
-        numero_label.grid(row=3, column=0, pady=10, sticky="e")
+        numero_label.pack(pady=10)
 
         cvv_label = tk.Label(self.frame, text="CVV:")
-        cvv_label.grid(row=4, column=0, pady=10, sticky="e")
+        cvv_label.pack(pady=10)
 
         fecha_label = tk.Label(self.frame, text="Fecha de expiración:")
-        fecha_label.grid(row=5, column=0, pady=10, sticky="e")
+        fecha_label.pack(pady=10)
 
         nombre_entry = tk.Entry(self.frame)
-        nombre_entry.grid(row=2, column=1, pady=(10, 0), padx=5, sticky="w")
+        nombre_entry.pack(pady=5)
         numero_entry = tk.Entry(self.frame)
-        numero_entry.grid(row=3, column=1, pady=5, padx=5, sticky="w")
+        numero_entry.pack(pady=5)
         cvv_entry = tk.Entry(self.frame)
-        cvv_entry.grid(row=4, column=1, pady=5, padx=5, sticky="w")
+        cvv_entry.pack(padx=5)
         fecha_entry = tk.Entry(self.frame)
-        fecha_entry.grid(row=5, column=1, pady=5, padx=5, sticky="w")
+        fecha_entry.pack(padx=5)
 
         cuentaCliente = None
         for cuenta in CuentaBancaria.getTodasLasCuentas():
@@ -141,13 +141,44 @@ class Metodos(Frame):
                 if cuentaCliente.getCVV() == cvv_entry.get():
                     if cuentaCliente.getFechaExpiracion()== fecha_entry.get():
                         confirmarPago(guia, cuentaCliente, sucursal)
-
-
+                    else:
+                        return messagebox.showwarning("Error", "Datos incorrectos")
+                else:
+                        return messagebox.showwarning("Error", "Datos incorrectos")
+            else:
+                        return messagebox.showwarning("Error", "Datos incorrectos")
+        else:
+                        return messagebox.showwarning("Error", "Esta cuenta no existe")
 
         def confirmarPago(self):
-            pass
-    def metodo_efectivo(self):
-        pass
+             pass
+             
+
+    def metodo_efectivo(self, guia, sucursal):
+        guia = guia
+        sucursal = sucursal
+        precio = 0
+        if guia.get_sucursal_origen() == sucursal: ##pago remitente
+        
+            tipo_pago = guia.get_tipo_pago()
+            if tipo_pago == TipoPago.REMITENTE:
+                guia.set_pago_pendiente(guia.get_pago_pendiente() * 0)
+                precio = guia.get_precio_total()
+            elif tipo_pago == TipoPago.FRACCIONADO:
+                guia.set_pago_pendiente(guia.get_pago_pendiente() / 2)
+                precio = guia.get_precio_total() / 2
+        else:
+            # Está pagando el destinatario
+            tipo_pago = guia.get_tipo_pago()
+            if tipo_pago == TipoPago.DESTINATARIO:
+                guia.set_pago_pendiente(0)
+                precio = guia.get_precio_total()
+            elif tipo_pago == TipoPago.FRACCIONADO:
+                guia.set_pago_pendiente(0)
+                precio = guia.get_precio_total() / 2
+
+        sucursal.agregar_producto(guia.get_producto())
+        return messagebox.showwarning("Gracias por usar nuestro servicio, por favor acerquese a la caja numero 4 para cancelar"+str(precio))  
 
 
     
