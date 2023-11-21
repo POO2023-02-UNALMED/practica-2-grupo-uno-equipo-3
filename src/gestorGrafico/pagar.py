@@ -289,7 +289,7 @@ class ConfirmarPago(Frame):
                     return messagebox.showinfo("", "El destinatario realiza el pago del pedido")
                 
             else:
-                if guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO or uia.getTipoDePago() == Guia.tipoDePago.FRACCIONADO:
+                if guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO or guia.getTipoDePago() == Guia.tipoDePago.FRACCIONADO:
                     if cuentaCliente.descontar_saldo(guia.getPagoPendiente()):
                         guia.setPagoPendiente(0)
                         cuentaCliente.get_titular().subirReputacion()
