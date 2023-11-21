@@ -429,10 +429,16 @@ class Enviar(tk.Frame):
         tipoDeAnimal_dropdown = tk.OptionMenu(self.frame, tipoDeAnimal_var, *tiposDeAnimales)
         tipoDeAnimal_dropdown.grid(row=6, column=1, sticky="w")
 
-        botonSiguiente = tk.Button(self.frame,text="Siguiente",bg="#3A4D39", command=lambda:self.enviar_detalle_animal(), font=("arial", 11, "bold"),fg="white")
+        botonSiguiente = tk.Button(self.frame,text="Siguiente",bg="#3A4D39", command=lambda:self.enviar_detalle_animal(entryNombreAnimal.get(), entryEdadAnimal.get(), entryPesoAnimal.get()), font=("arial", 11, "bold"),fg="white")
         botonSiguiente.grid(row=7,column=0,columnspan=2,pady=5, padx=5)
 
-    def enviar_detalle_animal(self):    
+    def enviar_detalle_animal(self, nombreAnimal, edadAnimal, pesoAnimal):  
+        if not nombreAnimal.isalpha():
+            messagebox.showerror("Error", "Los campos de *Nombre* no deben estar vacios y aparta deben ser solo Letras.")
+            return
+        if not edadAnimal.isdigit() or not pesoAnimal.isdigit():
+            messagebox.showerror("Error", "No se permite letras, dejar casillas vacías o caracteres especiales, solo números enteros.")
+            return
 
         self.frame.pack_forget()
 
