@@ -5,7 +5,7 @@ from tkinter import messagebox
 from gestorAplicacion.productos.producto import Producto 
 from gestorAplicacion.administracion.sucursal import Sucursal
 from gestorAplicacion.administracion.cuentaBancaria import CuentaBancaria
-#from gestorAplicacion.administracion.guia import Guia
+from gestorAplicacion.administracion.guia import Guia
 
 class Pagar(Frame): 
     def __init__(self, ventana):
@@ -77,14 +77,11 @@ class Pagar(Frame):
 class Metodos(Frame):
     def __init__(self, ventana, sucursal_seleccionada, guia):
         super().__init__(ventana)
-        sucursal_seleccionada=sucursal_seleccionada
-        guia=guia
+        self.sucursal_seleccionada=sucursal_seleccionada
+        self.guia=guia
 
         self.config(bg="#739072",highlightbackground="#3A4D39",highlightthickness=3)
         self.pack(expand=True)
-
-        frame = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#085870", highlightthickness=5)
-        frame.pack(expand=True)
 
         Label_Titulo = tk.Label(self, text="Método de pago", font=("Arial", 30), fg="#085870")
         Label_Titulo.pack(pady=10)
@@ -92,10 +89,10 @@ class Metodos(Frame):
         Label_descripcion = tk.Label(self, text="Selecciona el método de pago de tu preferencia:")
         Label_descripcion.pack(pady=10)
 
-        boton_tarjeta = tk.Button(self, text="Tarjeta de crédito", command=self.metodo_tarjeta)
+        boton_tarjeta = tk.Button(self, text="Tarjeta de crédito", command=metodo_tarjeta)
         boton_tarjeta.pack(pady=10)
 
-        boton_efectivo = tk.Button(self, text="Efectivo", command=self.metodo_efectivo)
+        boton_efectivo = tk.Button(self, text="Efectivo", command=metodo_efectivo)
         boton_efectivo.pack(pady=10)
     
     def metodo_tarjeta(self, guia, sucursal_seleccionada):
@@ -141,7 +138,7 @@ class Metodos(Frame):
             if cuentaCliente.getTitular().getNombre()==nombre_entry.get():
                 if cuentaCliente.getCVV() == cvv_entry.get():
                     if cuentaCliente.getFechaExpiracion()== fecha_entry.get():
-                        confirmarPago(guia, cuentaCliente, sucursal)
+                        confirmarPago(guia, cuentaCliente, sucursal_seleccionada)
                     else:
                         return messagebox.showwarning("Error", "Datos incorrectos")
                 else:
@@ -162,20 +159,20 @@ class Metodos(Frame):
         precio = 0
         if guia.get_sucursal_origen() == sucursal: ##pago remitente
         
-            tipo_pago = guia.get_tipo_pago()
-            if tipo_pago == TipoPago.REMITENTE:
-                guia.set_pago_pendiente(guia.get_pago_pendiente() * 0)
-                precio = guia.get_precio_total()
-            elif tipo_pago == TipoPago.FRACCIONADO:
+            tipo_pago = guia.getTipoPago()
+            if tipo_pago == guia.tipoPago.REMITENTE:
+                guia.setPagoPendiente(guia.get_pago_pendiente() * 0)
+                precio = guia.getPrecioTotal()
+            elif tipo_pago == guia.tipoPago.FRACCIONADO:
                 guia.set_pago_pendiente(guia.get_pago_pendiente() / 2)
                 precio = guia.get_precio_total() / 2
         else:
             # Está pagando el destinatario
             tipo_pago = guia.get_tipo_pago()
-            if tipo_pago == TipoPago.DESTINATARIO:
+            if tipo_pago == guia.tipoPago.DESTINATARIO:
                 guia.set_pago_pendiente(0)
                 precio = guia.get_precio_total()
-            elif tipo_pago == TipoPago.FRACCIONADO:
+            elif tipo_pago == guia.tipoPago.FRACCIONADO:
                 guia.set_pago_pendiente(0)
                 precio = guia.get_precio_total() / 2
 
