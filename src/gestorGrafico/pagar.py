@@ -29,10 +29,10 @@ class Pagar(Frame):
         todas_las_sucursales = [s.getNombre() for s in Sucursal.getTodasLasSucursales()]
         self.combobox_sucursales = ttk.Combobox(self, values=todas_las_sucursales)
         self.combobox_sucursales.pack(pady=5)
+                   
+        self.combobox_sucursales.bind("<<ComboboxSelected>>", self.guardar_sucursal) 
 
-        self.combobox_sucursales.bind("<<ComboboxSelected>>", self.guardar_sucursal)
-
-        def verificar(sucursal_prueba, guia):
+        def verificar():
             if entrada.get() == "":
                 entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Ingrese un código válido")
@@ -44,9 +44,9 @@ class Pagar(Frame):
                     if producto.getCodigo() == int(entrada.get()):
                         guia = producto.getGuia()
                         
-                        if sucursal_prueba != None:
+                        if self.sucursal_seleccionada != None:
                                 self.pack_forget()
-                                metodos = Metodos(ventana, sucursal_prueba, guia)
+                                metodos = Metodos(ventana, self.sucursal_seleccionada, guia)
                                 metodos.pack()
 
                         break
@@ -62,17 +62,17 @@ class Pagar(Frame):
         entrada.pack(pady=5)
 
         boton = Button(self, text="Verificar", command=verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
-        boton.pack(pady=5)
+        boton.pack(pady=5)    
 
     def guardar_sucursal(self, event):
             nombresucursal_seleccionada = self.combobox_sucursales.get()
-            sucursal_seleccionada = None
+            self.sucursal_seleccionada = None
             
             for sucursal in Sucursal.getTodasLasSucursales():
                    if sucursal.getNombre() == nombresucursal_seleccionada:
-                       sucursal_seleccionada = sucursal
-                       self.sucursal_prueba = sucursal_seleccionada
-                       break        
+                       self.sucursal_seleccionada = sucursal
+                       break
+                      
 
 class Metodos(Frame):
     def __init__(self, ventana, sucursal_seleccionada, guia):
@@ -83,32 +83,32 @@ class Metodos(Frame):
         self.config(bg="#739072",highlightbackground="#3A4D39",highlightthickness=3)
         self.pack(expand=True)
 
-        self.frame = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#085870", highlightthickness=5)
-        self.frame.pack(expand=True)
+        frame = tk.Frame(self, width=800, height=800, bg="#739072", highlightbackground="#085870", highlightthickness=5)
+        frame.pack(expand=True)
 
-        self.Label_Titulo = tk.Label(self, text="Método de pago", font=("Arial", 30), fg="#085870")
-        self.Label_Titulo.pack(pady=10)
+        Label_Titulo = tk.Label(self, text="Método de pago", font=("Arial", 30), fg="#085870")
+        Label_Titulo.pack(pady=10)
 
-        self.Label_descripcion = tk.Label(self, text="Selecciona el método de pago de tu preferencia:")
-        self.Label_descripcion.pack(pady=10)
+        Label_descripcion = tk.Label(self, text="Selecciona el método de pago de tu preferencia:")
+        Label_descripcion.pack(pady=10)
 
-        self.boton_tarjeta = tk.Button(self, text="Tarjeta de crédito", command=self.metodo_tarjeta)
-        self.boton_tarjeta.pack(pady=10)
+        boton_tarjeta = tk.Button(self, text="Tarjeta de crédito", command=self.metodo_tarjeta)
+        boton_tarjeta.pack(pady=10)
 
-        self.boton_efectivo = tk.Button(self, text="Efectivo", command=self.metodo_efectivo)
-        self.boton_efectivo.pack(pady=10)
+        boton_efectivo = tk.Button(self, text="Efectivo", command=self.metodo_efectivo)
+        boton_efectivo.pack(pady=10)
     
     def metodo_tarjeta(self, guia, sucursal_seleccionada):
-        self.Label_Titulo.pack_forget()
-        self.Label_descripcion.pack_forget()
-        self.boton_efectivo.pack_forget()
-        self.boton_tarjeta.pack_forget()
+        Label_Titulo.pack_forget()
+        Label_descripcion.pack_forget()
+        boton_efectivo.pack_forget()
+        boton_tarjeta.pack_forget()
 
-        self.Label_Titulo = tk.Label(self.frame, text="Pago por tarjeta de crédito", font=("Arial", 30), fg="#085870")
-        self.Label_Titulo.pack(pady=10)
+        Label_Titulo = tk.Label(self.frame, text="Pago por tarjeta de crédito", font=("Arial", 30), fg="#085870")
+        Label_Titulo.pack(pady=10)
 
-        self.Label_descripcion = tk.Label(self.frame, text="Ingresa los siguientes datos:")
-        self.Label_descripcion.pack(pady=10)
+        Label_descripcion = tk.Label(self.frame, text="Ingresa los siguientes datos:")
+        Label_descripcion.pack(pady=10)
 
         nombre_label = tk.Label(self.frame, text="Nombre del titular:")
         nombre_label.pack(pady=5)
