@@ -30,7 +30,7 @@ class MainWindow(Tk):
         self.title("Correminas")
         self.resizable(0,0)
         self.geometry("865x480")
-        self.iconbitmap("src\gestorGrafico\imagenes\icono.ico")
+        self.iconbitmap("src\gestorGrafico\imagenes\icono.png")
 
         Inicio(self)
         self.mainloop()
