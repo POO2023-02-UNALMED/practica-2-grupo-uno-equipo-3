@@ -50,7 +50,7 @@ class Sucursal:
     def agregarProducto(self, nuevoProducto):
         seAgrega = False
 
-        if isinstance(nuevoProducto, animal):
+        if isinstance(nuevoProducto, Animal):
             nuevoAnimal = nuevoProducto
 
             if self._disponibilidadJaulas(nuevoAnimal):
@@ -68,7 +68,7 @@ class Sucursal:
                         elif nuevoAnimal.getTamano() == "GRANDE":
                             self._cantidadJaulasGrandes -= 1
         else:
-            if self.capacidadVolumen > nuevoProducto.getVolumen():
+            if self._capacidadVolumen > nuevoProducto.getVolumen():
                 if  self._capacidadPeso > nuevoProducto.getPeso():
                     self._inventario.append(nuevoProducto)
                     self._capacidadVolumen -= nuevoProducto.getVolumen()

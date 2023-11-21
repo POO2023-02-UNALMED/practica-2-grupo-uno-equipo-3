@@ -7,6 +7,7 @@ class Persona(ABC):
         self._nombre = nombre
         self._cedula = cedula
         self._telefono = telefono
+        self._reputacion = 0
         
         Persona._todasLasPersonas.append(self)
 
@@ -22,6 +23,9 @@ class Persona(ABC):
     def setTodasLasPersonas(cls,lista):
         cls._todasLasPersonas = lista
 
+    def subirReputacion(self):
+        self._reputacion += 1
+        
     def getNombre(self):
         return self._nombre
     
