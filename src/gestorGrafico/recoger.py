@@ -17,24 +17,24 @@ class Recoger(tk.Frame):
     def __init__(self, ventana):
         #se inicializa la ventana llamando al super
         super().__init__(ventana)
-        self.config(highlightbackground="#085870", highlightthickness=3)
+        self.config(bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,)
         self.pack(expand=True)
 
         #Label de titulo, descripción y seleccion de sucursal, con sus respectivas configuraciones
-        self.Label_Titulo = tk.Label(self, text="Reclamar Paquete", font=("Arial", 30))
+        self.Label_Titulo = tk.Label(self, text="Reclamar Paquete", font=("Arial", 30), bg="#739072", fg="white")
         self.Label_Titulo.grid(row=0, column=0, columnspan=2, pady=10)
 
-        self.Label_descripcion = tk.Label(self, text="¡Hola querido cliente! En este apartado podrá reclamar los paquetes que se hayan enviado\n"+ "a su nombre solo, deberá ingresar la información necesaria para reclamar dicho paquete")
+        self.Label_descripcion = tk.Label(self, text="¡Hola querido cliente! En este apartado podrá reclamar los paquetes que se hayan enviado\n"+ "a su nombre solo, deberá ingresar la información necesaria para reclamar dicho paquete", font=("Arial", 11), bg="#739072", fg="white")
         self.Label_descripcion.grid(row=1, column=0, columnspan=2, pady=10)
 
         self.Label_sele_suc = tk.Label(self, text="Primero necesitamos saber en qué sucursal se encuentra,\n"+ 
-                                       "para ello por favor seleccione una de las opciones")
+                                       "para ello por favor seleccione una de las opciones", font=("Arial", 11), bg="#739072", fg="white")
         self.Label_sele_suc.grid(row=2, column=0, columnspan=2, pady=10)
 
 
         #Selección sucursal y combobox
         labelSucursal = Label(self, text="Selecciona la sucursal\n"+ 
-                              "en la que te encuentras:", font=("Arial", 10))
+                              "en la que te encuentras:", font=("Arial", 11), bg="#739072", fg="white")
         labelSucursal.grid(pady=10, column=0, row=3, columnspan=2)
 
         todas_las_sucursales = [s.getNombre() for s in Sucursal.getTodasLasSucursales()]
@@ -65,31 +65,36 @@ class FrameSucursal(tk.Frame):
         super().__init__(ventana)
         self.nombresucursalSeleccionada = nombresucursalSeleccionada
         self.sucursal_seleccionada = sucursal_seleccionada
-        self.config(bg="#085870")
-        self.pack(fill="both", expand=True)
+        self.config(bg="#739072", highlightbackground="#3A4D39", highlightthickness=3,  height=160, width=570)
+        self.pack_propagate(False)
+        self.pack(expand=True)
 
-        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {nombresucursalSeleccionada}", font=("arial", 20))
-        etiqueta.pack(pady=40)
+        etiqueta = tk.Label(self, text=f"Ha seleccionado la sucursal: {nombresucursalSeleccionada}", font=("arial", 11), bg="#739072", fg="white")
+        etiqueta.pack(side="top", pady=5)
 
-        self.entryCod = Entry(self)
-        self.entryName = Entry(self)
-        self.entryCC = Entry(self)
+        frameDatos = Frame(self, bg="#739072")
+        frameDatos.pack(side="top", pady=5)
+        
+        labelCod = Label(frameDatos, text="Código del pedido: ", font=("Arial", 11), bg="#739072", fg="white")
+        labelCod.grid(row=1, column=1)
+        
+        entryCod = Entry(frameDatos)
+        entryCod.grid(row=1, column=2)
 
-        labelCod = Label(self, text="Código del Paquete", font=("arial", 11), fg="white", bg="#085870")
-        labelCod.pack(padx=10, pady=8)
-        self.entryCod.pack(padx=10, pady=8)
+        labelName = Label(frameDatos, text="Nombre del destinatario: ", font=("Arial", 11),bg="#739072", fg="white")
+        labelName.grid(row=2, column=1)
+        
+        entryName = Entry(frameDatos)
+        entryName.grid(row=2, column=2)
 
-        labelName = Label(self, text="Nombre de quien reclama", font=("arial", 11), fg="white", bg="#085870")
-        labelName.pack(padx=10, pady=8)
-        self.entryName.pack(padx=10, pady=8)
+        labelCC = Label(frameDatos, text="Cédula del destinatario: ", font=("Arial", 11), bg="#739072", fg="white")
+        labelCC.grid(row=3, column=1)
+        
+        entryCC = Entry(frameDatos)
+        entryCC.grid(row=3, column=2)
 
-        labelCC = Label(self, text="Cédula de quien reclama", font=("arial", 11), fg="white", bg="#085870")
-        labelCC.pack(padx=10, pady=8)
-        self.entryCC.pack(padx=10, pady=8)
-
-        botonReclamar = Button(self, text="Reclamar Paquete", command=self.reclamar, font=("arial", 11), fg="white",
-                               bg="#085870")
-        botonReclamar.pack(padx=10, pady=10)
+        botonReclamar = Button(self, text="Reclamar Paquete", command=self.reclamar,bg="#3A4D39",font=("arial", 11, "bold"),fg="white")
+        botonReclamar.pack(side="bottom", pady=5)
 
     #funcionalidad de reclamar
     def reclamar(self):
@@ -108,7 +113,7 @@ class FrameSucursal(tk.Frame):
 
             #se obtiene la guia del paquete
             guiaPaq = paq.getGuia()
-
+            recogido = True
             #Lógica para poder reclamar el paquete
             if confirmacion:
                 if paq:
@@ -119,11 +124,15 @@ class FrameSucursal(tk.Frame):
                                 #se verifica si el paquete se encuentra en el inventario de la sucursal seleccionada
                                 if (paq in self.sucursal_seleccionada.getInventario()):
                                     #se verifica que el paquete no haya sido entregado aún
-                                    if (guiaPaq.getEstado() != guia.Guia.estado.ENTREGADO):
+                                    if (guiaPaq.getEstado() != guia.Guia.estado.ENTREGADO) and recogido:
                                         #se verifica el tipo de pago y si hay o no saldo pendiente
                                         if (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.REMITENTE):
                                             if (guiaPaq.getPagoPendiente() == 0):
+                                                #Se elimina el paquete recogido 
+                                                recogido = False
+                                                guiaPaq.setEstado(guia.Guia.estado.ENTREGADO)
                                                 messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
+                                                
                                                 self.destroy()
                                                 if (guiaPaq.getPagoPendiente() != 0):
                                                     messagebox.showinfo("Falta pago", "Para poder reclamar tu paquete debes pagar la mitad del envío")
@@ -151,15 +160,14 @@ class FrameSucursal(tk.Frame):
                         messagebox.showinfo("Paquete no encontrado", f"No se encontró ningún paquete con el código {Cod}")
                 else:
                     self.destroy()
-        except Exception as e:
-            messagebox.showerror("Error", str(e))
+        except:
+            messagebox.showerror("Error", CampoVacio().mostrarMensaje())
 
     #función que se encarga de verificar si la ciudad seleccionada es la misma que la ciudad destino accediendo a la guia del producto
     def verificarCiudadDestino(self, paq, posibleCiudad):
         guia = paq.getGuia()
         sucursalDestino = guia.getSucursalLlegada().getNombre()
-        print("verificar ciudad (sucursalDestino)",sucursalDestino)
-        print("posible ciudad(escogida)",posibleCiudad)
+
         return sucursalDestino == posibleCiudad
     
     #función que se encarga de verificar los datos ingresados en los entrys, compara la cc ingresada con la cc de la guia del producto

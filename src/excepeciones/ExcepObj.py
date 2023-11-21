@@ -12,4 +12,8 @@ class dineroInsuficiente(ExcepObj):
     def __init__(self, cuentaBancaria):
         super().__init__(f"La cuenta bancaria:\n {cuentaBancaria} \n no tiene suficiente saldo")
 
+class PersonanNE(ExcepObj):
+    def __init__(self,persona):
+        super().__init__(f"La persona identificada como {persona.getNombre()} no existe")
+
 

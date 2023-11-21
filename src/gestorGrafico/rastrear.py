@@ -42,13 +42,16 @@ class Rastrear(Frame):
                 if guia.getTipoDePago() == Guia.tipoDePago.REMITENTE:
                     if guia.getPagoPendiente() == 0:
                         enviado = True
+                        
                 elif guia.getTipoDePago() == Guia.tipoDePago.FRACCIONADO:
                     if guia.getPagoPendiente() == guia.getPrecioTotal() / 2:
                         enviado = True
                 else:
                     enviado = True
+                    
                 if enviado:
                     consultarProgreso(guia)
+                    
                 else:
                     return messagebox.showwarning("Error", "Lo sentimos, completa el pago para finalizar el registro del envío")
                     
@@ -59,7 +62,9 @@ class Rastrear(Frame):
         titulo = tk.Label(self, text="Rastrear Pedido", font=("Arial", 30), bg="#739072", foreground="white")
         titulo.pack(pady=5)
         
-        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()) + "\nCaso de prueba avion: " +  str(Guia.getTodasLasGuias()[2].getProducto().getCodigo()))
+        #texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()) + "\nCaso de prueba avion: " +  str(Guia.getTodasLasGuias()[2].getProducto().getCodigo()))
+
+        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n")
         descripcion = Label(self, text=texto0, font=("Arial", 11), bg="#739072", fg="white")
         descripcion.pack(pady=5, padx=5)
         

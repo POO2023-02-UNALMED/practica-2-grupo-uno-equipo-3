@@ -16,11 +16,13 @@ from gestorAplicacion.transportes.transporte import Transporte
 from gestorAplicacion.transportes.camion import Camion
 from gestorAplicacion.transportes.avion import Avion
 import time
+from gestorGrafico.OpinionesSucursal import FrameSucursal
+
+
 from baseDatos.deserializador import Deserializador
 from baseDatos.serializador import Serializador
 
 from gestorGrafico.inicio import Inicio
-
 
 class MainWindow(Tk):
     def __init__(self):
@@ -37,7 +39,7 @@ class MainWindow(Tk):
     
     def abrirInicio(self):
         self.destroy()
-        Inicio()
+        MainWindow()
 
 if __name__=="__main__":
     medellinNorte = Sucursal("Medellin Norte", 500,500,10,10)
@@ -84,7 +86,7 @@ if __name__=="__main__":
     caliSur.setOpinionSucursal(opinion6)
     pastoNorte.setOpinionSucursal(opinion7)
     pastoSur.setOpinionSucursal(opinion8)
-    Serializador.serializar()
+    
     
     guzman = Cliente("Jaime Guzman", 123456789, 987654321)
     guzmanCuenta = CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000)
@@ -119,17 +121,16 @@ if __name__=="__main__":
     medellinNorte.getInventario().append(documento2)
     medellinNorte.getInventario().append(paquete2)
     medellinNorte.getInventario().append(animal2)
-        
+    
+    #Serializador.serializar()
     #Deserializador.deserializar()
-
 
     #No me lo borren gracias 😉
     camion = medellinNorte.getCamionesEnSucursal()[0]
     #amion.iniciarRecorrido()
     
     avion = medellinNorte.getAvionesEnSucursal()[0]
-    #avion.iniciarRecorrido() 
-    #Serializador.serializar()   
+    #avion.iniciarRecorrido()    
     
     
     MainWindow()

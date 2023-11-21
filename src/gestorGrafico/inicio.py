@@ -25,7 +25,7 @@ class Inicio(Frame):
         p4Frame.grid(row=1,column=0,columnspan=2,rowspan=1,padx=5,pady=(3,5))
         p4Frame.pack_propagate(False)
 
-        p5Frame=Frame(p2Frame,height=100,width=415,bg="yellow")
+        p5Frame=Frame(p2Frame,height=100,width=415,bg="white")
         p5Frame.grid(row=0,column=0,columnspan=1,rowspan=1,padx=5,pady=(5,3))
         p5Frame.pack_propagate(False)
 
@@ -77,7 +77,7 @@ class Inicio(Frame):
                 self.punteroIntergrante = i
             
 
-        biblioTexto = Label(p5Frame,text=bibi1,font=("arial", 10),bg="#739072",wraplength=405,highlightbackground="#3A4D39",highlightthickness=2, fg="black")
+        biblioTexto = Label(p5Frame,text=bibi1,font=("arial", 10),bg="#739072",wraplength=405,highlightbackground="#3A4D39",highlightthickness=2, fg="white")
         biblioTexto.pack(expand=True,fill="both")
         biblioTexto.bind("<Button-1>",cambiarTextoEImagenF6)
 
@@ -110,32 +110,32 @@ class Inicio(Frame):
         img4.grid(row=1,column=1,columnspan=1,rowspan=1,padx=3,pady=3)
         
         
-        # # Frame 4
+        # Frame 4
         
-        # # Imagen:
-        # self.punteroImagen=2
-        # def cambiarTextoEImagenF4(evento):
-        #     i=self.punteroImagen
+        # Imagen:
+        self.punteroImagen=2
+        def cambiarTextoEImagenF4(evento):
+            i=self.punteroImagen
 
-        #     # Cambio de imagenes
-        #     global imagF4
-        #     imagF4=PhotoImage(file=f"Python\src\gestorGrafico\Imagenes\imgInF4.{i}.png")     
+            # Cambio de imagenes
+            global imagF4
+            imagF4=PhotoImage(file=f"src\gestorGrafico\imagenes\imgF4_{i}.png")     
    
-        #     ImagenF4.config(image=imagF4)
+            ImagenF4.config(image=imagF4)
             
-        #     # Cambio de puntero  
-        #     i+= 1
-        #     n = 5 # numero de grupo de fotos en la carpeta imagenes, cuando se tengan todas debe ser 5
-        #     if i ==(n+1):
-        #         self.punteroImagen= 1
-        #     else:
-        #         self.punteroImagen=i
+            # Cambio de puntero  
+            i+= 1
+            n = 5 # numero de grupo de fotos en la carpeta imagenes, cuando se tengan todas debe ser 5
+            if i ==(n+1):
+                self.punteroImagen= 1
+            else:
+                self.punteroImagen=i
         
-        # self.imagenF41 =PhotoImage(file="Python\src\gestorGrafico\Imagenes\imgInF4.1.png")
+        self.imagenF41 =PhotoImage(file="src\gestorGrafico\imagenes\imgF4_1.png")
         
-        # ImagenF4 = Label(p4Frame,image=self.imagenF41,width=300,wraplength=160,highlightbackground="#085870",highlightthickness=4)
-        # ImagenF4.pack(side="top",pady=3)
-        # ImagenF4.bind("<Enter>",cambiarTextoEImagenF4)
+        ImagenF4 = Label(p4Frame,image=self.imagenF41,width=300,wraplength=160,highlightbackground="#3A4D39",highlightthickness=4)
+        ImagenF4.pack(side="top",pady=3)
+        ImagenF4.bind("<Enter>",cambiarTextoEImagenF4)
         
         # Texto descripcion
         
