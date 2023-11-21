@@ -116,12 +116,12 @@ class Metodos(tk.Frame):
                             if pago == Guia.tipoDePago.REMITENTE:
                                 guiaPaq.setPagoPendiente(int(guiaPaq.getPagoPendiente()) * 0)
                                 precio = guiaPaq.getPrecioTotal()
-                                sucursal.getInventario().append(guiaPaq)
+                                sucursal.getInventario().append(paq)
                                 
                             if pago == Guia.tipoDePago.FRACCIONADO:
                                 guiaPaq.setPagoPendiente(int(guiaPaq.getPagoPendiente()) / 2)
                                 precio = int(guiaPaq.getPrecioTotal()) / 2
-                                sucursal.getInventario().append(guiaPaq)
+                                sucursal.getInventario().append(paq)
 
                         else:
                         # Está pagando el destinatario
@@ -137,6 +137,10 @@ class Metodos(tk.Frame):
 
                 #sucursal.agregar_producto(guia.get_producto())
             messagebox.showinfo("Pago realizado con éxito", f"Gracias por confiar en nosotros, por favor acerquese a la caja numero 4 para cancelar un total de $ {str(precio)}")
+            self.pack_forget()
+            pagar = Pagar(ventana)
+            pagar.pack()
+            
 
         Label_Titulo = tk.Label(self, text="Método de pago", font=("Arial", 30), bg="#739072", foreground="white")
         Label_Titulo.pack(pady=10)
