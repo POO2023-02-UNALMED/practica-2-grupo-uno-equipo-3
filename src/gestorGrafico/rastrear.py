@@ -62,7 +62,9 @@ class Rastrear(Frame):
         titulo = tk.Label(self, text="Rastrear Pedido", font=("Arial", 30), bg="#739072", foreground="white")
         titulo.pack(pady=5)
         
-        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()) + "\nCaso de prueba avion: " +  str(Guia.getTodasLasGuias()[2].getProducto().getCodigo()))
+        #texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n" + "Codigo de prueba:" + str(Guia.getTodasLasGuias()[0].getProducto().getCodigo()) + "\nCaso de prueba avion: " +  str(Guia.getTodasLasGuias()[2].getProducto().getCodigo()))
+
+        texto0 = ("Esta funcionalidad permite ver el estado y ubicación actual de su pedido\n")
         descripcion = Label(self, text=texto0, font=("Arial", 11), bg="#739072", fg="white")
         descripcion.pack(pady=5, padx=5)
         
