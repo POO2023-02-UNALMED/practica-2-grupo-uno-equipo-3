@@ -98,7 +98,9 @@ class Principal(Tk):
             TablaSucursales(self).pack()
             
         def salir():
+            from main import MainWindow
             self.destroy()
+            MainWindow()
             
 
 
