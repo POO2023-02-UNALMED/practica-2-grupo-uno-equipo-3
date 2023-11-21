@@ -113,7 +113,7 @@ class FrameSucursal(tk.Frame):
 
             #se obtiene la guia del paquete
             guiaPaq = paq.getGuia()
-
+            recogido = True
             #Lógica para poder reclamar el paquete
             if confirmacion:
                 if paq:
@@ -124,13 +124,14 @@ class FrameSucursal(tk.Frame):
                                 #se verifica si el paquete se encuentra en el inventario de la sucursal seleccionada
                                 if (paq in self.sucursal_seleccionada.getInventario()):
                                     #se verifica que el paquete no haya sido entregado aún
-                                    if (guiaPaq.getEstado() != guia.Guia.estado.ENTREGADO):
+                                    if (guiaPaq.getEstado() != guia.Guia.estado.ENTREGADO) and recogido:
                                         #se verifica el tipo de pago y si hay o no saldo pendiente
                                         if (guiaPaq.getTipoDePago() == guia.Guia.tipoDePago.REMITENTE):
                                             if (guiaPaq.getPagoPendiente() == 0):
-                                                messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
                                                 #Se elimina el paquete recogido 
-                                                self.sucursal_seleccionada.getInventario().remove(paq)
+                                                recogido = False
+                                                guiaPaq.setEstado(guia.Guia.estado.ENTREGADO)
+                                                messagebox.showinfo("Operación realizada con éxito", "Puedes reclamar tu paquete")
                                                 
                                                 self.destroy()
                                                 if (guiaPaq.getPagoPendiente() != 0):

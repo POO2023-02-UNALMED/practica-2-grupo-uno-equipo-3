@@ -358,14 +358,13 @@ class Enviar(tk.Frame):
         #se verifica si es necesario pagar para enviar
         print(str(guiaPaqueteAEnviar.getTipoDePago()))
         print(str(Guia.tipoDePago.DESTINATARIO))
-        if guiaPaqueteAEnviar.getTipoDePago() == Guia.tipoDePago.DESTINATARIO:
+        if (guiaPaqueteAEnviar.getTipoDePago() == Guia.tipoDePago.DESTINATARIO):
             valores[3].getInventario().append(valores[0])
 
 
-        if (guiaPaqueteAEnviar.getTipoDePago() == Guia.tipoDePago.REMITENTE) or (guiaPaqueteAEnviar.getTipoDePago == Guia.tipoDePago.FRACCIONADO):
-            if guiaPaqueteAEnviar.getPagoPendiente == 0:
+        else:
+            if (guiaPaqueteAEnviar.getPagoPendiente == 0):
                   valores[3].getInventario().append(valores[0])
-            
             else:
                  pass
                   
@@ -375,6 +374,7 @@ class Enviar(tk.Frame):
 
 
         if origen and destino != None:
+             #ACA VA LA GUIA
             tipo_producto = "Paquete"
             info_text = f"Tipo de producto: {tipo_producto}\n"
             info_text += f"Código del paquete: {valores[0].getCodigo()}\n"
@@ -383,14 +383,9 @@ class Enviar(tk.Frame):
             info_text += f"Tipo de pago: {pago} \n"
             info_text += f"Precio total: ${guiaPaqueteAEnviar.getPrecioTotal()}\n"
             info_text += f"Vehículo: {transporte}"
-            #ACA VA LA GUIA
-
-  
-
-
 
             messagebox.showinfo("Los detalles del envío han sido enviados con éxito.", info_text)
-
+        Enviar.destroy(self)
         valores.clear()
 
             
