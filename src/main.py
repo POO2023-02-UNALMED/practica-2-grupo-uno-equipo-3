@@ -130,8 +130,7 @@ if __name__=="__main__":
     #amion.iniciarRecorrido()
     
     avion = medellinNorte.getAvionesEnSucursal()[0]
-    #avion.iniciarRecorrido()    
-    
-    
+    #avion.iniciarRecorrido()  
+      
     MainWindow()
     
