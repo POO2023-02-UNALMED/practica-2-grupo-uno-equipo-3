@@ -45,23 +45,61 @@ class Pagar(Frame):
                         guia = producto.getGuia()
                         
                         if self.sucursal_seleccionada != None:
-                            if guia.getPagoPendiente() != 0:
-                                if guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO and self.sucursal_seleccionada == guia.getSucursalOrigen():
+                            if self.sucursal_seleccionada == guia.getSucursalOrigen():
+                                if guia.getTipoDePago() == Guia.tipoDePago.REMITENTE:
+                                    if guia.getPagoPendiente() == 0:
+                                        self.pack_forget()
+                                        pagar = Pagar(ventana)
+                                        pagar.pack()
+                                        messagebox.showinfo("Pago completado", "El envío ha sido completamente pagado")
+                                        
+                                    else:
+                                        self.pack_forget()
+                                        metodos = Metodos(ventana, self.sucursal_seleccionada, guia)
+                                        metodos.pack()
+                                        
+                                elif guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO:
                                     self.pack_forget()
                                     pagar = Pagar(ventana)
                                     pagar.pack()
                                     messagebox.showinfo("Paga Destinatario", "El pago del envío lo realiza el destinatario")
-                                else :
+                                    
+                                elif guia.getTipoDePago() == Guia.tipoDePago.FRACCIONADO:
+                                    if guia.getPagoPendiente() != guia.getPrecioTotal():
+                                        self.pack_forget()
+                                        pagar = Pagar(ventana)
+                                        pagar.pack()
+                                        messagebox.showinfo("Pago completado", "El envío ha sido completamente pagado")
+                                        
+                                    else :
+                                        self.pack_forget()
+                                        metodos = Metodos(ventana, self.sucursal_seleccionada, guia)
+                                        metodos.pack()
+                                    
+                            else:
+                                if guia.getTipoDePago() == Guia.tipoDePago.REMITENTE:
+                                    self.pack_forget()
+                                    pagar = Pagar(ventana)
+                                    pagar.pack()
+                                    messagebox.showinfo("Pago completado", "El envío ha sido completamente pagado")
+                                        
+                                elif guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO:
                                     self.pack_forget()
                                     metodos = Metodos(ventana, self.sucursal_seleccionada, guia)
                                     metodos.pack()
-                            else:
-                                self.pack_forget()
-                                pagar = Pagar(ventana)
-                                pagar.pack()
-                                messagebox.showinfo("Pago completado", "El envío ha sido completamente pagado")
-
-                        break
+                                    
+                                elif guia.getTipoDePago() == Guia.tipoDePago.FRACCIONADO:
+                                    if guia.getPagoPendiente() == 0:
+                                        self.pack_forget()
+                                        pagar = Pagar(ventana)
+                                        pagar.pack()
+                                        messagebox.showinfo("Pago completado", "El envío ha sido completamente pagado")
+                                        
+                                    else :
+                                        self.pack_forget()
+                                        metodos = Metodos(ventana, self.sucursal_seleccionada, guia)
+                                        metodos.pack()
+                                
             else:
                 entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Ingrese un código válido")

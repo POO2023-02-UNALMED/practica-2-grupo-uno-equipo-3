@@ -136,6 +136,6 @@ if __name__=="__main__":
       
     #avion.iniciarRecorrido()    
     
-    print(guiaDocumento2) 
+    #print(guiaDocumento2) 
     MainWindow()
     

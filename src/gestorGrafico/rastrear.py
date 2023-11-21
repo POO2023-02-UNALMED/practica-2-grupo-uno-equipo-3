@@ -127,7 +127,7 @@ class Estado(Frame):
                 else:
                     break
             
-        avance = Label(self, text="\n", bg="#739072", fg="white", font=("Arial", 11))
+        avance = Label(self, text="\n", bg="#739072", fg="white", font=("Arial", 9))
         avance.pack(pady=0, fill="x")
         
         frameCodigo = Frame(self, bg="#739072")
