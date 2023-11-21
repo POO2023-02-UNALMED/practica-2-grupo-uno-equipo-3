@@ -111,7 +111,7 @@ class Principal(Tk):
 
         Para comenzar a disfrutar de nuestra plataforma, dirígete al menú llamado "Procesos y Consultas" en la esquina superior derecha. Aquí encontrarás cinco funcionalidades clave:
 
-        1) Enviar un Paquete: Envía tus paquetes de manera sencilla. Solo necesitas seleccionar el tipo de paquete y proporcionar información básica, incluidos los detalles del remitente y del destinatario.
+        1) Enviar Producto: Envía tus paquetes de manera sencilla. Solo necesitas seleccionar el tipo de paquete y proporcionar información básica, incluidos los detalles del remitente y del destinatario.
 
         2) Pagar Servicios: Realiza el pago de los servicios que nuestra compañía ha proporcionado. Tienes tres opciones de pago: compartido, del remitente o contraentrega.
 
@@ -142,7 +142,7 @@ class Principal(Tk):
         info_Label = Label(frame_2,text= """
         Para comenzar a disfrutar de nuestra plataforma, dirígete al menú llamado "Procesos y Consultas" en la esquina superior derecha. Aquí encontrarás cinco funcionalidades clave:
 
-        1) Enviar un Paquete: Envía tus paquetes de manera sencilla. Solo necesitas seleccionar el tipo de paquete y proporcionar información básica, incluidos los detalles del remitente y del destinatario.
+        1) Enviar Producto: Envía tus paquetes de manera sencilla. Solo necesitas seleccionar el tipo de paquete y proporcionar información básica, incluidos los detalles del remitente y del destinatario.
 
         2) Pagar Servicios: Realiza el pago de los servicios que nuestra compañía ha proporcionado. Tienes tres opciones de pago: compartido, del remitente o contraentrega.
 
@@ -171,7 +171,7 @@ class Principal(Tk):
         menuProcesosConsultas = Menu(menuBar)
         menuBar.add_cascade(label="Procesos y Consultas",menu=menuProcesosConsultas,activebackground="blue")
 
-        menuProcesosConsultas.add_cascade(label="Envio de Paquetes",activebackground="blue", command=enviar)
+        menuProcesosConsultas.add_cascade(label="Enviar Producto",activebackground="blue", command=enviar)
         menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="blue", command=pagar)
         menuProcesosConsultas.add_cascade(label="Rastrear Pedido",activebackground="blue", command=rastrear)
         menuProcesosConsultas.add_cascade(label="Reclamar Paquete",activebackground="blue", command=recoger)
