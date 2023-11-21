@@ -32,14 +32,7 @@ class Pagar(Frame):
 
         self.combobox_sucursales.bind("<<ComboboxSelected>>", self.guardar_sucursal)
 
-        #####Verificar
-        text = Label(self, text="Ingrese el código de su guía", font=("Arial", 12, "bold"))
-        text.pack(pady=5)
-
-        entrada= Entry(self)
-        entrada.pack(pady=5)
-
-        def verificar():
+        def verificar(sucursal_prueba, guia):
             if entrada.get() == "":
                 entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Ingrese un código válido")
@@ -61,17 +54,25 @@ class Pagar(Frame):
                 entrada.delete(0, END)
                 return messagebox.showwarning("Error", "Ingrese un código válido")
 
+        #####Verificar
+        text = Label(self, text="Ingrese el código de su guía", font=("Arial", 12, "bold"))
+        text.pack(pady=5)
+
+        entrada= Entry(self)
+        entrada.pack(pady=5)
+
         boton = Button(self, text="Verificar", command=verificar,bg="#085870",font=("arial", 11, "bold"),fg="#cedae0")
         boton.pack(pady=5)
 
-        def guardar_sucursal(self, event):
-                nombresucursal_seleccionada = self.combobox_sucursales.get()
-                sucursal_seleccionada = None
-                for sucursal in Sucursal.getTodasLasSucursales():
-                    if sucursal.getNombre() == nombresucursal_seleccionada:
-                        sucursal_seleccionada = sucursal
-                        self.sucursal_prueba = sucursal_seleccionada
-                        break        
+    def guardar_sucursal(self, event):
+            nombresucursal_seleccionada = self.combobox_sucursales.get()
+            sucursal_seleccionada = None
+            
+            for sucursal in Sucursal.getTodasLasSucursales():
+                   if sucursal.getNombre() == nombresucursal_seleccionada:
+                       sucursal_seleccionada = sucursal
+                       self.sucursal_prueba = sucursal_seleccionada
+                       break        
 
 class Metodos(Frame):
     def __init__(self, ventana, sucursal_seleccionada, guia):
@@ -150,7 +151,8 @@ class Metodos(Frame):
         else:
                         return messagebox.showwarning("Error", "Esta cuenta no existe")
 
-        def confirmarPago(self):
+        def confirmarPago(guia, cuenta_cliente, sucursal):
+             
              pass
              
 

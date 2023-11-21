@@ -134,5 +134,8 @@ if __name__=="__main__":
     avion = medellinNorte.getAvionesEnSucursal()[0]
     #avion.iniciarRecorrido()  
       
+    #avion.iniciarRecorrido()    
+    
+    print(guiaDocumento2) 
     MainWindow()
     
