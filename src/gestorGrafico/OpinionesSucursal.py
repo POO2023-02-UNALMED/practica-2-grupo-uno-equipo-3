@@ -67,7 +67,6 @@ class TablaSucursales(tk.Frame):
     def cambiar_frame_sucursal(self, event):
         # Obtener la sucursal seleccionada
         sucursal_seleccionada = self.combobox_sucursales.get()
-        print(sucursal_seleccionada)
         sucursal_encontrada = None
         for sucursal in Sucursal.getTodasLasSucursales():
             if sucursal.getNombre() == sucursal_seleccionada:

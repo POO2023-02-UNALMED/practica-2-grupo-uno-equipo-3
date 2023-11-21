@@ -58,10 +58,8 @@ class FieldFrame(tk.Frame):
         for criterio in self.criterios:
             valor = self.getValue(criterio)
             self.Valores.append(valor)
-            print(criterio, type(valor))
         self.pulsado = True
         self.limpiarTextos()
-        print(self.pulsado)
         return self.Valores
             
 
