@@ -66,7 +66,7 @@ class Principal(Tk):
                 avion.agregarProductos()
                 
                 if avion.getUbicacionActual() == sucursal:
-                    if len(avion.getInventario()) >= 4: #Cambiar
+                    if len(avion.getInventario()) >= 5: #Cambiar
                         avion.iniciarRecorrido()
                         avionesFuera.append(avion)
                 
@@ -132,7 +132,7 @@ class Principal(Tk):
         frame.config(bg="#739072")
         frame.pack(expand=True)
 
-        bienvenida_label = Label(frame, text="¡Bienvenido a la ventana principal de CorreMinas!", font=("Arial", 14), fg="white", bg="#3A4D39")
+        bienvenida_label = Label(frame, text="¡Bienvenido a la ventana principal de CorreMinas!", font=("Arial", 14), fg="white", bg="#739072")
         bienvenida_label.pack(padx=10, pady=10)
 
         frame_2 = Frame(self)
@@ -152,7 +152,7 @@ class Principal(Tk):
 
         5) Opinión sobre Sucursales: Queremos conocer tu experiencia. Utiliza esta función para compartir tus opiniones y comentarios sobre el servicio en nuestras sucursales. ¡Valoramos tu retroalimentación y trabajamos para ofrecerte la mejor experiencia posible!
 
-        Gracias por elegir "Correminas". Esperamos que tengas una experiencia excepcional. ¡Envía, paga, sigue, recoge y comparte tu opinión con nosotros!""",font=("Arial",10),fg="white",bg="#3A4D39",wraplength=600)
+        Gracias por elegir "Correminas". Esperamos que tengas una experiencia excepcional. ¡Envía, paga, sigue, recoge y comparte tu opinión con nosotros!""",font=("Arial",10),fg="white",bg="#739072",wraplength=600)
         info_Label.pack(padx=10,pady=10)
 
         # Menus
@@ -162,26 +162,26 @@ class Principal(Tk):
 
         # Menu Archivo
         menuArchivo = Menu(menuBar)
-        menuBar.add_cascade(label="Archivo",menu=menuArchivo,activebackground="blue")
+        menuBar.add_cascade(label="Archivo",menu=menuArchivo,activebackground="#3A4D39")
 
-        menuArchivo.add_cascade(label="Aplicacion",activebackground="blue",command=infoBasica)
-        menuArchivo.add_cascade(label="Salir",activebackground="blue",command=salir)
+        menuArchivo.add_cascade(label="Aplicacion",activebackground="#3A4D39",command=infoBasica)
+        menuArchivo.add_cascade(label="Salir",activebackground="#3A4D39",command=salir)
 
         # Menu Procesos y consultas
         menuProcesosConsultas = Menu(menuBar)
-        menuBar.add_cascade(label="Procesos y Consultas",menu=menuProcesosConsultas,activebackground="blue")
+        menuBar.add_cascade(label="Procesos y Consultas",menu=menuProcesosConsultas,activebackground="#3A4D39")
 
-        menuProcesosConsultas.add_cascade(label="Enviar Producto",activebackground="blue", command=enviar)
-        menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="blue", command=pagar)
-        menuProcesosConsultas.add_cascade(label="Rastrear Pedido",activebackground="blue", command=rastrear)
-        menuProcesosConsultas.add_cascade(label="Reclamar Paquete",activebackground="blue", command=recoger)
-        menuProcesosConsultas.add_cascade(label="Opinion Sucursales",activebackground="blue", command=opinion)
+        menuProcesosConsultas.add_cascade(label="Enviar Producto",activebackground="#3A4D39", command=enviar)
+        menuProcesosConsultas.add_cascade(label="Pagar Servicios",activebackground="#3A4D39", command=pagar)
+        menuProcesosConsultas.add_cascade(label="Rastrear Pedido",activebackground="#3A4D39", command=rastrear)
+        menuProcesosConsultas.add_cascade(label="Reclamar Paquete",activebackground="#3A4D39", command=recoger)
+        menuProcesosConsultas.add_cascade(label="Opinion Sucursales",activebackground="#3A4D39", command=opinion)
         
         # Menu Ayuda
         menuAyuda = Menu(menuBar)
-        menuBar.add_cascade(label="Ayuda",menu=menuAyuda,activebackground="blue")
+        menuBar.add_cascade(label="Ayuda",menu=menuAyuda,activebackground="#3A4D39")
         
-        menuAyuda.add_cascade(label="Acerca de...",activebackground="blue",command=Ayuda)
+        menuAyuda.add_cascade(label="Acerca de...",activebackground="#3A4D39",command=Ayuda)
 
 
  

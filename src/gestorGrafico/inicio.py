@@ -21,7 +21,7 @@ class Inicio(Frame):
         p3Frame.grid(row=0,column=0,columnspan=1,rowspan=1,padx=5,pady=(5,3))
         p3Frame.pack_propagate(False)
 
-        p4Frame=Frame(p1Frame,height=365,width=415,bg="#739072")
+        p4Frame=Frame(p1Frame,height=365,width=415,bg="#ECE3CE")
         p4Frame.grid(row=1,column=0,columnspan=2,rowspan=1,padx=5,pady=(3,5))
         p4Frame.pack_propagate(False)
 
@@ -139,7 +139,7 @@ class Inicio(Frame):
         
         # Texto descripcion
         
-        descripTexto = Label(p4Frame,text="",font=("arial", 10, "bold"),bg="#cedae0",wraplength=400)
+        descripTexto = Label(p4Frame,text="",font=("arial", 10, "bold"),bg="#ECE3CE",wraplength=400)
         descripTexto.pack(side="top",fill="x",pady=10)
         
         # Boton para pasar
@@ -164,6 +164,6 @@ class Inicio(Frame):
         ventana.menuBar.add_cascade(label="Archivo",menu=menu1)
         menu1.add_command(label="Salir",command=lambda:ventana.destroy())
         
-        textDescrip="La idea de nuestro proyecto es desarrollar un programa para una empresa de mensajería. Concebimos este programa de manera que fuera ejecutado desde un computador principal, tanto en la oficina central de la empresa en la ciudad de Medellín como en las diferentes ciudades de destino. El programa consta de cinco funcionalidades principales, que incluyen el envío de paquetes o productos, opciones de pago para los envíos, la posibilidad de recoger paquetes en la oficina central, rastreo de paquetes y, por último, la funcionalidad para gestionar reclamos"
+        textDescrip="Correminas es un sistema de envíos completo, en el cual se pueden realizar envíos a distintas Sucursales repartidas en las principales ciudades del pais, el servicio ofrece varias opciones que se acomodan a las distintas necesidades de los usuarios"
         menu1.add_command(label="Descripcion",command=lambda: descripTexto.config(text=textDescrip))
         
